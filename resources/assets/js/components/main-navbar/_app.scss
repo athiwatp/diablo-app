@@ -1,0 +1,31 @@
+@import "../../../sass/variables";
+@import "../../../sass/mixins";
+
+.navbar {
+  @include m('diablo') {
+    background-color: darken($primary-color, 5%);
+
+    .nav {
+      float: right;
+    }
+
+    .nav-item {
+      margin-left: 2rem !important;
+    }
+
+    .nav-link {
+      color: $secondary-color !important;
+      font-weight: 900;
+      letter-spacing: 2px;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #fff !important;
+      }
+    }
+
+    .navbar-brand img {
+      width: 45px;
+    }
+  }
+}

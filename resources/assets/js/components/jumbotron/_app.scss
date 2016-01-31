@@ -1,0 +1,25 @@
+@import "../../../sass/variables";
+@import "../../../sass/mixins";
+
+.jumbotron {
+  .container {
+    margin-top: 0;
+  }
+
+  @include m('diablo') {
+    color: #fff;
+    font-size: 3vh;
+    margin: 0 !important;
+    background: $secondary-color url("/img/jumbo.png") no-repeat;
+    background-size: 500px;
+    background-position-x: 20%;
+    background-position-y: 50%;
+  }
+
+  @include m('diablo-slim') {
+      background-color: $secondary-color;
+      color: #fff;
+      padding: 1rem 0 !important;
+      margin: 0 !important;
+  }
+}
