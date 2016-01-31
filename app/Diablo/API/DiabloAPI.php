@@ -37,7 +37,7 @@ class DiabloAPI
      * @param $period
      * @return array
      */
-    public function getLeaderboardData($mode, $period)
+    public function getLeaderboardData(string $mode, int $period)
     {
         $request = [];
 
@@ -76,6 +76,8 @@ class DiabloAPI
 
     /**
      * Query Battlenet API for Skills
+     *
+     * @return array|\stdClass
      */
     public function getSkillData()
     {
@@ -89,5 +91,27 @@ class DiabloAPI
             ->skills('wizard');
 
         return $request->get();
+    }
+
+    /**
+     * Query Battlenet API for Hero
+     *
+     * @param $heroes
+     * @return array|Diablo|\stdClass
+     */
+    public function getHeroData($heroes)
+    {
+        if (! is_array($heroes)) {
+            $this->api->setRegion($heroes->region);
+
+            return $this->api->hero($heroes->battle_tag, $heroes->battlenet_hero_id);
+        }
+
+        foreach ($heroes as $hero) {
+            $this->api->setRegion($hero->region);
+            $this->api->hero($hero->battle_tag, $hero->battlenet_hero_id);
+        }
+
+        return $this->api->get();
     }
 }
