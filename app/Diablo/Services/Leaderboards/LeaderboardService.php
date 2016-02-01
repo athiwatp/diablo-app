@@ -3,6 +3,7 @@
 namespace App\Diablo\Services\Leaderboards;
 
 use App\{Leaderboard, Profile, Hero};
+use App\Diablo\Services\Profile\ProfileService;
 
 class LeaderboardService
 {

@@ -35,12 +35,10 @@ class DiabloAPI
      *
      * @param $mode
      * @param $period
-     * @return array
+     * @return DiabloAPI
      */
-    public function getLeaderboardData(string $mode, int $period)
+    public function getLeaderboardData(string $mode, int $period) : DiabloAPI
     {
-        $request = [];
-
         foreach ($this->regions as $region) {
             $this->api->setRegion($region);
 
@@ -67,19 +65,17 @@ class DiabloAPI
                 ->team(2)
                 ->team(3)
                 ->team(4);
-
-            $request = array_merge($request, $this->api->get());
         }
 
-        return $request;
+        return $this;
     }
 
     /**
      * Query Battlenet API for Skills
      *
-     * @return array|\stdClass
+     * @return array
      */
-    public function getSkillData()
+    public function getSkillData() : array
     {
         $this->api->setRegion('us');
 
@@ -104,7 +100,9 @@ class DiabloAPI
         if (! is_array($heroes)) {
             $this->api->setRegion($heroes->region);
 
-            return $this->api->hero($heroes->battle_tag, $heroes->battlenet_hero_id);
+            return $this->api
+                ->hero($heroes->profile->battle_tag, $heroes->battlenet_hero_id)
+                ->get();
         }
 
         foreach ($heroes as $hero) {
@@ -112,6 +110,37 @@ class DiabloAPI
             $this->api->hero($hero->battle_tag, $hero->battlenet_hero_id);
         }
 
+        return $this->api->get();
+    }
+
+    /**
+     * Query Battlenet API for Item
+     *
+     * @param $items
+     * @return array|Diablo|\stdClass
+     */
+    public function getItemData($items)
+    {
+        $this->api->setRegion('us');
+
+        if (! is_array($items)) {
+            return $this->api->item($items);
+        }
+
+        foreach ($items as $item) {
+            $this->api->item($item);
+        }
+
+        return $this->api->get();
+    }
+
+    /**
+     * Perform the API Request
+     *
+     * @return array|\stdClass
+     */
+    public function get()
+    {
         return $this->api->get();
     }
 }
