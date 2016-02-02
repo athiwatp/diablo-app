@@ -21,6 +21,6 @@ class ItemService
             'slot' => $item->slots[0]
         ];
 
-        return Item::updateOrCreate($item_array);
+        return Item::firstOrCreate($item_array);
     }
 }

@@ -54,8 +54,12 @@ class HeroService
      * @param $response
      * @return \Hero|void
      */
-    public function update($response)
+    public function update($response = null)
     {
+        if (is_null($response)) {
+            $response = $this->callApi();
+        }
+
         if (isset($response->code) || is_null($response)) {
             return;
         }
@@ -161,6 +165,10 @@ class HeroService
                     return $i->battlenet_item_id === $hero_item->id;
                 })->first();
 
+                if (is_null($item)) {
+                    continue;
+                }
+
                 $hero_items[] = [
                     'item_id' => $item->id,
                     'tool_tip_params' => $hero_item->tooltipParams
@@ -229,6 +237,10 @@ class HeroService
                     return $i->battlenet_item_id === $legendaryPower->id;
                 })->first();
 
+                if (is_null($item)) {
+                    continue;
+                }
+
                 $powers[] = [
                     'item_id' => $item->id,
                 ];
@@ -256,5 +268,10 @@ class HeroService
             'hero_id' => $this->model->id,
             'profile_id' => $this->model->profile->id
         ], $hero_stats);
+    }
+
+    private function callApi()
+    {
+        return $this->api->getHeroData($this->model);
     }
 }
