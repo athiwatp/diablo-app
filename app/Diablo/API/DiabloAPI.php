@@ -67,7 +67,7 @@ class DiabloAPI
                 ->team(4);
         }
 
-        return $this;
+        return $this->api->get();
     }
 
     /**
