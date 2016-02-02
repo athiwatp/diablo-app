@@ -161,6 +161,7 @@ return [
         /**
          * Vendor Service Providers...
          */
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -207,8 +208,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Menu'      => Structure\Menu\MenuFacade::class,
-        'Diablo'    => App\Diablo\DiabloFacade::class
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
