@@ -195,7 +195,7 @@
         computed: {
             crest () {
                 if (typeof this.state.class !== 'undefined') {
-                    return base_url + '/img/' + this.state.class + '/crest.png'
+                    return base_url + '/img/' + this.state.class.split(' ').join('-') + '/crest.png'
                 }
             }
         },
