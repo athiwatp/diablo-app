@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Diablo\Services\HeroService;
+use App\Diablo\Services\Hero\HeroService;
 use Illuminate\Database\Eloquent\Model;
 
 class Hero extends Model

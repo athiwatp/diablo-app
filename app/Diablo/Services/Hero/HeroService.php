@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Diablo\Services;
+namespace App\Diablo\Services\Hero;
 
 use App\Diablo\API\DiabloAPI;
 use App\Diablo\Services\Item\ItemService;
