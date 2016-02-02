@@ -139,8 +139,7 @@ class HeroService
                 continue;
             }
 
-            $hero_items[] = [
-                'item_id' => $item->id,
+            $hero_items[$item->id] = [
                 'tool_tip_params' => $hero_item->tooltipParams
             ];
         }
@@ -169,8 +168,7 @@ class HeroService
                     continue;
                 }
 
-                $hero_items[] = [
-                    'item_id' => $item->id,
+                $hero_items[$item->id] = [
                     'tool_tip_params' => $hero_item->tooltipParams
                 ];
             }
