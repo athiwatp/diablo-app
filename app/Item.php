@@ -14,4 +14,13 @@ class Item extends Model
     protected $fillable = [
     	'battlenet_item_id', 'slot', 'name', 'display_color'
     ];
+
+    /**
+     * An Item belongs to many Heroes
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function hero()
+    {
+        return $this->belongsToMany(Hero::class);
+    }
 }
