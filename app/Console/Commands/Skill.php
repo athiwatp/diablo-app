@@ -67,6 +67,9 @@ class Skill extends Command
      */
     public function handle()
     {
+        $this->info('Updating skills...');
+        $t = microtime(true);
+
         $records = $this->parser->parse($this->api->getSkillData());
 
         $bar = $this->output->createProgressBar(count($records['skills']) + count($records['runes']));
@@ -82,6 +85,6 @@ class Skill extends Command
         }
 
         $bar->finish();
-        $this->info('Skills imported');
+        $this->info(PHP_EOL . 'Skills updated in ' . (microtime(true) - $t) . ' seconds');
     }
 }

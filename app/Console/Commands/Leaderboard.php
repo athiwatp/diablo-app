@@ -53,6 +53,7 @@ class Leaderboard extends Command
      */
     public function handle()
     {
+        $this->info('Updating leaderboards...');
         $t = microtime(true);
 
         $request = $this->api->getLeaderboardData(
@@ -78,6 +79,6 @@ class Leaderboard extends Command
 
         $bar->finish();
 
-        $this->info(microtime(true) - $t);
+        $this->info(PHP_EOL . 'Leaderboard updated in ' . (microtime(true) - $t) . ' seconds');
     }
 }
