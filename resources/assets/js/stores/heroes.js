@@ -15,7 +15,12 @@ export default {
 
     update (id, cb) {
         http.patch('/api/heroes/' + id, data => {
-            this.state = data;
+            if (data.status == 'queued') {
+                // Queued, do something
+                console.log('Hero update queued');
+            } else {
+                this.state = data;
+            }
 
             if (cb) {
                 cb();

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Hero;
-use App\Item;
-use Diablo;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Item;
+use App\Jobs\UpdateHero;
+use Cache;
+use Diablo;
+use Request;
+use Response;
+use Illuminate\View\View;
 
 class HeroController extends Controller
 {
@@ -18,7 +21,7 @@ class HeroController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(int $id) : View
     {
         return view('heroes.show', compact('id'));
     }
@@ -27,16 +30,23 @@ class HeroController extends Controller
      * Update the specified resource in storage.
      *
      * @param Hero $hero
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function update(Hero $hero)
     {
         $hero->load('profile');
 
-        $hero->api()->update();
+        $this->dispatch(new UpdateHero($hero));
 
-        return $hero->fresh()
-            ->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills']);
+        if (Cache::get('jobCount') < 10) {
+            $hero->api()->update();
+
+            return $hero->fresh()
+                ->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills'])
+                ->toJson();
+        } 
+
+        return Response::json(['status' => 'queued'], 200);
     }
 
     /**
@@ -47,9 +57,9 @@ class HeroController extends Controller
      * Display the specified resource.
      *
      * @param Hero $hero
-     * @return \Illuminate\Http\Response
+     * @return string
      */
-    public function showApi(Hero $hero)
+    public function showApi(Hero $hero) : string
     {
         return $hero->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills'])
             ->toJson();

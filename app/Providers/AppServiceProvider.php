@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
-use App\Ladder;
-use Config;
-use Illuminate\Support\ServiceProvider;
-use johnleider\BattleNet\Diablo;
+use Log;
 use Menu;
+use Cache;
+use Queue;
+use Config;
+use App\Ladder;
+use johnleider\BattleNet\Diablo;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Queue\Events\JobProcessed;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
                 ->parse(Config::get('structure-menu.menu'));
 
             $view->with(compact('menu'));
+        });
+
+        Queue::after(function (JobProcessed $event) {
+            Cache::decrement('jobCount');
+            Log::debug('Job count: ' . Cache::get('jobCount'));
         });
     }
 
