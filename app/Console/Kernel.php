@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         Commands\Inspire::class,
         Commands\Crud::class,
         Commands\Leaderboard::class,
-        Commands\Skill::class
+        Commands\Skill::class,
+        Commands\TopHundred::class,
     ];
 
     /**
