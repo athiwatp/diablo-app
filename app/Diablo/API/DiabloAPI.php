@@ -35,9 +35,9 @@ class DiabloAPI
      *
      * @param $mode
      * @param $period
-     * @return DiabloAPI
+     * @return array
      */
-    public function getLeaderboardData(string $mode, int $period) : DiabloAPI
+    public function getLeaderboardData(string $mode, int $period) : array
     {
         foreach ($this->regions as $region) {
             $this->api->setRegion($region);
