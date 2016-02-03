@@ -5,7 +5,7 @@
 
             <navbar></navbar>
 
-            <jumbo>{{ state.name }}</jumbo>
+            <jumbo>{{ state.name }} {{ state.clan_tag ? '&lt;'+state.clan_tag+'&gt;' : '' }}</jumbo>
 
         </header>
 
@@ -23,19 +23,16 @@
                                 <img :src="crest" alt="" class="card-img-top img-fluid">
 
                                 <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">{{ state.clan_name || 'No Clan' }}</li>
 
                                     <li class="list-group-item">{{ state.region }}</li>
-
                                     <li class="list-group-item">
                                         <a href="#">Battle.net</a>
                                     </li>
-
                                     <li class="list-group-item">
-
                                         <p>
                                             <small>Last updated: {{ state.updated_at }}</small>
                                         </p>
-
                                         <div>
                                             <button class="btn btn--secondary-outline m-t-2"
                                                     @click="update"
@@ -43,7 +40,6 @@
                                                 Update
                                             </button>
                                         </div>
-
                                     </li>
 
                                 </ul>
@@ -86,7 +82,9 @@
                                         <tr v-for="item in state.items">
                                             <th>{{ item.slot }}</th>
                                             <td>
-                                                <a href="{{ item.pivot.tool_tip_params }}" data-d3tooltip="{{ item.pivot.tool_tip_params }}">
+                                                <a href="{{ item.pivot.tool_tip_params }}"
+                                                   data-d3tooltip="{{ item.pivot.tool_tip_params }}"
+                                                >
                                                     {{ item.name }}
                                                 </a>
                                             </td>
@@ -112,7 +110,11 @@
                                     <li class="list-group-item"
                                         v-for="power in state.powers"
                                     >
-                                        {{ power.name }}
+                                        <a href="{{ power.tool_tip_params }}"
+                                           data-d3tooltip="{{ power.tool_tip_params }}"
+                                        >
+                                            {{ power.name }}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -127,7 +129,10 @@
                                     <li class="list-group-item"
                                         v-for="skill in state.skills | active"
                                     >
-                                        {{ skill.name }}
+                                        <a href="http://us.battle.net/d3/en/class/{{ state.class}}/active/{{ skill.slug }}?runeType=a"
+                                        >
+                                            {{ skill.name }}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -142,7 +147,10 @@
                                     <li class="list-group-item"
                                         v-for="skill in state.skills | passive"
                                     >
-                                        {{ skill.name }}
+                                        <a href="http://us.battle.net/d3/en/class/{{ state.class}}/passive/{{ skill.slug }}"
+                                        >
+                                            {{ skill.name }}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
