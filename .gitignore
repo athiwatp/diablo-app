@@ -8,3 +8,4 @@ Homestead.json
 /public/img
 /public/js
 .DS_Store
+resources/assets/build
