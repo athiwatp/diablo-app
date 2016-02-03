@@ -75,6 +75,7 @@ class Hero extends Model
     public function items()
     {
         return $this->belongsToMany(Item::class)
+            ->orderByRaw("field(slot, 'head', 'shoulder', 'chest', 'neck', 'hands', 'bracers', 'left-hand', 'right-hand', 'waist', 'legs', 'finger', 'feet')")
             ->withPivot('tool_tip_params');
     }
 
