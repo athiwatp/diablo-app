@@ -12,7 +12,7 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-    	'battlenet_item_id', 'slot', 'name', 'display_color'
+    	'battlenet_item_id', 'slot', 'name', 'display_color', 'tool_tip_params'
     ];
 
     /**
@@ -22,5 +22,16 @@ class Item extends Model
     public function hero()
     {
         return $this->belongsToMany(Hero::class);
+    }
+
+    /**
+     * Slot accessor to capitalize slot
+     *
+     * @param $value
+     * @return string
+     */
+    public function getSlotAttribute($value)
+    {
+        return ucwords($value);
     }
 }
