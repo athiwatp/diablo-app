@@ -1,5 +1,6 @@
 var elixir = require('laravel-elixir');
 require('laravel-elixir-vueify');
+require('laravel-elixir-livereload');
 
 var resources = 'resources/assets/';
 
@@ -25,4 +26,5 @@ elixir(function(mix) {
     ], 'public/js/pages/heroes/index.js', resources);
 
     mix.copy('resources/assets/img', 'public/img');
+    mix.livereload();
 });
