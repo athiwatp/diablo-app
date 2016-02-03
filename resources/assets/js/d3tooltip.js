@@ -203,7 +203,7 @@ if(typeof Bnet.D3.Tooltips == 'undefined') Bnet.D3.Tooltips = new function() { /
 
     function parseUrl(link, params) {
 
-        var d3tooltip = link.getAttribute('href')
+        var d3tooltip = link.getAttribute('data-d3tooltip')
         if ('undefined' != typeof d3tooltip && d3tooltip) {
             params.region = 'us';
             params.locale = 'en';
@@ -281,7 +281,7 @@ if(typeof Bnet.D3.Tooltips == 'undefined') Bnet.D3.Tooltips = new function() { /
         var params = data.params;
         if ('item' == params.type)
             try {
-                params.key = currentLink.getAttribute('href');
+                params.key = currentLink.getAttribute('data-d3tooltip');
             } catch(err) {
                 // pass
             }
