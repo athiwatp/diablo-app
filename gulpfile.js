@@ -1,6 +1,5 @@
 var elixir = require('laravel-elixir');
 require('laravel-elixir-vueify');
-require('laravel-elixir-livereload');
 
 var resources = 'resources/assets/';
 
@@ -16,15 +15,13 @@ var resources = 'resources/assets/';
  */
 
 elixir(function(mix) {
-    mix.sass('index.scss');
-
-    mix.browserify('pages/home/index.js', 'public/js/pages/home/index.js');
-    mix.browserify('pages/heroes/index.js', resources + 'build/js/pages/heroes/index.js');
-    mix.scripts([
-        'build/js/pages/heroes/index.js',
-        'js/d3tooltip.js'
-    ], 'public/js/pages/heroes/index.js', resources);
-
-    mix.copy('resources/assets/img', 'public/img');
-    mix.livereload();
+    mix.sass('index.scss')
+       .browserify('pages/home
+       .browserify('pages/heroes/index.js', resources + 'build/js/pages/heroes/index.js')
+       .scripts([
+	        'build/js/pages/heroes/index.js',
+	        'js/d3tooltip.js'
+	    ], 'public/js/pages/heroes/index.js', resources)
+       .copy('resources/assets/img', 'public/img')
+       .browserSync();
 });
