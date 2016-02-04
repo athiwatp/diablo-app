@@ -16,7 +16,7 @@ var resources = 'resources/assets/';
 
 elixir(function(mix) {
     mix.sass('index.scss')
-       .browserify('pages/home
+       .browserify('pages/home/index.js')
        .browserify('pages/heroes/index.js', resources + 'build/js/pages/heroes/index.js')
        .scripts([
 	        'build/js/pages/heroes/index.js',
