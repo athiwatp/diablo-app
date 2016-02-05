@@ -4,9 +4,9 @@
     </div>
 </template>
 <script>
-    import heroesPage from './pages/heroes/app.vue';
-    import homePage from './pages/home/app.vue';
-    import profilePage from './pages/profile/app.vue';
+    import heroesPage from './pages/heroes/heroes.vue';
+    import homePage from './pages/home/home.vue';
+    import profilePage from './pages/profile/profile.vue';
 
     export default {
         el: '#app',
