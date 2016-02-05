@@ -219,9 +219,7 @@
 
         methods: {
             update () {
-                heroesStore.update(this.state.id, function () {
-                    this.state = heroesStore.state;
-                }.bind(this));
+                heroesStore.update(this.state.id);
             }
         }
     }
