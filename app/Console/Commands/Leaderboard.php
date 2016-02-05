@@ -53,6 +53,8 @@ class Leaderboard extends Command
      */
     public function handle()
     {
+        $this->call('skill:update');
+
         $this->info('Updating leaderboards...');
         $t = microtime(true);
 
