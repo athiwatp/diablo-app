@@ -1,9 +1,10 @@
 <style lang="scss">
     @import './_app.scss';
 </style>
+
 <template>
     <nav class="navbar navbar-light bg-faded navbar-full navbar--diablo">
-        <a href="#" class="navbar-brand">
+        <a href="/" class="navbar-brand">
             <img :src="logo" alt="">
         </a>
         <ul class="nav navbar-nav">

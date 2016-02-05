@@ -5,7 +5,7 @@ var resources = 'resources/assets/';
 
 elixir(function(mix) {
     // Scss
-    mix.sass('index.scss', 'app.css')
+    mix.sass('app.scss')
 
     // JS libs
     .scripts([
@@ -16,7 +16,7 @@ elixir(function(mix) {
     .copy('resources/assets/img', 'public/img')
 
     // Browserify
-    .browserify('index.js', 'public/js/app.js')
+    .browserify('app.js')
 
     // Browsersync
     .browserSync();

@@ -10,7 +10,12 @@
     footer a {
         color: #fff;
     }
+    
+    footer .container {
+        margin-top: 0;
+    }
 </style>
+
 <template>
     <footer>
         <div class="container">
@@ -21,9 +26,7 @@
                             <a href="#">
                                 <i class="fa fa-envelope"></i> Contact
                             </a>
-                            <a href="#"
-                               class="m-l-1"
-                            >
+                            <a href="#" class="m-l-1">
                                 <i class="fa fa-twitter"></i> Twitter
                             </a>
                         </li>
@@ -33,7 +36,6 @@
                     &copy; Copyright 2016
                 </div>
             </div>
-
         </div>
     </footer>
 </template>

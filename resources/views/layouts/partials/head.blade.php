@@ -8,19 +8,5 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" type="text/css" href="/css/app.css">
-    <link rel="icon" type="image/png"
-          href="/img/diablorankings.png" />
+    <link rel="icon" type="image/png" href="/img/diablorankings.png">
 </head>
-<body>
-
-    @yield('content')
-
-    <script>
-        var base_url = '{!! url('/') !!}'
-    </script>
-
-    <script src="/js/app.js"></script>
-
-    @yield('js')
-</body>
-</html>

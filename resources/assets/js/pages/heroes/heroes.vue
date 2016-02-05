@@ -1,34 +1,27 @@
 <template>
     <div id="app">
-
         <header>
-
-            <navbar></navbar>
-
+            <main-navbar></main-navbar>
             <jumbo>{{ state.name }} {{ state.clan_tag ? '&lt;'+state.clan_tag+'&gt;' : '' }}</jumbo>
-
         </header>
 
         <div class="container m-t-3">
-
             <div class="row">
-
                 <div class="col-md-4">
                     <div class="row">
-
                         <div class="col-md-12">
-
                             <div class="card card--diablo text-xs-center">
-
                                 <img :src="crest" alt="" class="card-img-top img-fluid">
 
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">{{ state.clan_name || 'No Clan' }}</li>
 
                                     <li class="list-group-item">{{ state.region }}</li>
+
                                     <li class="list-group-item">
                                         <a href="#">Battle.net</a>
                                     </li>
+
                                     <li class="list-group-item">
                                         <p>
                                             <small>Last updated: {{ state.updated_at }}</small>
@@ -42,9 +35,7 @@
                                             <p><small>Currently In Queue</small></p>
                                         </div>
                                     </li>
-
                                 </ul>
-
                             </div>
                         </div>
 
@@ -70,15 +61,12 @@
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12">
-
                             <div class="card card--diablo">
-
                                 <h4 class="card__header-secondary">
                                     Gear
                                 </h4>
 
                                 <table class="table">
-
                                     <tbody class="text-xs-center">
                                         <tr v-for="item in state.items">
                                             <th>{{ item.slot }}</th>
@@ -91,11 +79,8 @@
                                             </td>
                                         </tr>
                                     </tbody>
-
                                 </table>
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -126,6 +111,7 @@
                                 <h4 class="card__header-secondary">
                                     Active Skills
                                 </h4>
+
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item"
                                         v-for="skill in state.skills | active"
@@ -144,6 +130,7 @@
                                 <h4 class="card__header-secondary">
                                     Passive Skills
                                 </h4>
+
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item"
                                         v-for="skill in state.skills | passive"
@@ -158,26 +145,27 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
+        
+        <main-footer></main-footer>
     </div>
 </template>
+
 <script>
     import heroesStore from '../../stores/heroes';
-    import navbar from '../../components/main-navbar/app.vue';
+    import mainNavbar from '../../components/main-navbar/app.vue';
+    import mainFooter from '../../components/main-footer/app.vue';
     import jumbo from '../../components/jumbotron/slim.vue';
 
     export default {
-        data: function () {
+        data () {
             return {
                 state: {}
             }
         },
 
-        components: {navbar, jumbo},
+        components: { mainNavbar, mainFooter, jumbo },
 
         filters: {
             active (obj) {

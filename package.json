@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.2",
-    "jquery": "^2.1.4",
+    "jquery": "^1.12",
     "laravel-elixir": "^4.0.0"
   }
 }
