@@ -29,8 +29,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Queue::after(function (JobProcessed $event) {
-            Cache::decrement('jobCount');
-            Log::debug('Job count: ' . Cache::get('jobCount'));
+            //
         });
     }
 
