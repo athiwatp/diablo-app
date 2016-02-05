@@ -2,11 +2,15 @@
 
 namespace App\Diablo\Services\Leaderboards;
 
-use App\{Leaderboard, Profile, Hero};
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Http\Controllers\HeroController;
+use App\Jobs\UpdateHero;
+use App\{Leaderboard, Profile, Hero};
 
 class LeaderboardService
 {
+    use DispatchesJobs;
+
     /**
      * Persist the Leaderboard record with corresponding
      * Hero and Profile records
@@ -25,7 +29,7 @@ class LeaderboardService
             'profile_id' => $profile->id
         ], $record);
 
-        (new HeroController())->update($hero);
+        $this->dispatch(new UpdateHero($hero));
 
         Leaderboard::updateOrCreate([
             'profile_id' => $profile->id,
