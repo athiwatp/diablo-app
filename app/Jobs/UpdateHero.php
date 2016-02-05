@@ -20,14 +20,11 @@ class UpdateHero extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param Hero $hero
      */
     public function __construct(Hero $hero)
     {
         $this->hero = $hero;
-
-        Cache::increment('jobCount');
-        Log::debug('Job count: ' . Cache::get('jobCount'));
     }
 
     /**
@@ -37,9 +34,7 @@ class UpdateHero extends Job implements ShouldQueue
      */
     public function handle()
     {
-        // Do nothing if hero was updated in the last 5 minutes.
-        if (Carbon::now()->diffInMinutes($this->hero->fresh()->updated_at) > 5) {
-            $this->hero->api()->update();
-        }
+        $this->hero->api()
+            ->update();
     }
 }
