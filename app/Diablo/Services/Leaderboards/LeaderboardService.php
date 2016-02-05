@@ -3,7 +3,7 @@
 namespace App\Diablo\Services\Leaderboards;
 
 use App\{Leaderboard, Profile, Hero};
-use App\Diablo\Services\Profile\ProfileService;
+use App\Http\Controllers\HeroController;
 
 class LeaderboardService
 {
@@ -24,6 +24,8 @@ class LeaderboardService
             'battlenet_hero_id' => $record['battlenet_hero_id'],
             'profile_id' => $profile->id
         ], $record);
+
+        (new HeroController())->update($hero);
 
         Leaderboard::updateOrCreate([
             'profile_id' => $profile->id,
