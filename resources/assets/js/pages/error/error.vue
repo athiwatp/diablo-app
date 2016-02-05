@@ -7,7 +7,7 @@
         <header>
             <main-navbar></main-navbar>
             <jumbo>
-                <slot name="statusCode"></slot>
+                <slot></slot>
             </jumbo>
         </header>
         

@@ -2,7 +2,7 @@
 
 @section('content')
 	<div id="app" page="errorPage">
-		<span slot="statusCode">503 - Service unavailable</span>
+		503 - Service unavailable
 	</div>
 @stop
 

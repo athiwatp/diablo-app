@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <component :is="page">
-            <slot slot="statusCode"></slot>
+            <slot></slot>
         </component>
     </div>
 </template>
