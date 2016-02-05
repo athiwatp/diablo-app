@@ -6,7 +6,9 @@
     <div id="app">
         <header>
             <main-navbar></main-navbar>
-            <jumbo>{{ statusCode }}</jumbo>
+            <jumbo>
+                <slot name="statusCode"></slot>
+            </jumbo>
         </header>
         
         <main-footer></main-footer>
@@ -19,8 +21,6 @@
     import jumbo from '../../components/jumbotron/app.vue';
 
     export default {
-        props: ['statusCode'],
-
         data () {
             return {
                 //

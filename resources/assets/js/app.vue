@@ -1,24 +1,26 @@
 <template>
     <div id="app">
-        <component :is="page" :status-code="statusCode"></component>
+        <component :is="page">
+            <slot slot="statusCode"></slot>
+        </component>
     </div>
 </template>
 <script>
+    import errorPage from './pages/error/error.vue';
     import heroesPage from './pages/heroes/heroes.vue';
     import homePage from './pages/home/home.vue';
     import profilePage from './pages/profile/profile.vue';
-    import errorPage from './pages/error/error.vue';
 
     export default {
         el: '#app',
 
-        props: ['page', 'statusCode'],
+        props: ['page'],
 
         components: {
-            homePage,
-            profilePage,
+            errorPage,
             heroesPage,
-            errorPage
+            homePage,
+            profilePage
         }
     }
 </script>
