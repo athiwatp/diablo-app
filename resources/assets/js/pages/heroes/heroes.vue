@@ -39,6 +39,7 @@
                                             >
                                                 Update
                                             </button>
+                                            <p><small>Currently In Queue</small></p>
                                         </div>
                                     </li>
 

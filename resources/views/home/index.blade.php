@@ -1,5 +1,5 @@
 @extends('master')
 
-@section('js')
-    <script src="/js/pages/home/index.js" type="text/javascript"></script>
+@section('content')
+    <div id="app" page="homePage"></div>
 @stop

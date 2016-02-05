@@ -174,21 +174,23 @@
     export default {
         replace: false,
 
-        data: {
-            state: {
-                softcore: {
-                    top: {
-                        hero: {},
-                        profile: {}
+        data: function () {
+            return {
+                state: {
+                    softcore: {
+                        top: {
+                            hero: {},
+                            profile: {}
+                        },
+                        ladder: []
                     },
-                    ladder: []
-                },
-                hardcore: {
-                    top: {
-                        hero: {},
-                        profile: {}
-                    },
-                    ladder: []
+                    hardcore: {
+                        top: {
+                            hero: {},
+                            profile: {}
+                        },
+                        ladder: []
+                    }
                 }
             }
         },
