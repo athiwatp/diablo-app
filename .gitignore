@@ -1,11 +1,16 @@
+# Packages
 /vendor
 /node_modules
-Homestead.yaml
-Homestead.json
-.env
-.idea
+
+# Public files
 /public/css
 /public/img
 /public/js
+
+# Environment Specific Files
 .DS_Store
-resources/assets/build
+.env
+.idea
+Homestead.yaml
+Homestead.json
+worker.log
