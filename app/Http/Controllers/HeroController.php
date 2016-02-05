@@ -30,22 +30,12 @@ class HeroController extends Controller
      * Update the specified resource in storage.
      *
      * @param Hero $hero
-     * @return mixed
+     * @return string
      */
-    public function update(Hero $hero)
+    public function update(Hero $hero) : string
     {
-        $hero->load('profile');
-
         $this->dispatch(new UpdateHero($hero));
-
-        if (Cache::get('jobCount') < 10) {
-            $hero->api()->update();
-
-            return $hero->fresh()
-                ->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills'])
-                ->toJson();
-        } 
-
+        
         return Response::json(['status' => 'queued'], 200);
     }
 
