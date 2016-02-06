@@ -4,7 +4,7 @@
     @yield('content')
 
     <script>
-        var base_url = '{!! url('/') !!}'
+        var BASE_URL = '{!! url('/') !!}'
     </script>
 
     <script src="/js/app.js"></script>
