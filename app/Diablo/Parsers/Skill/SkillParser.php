@@ -13,7 +13,8 @@ class SkillParser
                 	'name' => $active_skills->name, 
                 	'slug' => $active_skills->slug,
                 	'type' => 'active',
-                	'tool_tip_url' => $active_skills->tooltipUrl
+                	'tool_tip_url' => $active_skills->tooltipUrl,
+                    'icon' => $active_skills->icon
             	];
 
                 foreach ($active_skills->runes as $rune) {
@@ -30,7 +31,8 @@ class SkillParser
                 	'name' => $passive_skills->name, 
                 	'slug' => $passive_skills->slug,
                 	'type' => 'passive',
-                	'tool_tip_url' => $passive_skills->tooltipUrl
+                	'tool_tip_url' => $passive_skills->tooltipUrl,
+                    'icon' => $passive_skills->icon
             	];
             }
         }

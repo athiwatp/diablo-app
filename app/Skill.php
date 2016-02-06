@@ -10,7 +10,8 @@ class Skill extends Model
         'slug',
         'name',
         'type',
-        'tool_tip_url'
+        'tool_tip_url',
+        'icon'
     ];
 
     public function heroes()
