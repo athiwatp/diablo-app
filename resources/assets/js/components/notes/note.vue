@@ -7,6 +7,10 @@
         border: $tertiary-color;
         color: $primary-color;
     }
+
+    i.material-icons {
+        vertical-align: bottom;
+    }
 </style>
 
 <template>
