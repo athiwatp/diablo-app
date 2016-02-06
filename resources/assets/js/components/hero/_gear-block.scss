@@ -1,0 +1,18 @@
+@import '../../../sass/mixins';
+
+.gear-block {
+  height: 120px;
+  position: relative;
+  margin-bottom: 2em;
+
+  @include e('item') {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+  }
+
+  h6 {
+    color: black;
+  }
+}
