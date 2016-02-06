@@ -5,6 +5,7 @@
         </component>
     </div>
 </template>
+
 <script>
     import errorPage from './pages/error/error.vue';
     import heroesPage from './pages/heroes/heroes.vue';
