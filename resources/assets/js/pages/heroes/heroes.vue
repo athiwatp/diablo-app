@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <note type="success">
-                        This is a test of an alert
+                        <i class="material-icons">autorenew</i> Hero is currently in queue.
                     </note>
                 </div>
                 <div class="col-md-4">
@@ -62,92 +62,81 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card--diablo">
-                                <h4 class="card__header-secondary">
-                                    Gear
-                                </h4>
-
-                                <table class="table">
-                                    <tbody class="text-xs-center">
-                                        <tr v-for="item in state.items">
-                                            <th>{{ item.slot }}</th>
-                                            <td>
-                                                <a href="{{ item.pivot.tool_tip_params }}"
-                                                   data-d3tooltip="{{ item.pivot.tool_tip_params }}"
-                                                >
-                                                    {{ item.name }}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                <div class="col-md-8">
+                    <div class="card card--diablo">
+                        <h4 class="card__header-secondary">
+                            Gear
+                        </h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div v-for="item in state.items"
+                                     class="col-md-4"
+                                >
+                                    <gear-block :item="item"></gear-block>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row m-t-3">
+                <div class="col-md-4">
+                    <div class="card card--diablo">
+                        <h4 class="card__header-secondary">
+                            Kanai's Cube
+                        </h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"
+                                v-for="power in state.powers"
+                            >
+                                <a href="{{ power.tool_tip_params }}"
+                                   data-d3tooltip="{{ power.tool_tip_params }}"
+                                >
+                                    {{ power.name }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
                 <div class="col-md-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card--diablo">
-                                <h4 class="card__header-secondary">
-                                    Kanai's Cube
-                                </h4>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"
-                                        v-for="power in state.powers"
-                                    >
-                                        <a href="{{ power.tool_tip_params }}"
-                                           data-d3tooltip="{{ power.tool_tip_params }}"
-                                        >
-                                            {{ power.name }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="card card--diablo">
+                        <h4 class="card__header-secondary">
+                            Active Skills
+                        </h4>
 
-                        <div class="col-md-12">
-                            <div class="card card--diablo">
-                                <h4 class="card__header-secondary">
-                                    Active Skills
-                                </h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"
+                                v-for="skill in state.skills | active"
+                            >
+                                <a href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/active/{{ skill.slug }}?runeType=a"
+                                >
+                                    {{ skill.name }}
+                                    <img :src="skill.icon | skillIcon" alt="" class="pull-xs-right">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"
-                                        v-for="skill in state.skills | active"
-                                    >
-                                        <a href="http://us.battle.net/d3/en/class/{{ state.class}}/active/{{ skill.slug }}?runeType=a"
-                                        >
-                                            {{ skill.name }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="col-md-4">
+                    <div class="card card--diablo">
+                        <h4 class="card__header-secondary">
+                            Passive Skills
+                        </h4>
 
-                        <div class="col-md-12">
-                            <div class="card card--diablo">
-                                <h4 class="card__header-secondary">
-                                    Passive Skills
-                                </h4>
-
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item"
-                                        v-for="skill in state.skills | passive"
-                                    >
-                                        <a href="http://us.battle.net/d3/en/class/{{ state.class}}/passive/{{ skill.slug }}"
-                                        >
-                                            {{ skill.name }}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"
+                                v-for="skill in state.skills | passive"
+                            >
+                                <a href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/passive/{{ skill.slug }}"
+                                >
+                                    {{ skill.name }}
+                                    <img :src="skill.icon | skillIcon" alt="" class="pull-xs-right">
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -163,6 +152,7 @@
     import mainFooter from '../../components/main-footer/main-footer.vue';
     import jumbo from '../../components/jumbotron/slim.vue';
     import note from '../../components/notes/note.vue';
+    import gearBlock from '../../components/hero/gear-block.vue';
 
     export default {
         data () {
@@ -171,7 +161,7 @@
             }
         },
 
-        components: { mainNavbar, mainFooter, jumbo, note },
+        components: { mainNavbar, mainFooter, jumbo, note, gearBlock },
 
         filters: {
             active (obj) {
@@ -192,6 +182,10 @@
                         }
                     });
                 }
+            },
+
+            skillIcon (icon) {
+                return 'http://media.blizzard.com/d3/icons/skills/21/' + icon + '.png'
             }
         },
 
