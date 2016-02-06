@@ -24,7 +24,8 @@ class ItemService
             'battlenet_item_id' => $item->id,
             'display_color' => $item->displayColor,
             'slot' => $slot,
-            'tool_tip_params' => $item->tooltipParams
+            'tool_tip_params' => $item->tooltipParams,
+            'icon' => $item->icon
         ];
 
         return Item::firstOrCreate($item_array);

@@ -12,7 +12,7 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-    	'battlenet_item_id', 'slot', 'name', 'display_color', 'tool_tip_params'
+    	'battlenet_item_id', 'slot', 'name', 'display_color', 'tool_tip_params', 'icon'
     ];
 
     /**
