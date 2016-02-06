@@ -16,9 +16,9 @@
 </template>
 
 <script>
-    import mainNavbar from '../../components/main-navbar/app.vue';
-    import mainFooter from '../../components/main-footer/app.vue';
-    import jumbo from '../../components/jumbotron/app.vue';
+    import mainNavbar from '../../components/main-navbar/main-navbar.vue';
+    import mainFooter from '../../components/main-footer/main-footer.vue';
+    import jumbo from '../../components/jumbotron/jumbo.vue';
 
     export default {
         data () {

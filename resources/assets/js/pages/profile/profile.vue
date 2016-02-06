@@ -3,8 +3,9 @@
         margin-top: 3rem;
     }
 </style>
+
 <template>
-    <div id="app">
+    <div id="page">
 
         <header>
             <navbar></navbar>
@@ -95,7 +96,7 @@
     </div>
 </template>
 <script>
-    import navbar from '../../components/main-navbar/app.vue';
+    import navbar from '../../components/main-navbar/main-navbar.vue';
     import jumbo from '../../components/jumbotron/slim.vue';
 
     export default {

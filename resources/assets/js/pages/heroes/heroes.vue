@@ -1,12 +1,17 @@
 <template>
-    <div id="app">
+    <div id="page">
         <header>
             <main-navbar></main-navbar>
             <jumbo>{{ state.name }} {{ state.clan_tag ? '&lt;'+state.clan_tag+'&gt;' : '' }}</jumbo>
         </header>
 
-        <div class="container m-t-3">
+        <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <note type="success">
+                        This is a test of an alert
+                    </note>
+                </div>
                 <div class="col-md-4">
                     <div class="row">
                         <div class="col-md-12">
@@ -154,9 +159,10 @@
 
 <script>
     import heroesStore from '../../stores/heroes';
-    import mainNavbar from '../../components/main-navbar/app.vue';
-    import mainFooter from '../../components/main-footer/app.vue';
+    import mainNavbar from '../../components/main-navbar/main-navbar.vue';
+    import mainFooter from '../../components/main-footer/main-footer.vue';
     import jumbo from '../../components/jumbotron/slim.vue';
+    import note from '../../components/notes/note.vue';
 
     export default {
         data () {
@@ -165,7 +171,7 @@
             }
         },
 
-        components: { mainNavbar, mainFooter, jumbo },
+        components: { mainNavbar, mainFooter, jumbo, note },
 
         filters: {
             active (obj) {
@@ -192,7 +198,7 @@
         computed: {
             crest () {
                 if (typeof this.state.class !== 'undefined') {
-                    return base_url + '/img/' + this.state.class.split(' ').join('-') + '/crest.png'
+                    return BASE_URL + '/img/' + this.state.class.split(' ').join('-') + '/crest.png'
                 }
             }
         },

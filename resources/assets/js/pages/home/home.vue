@@ -11,7 +11,7 @@
 </style>
 
 <template>
-    <div id="app">
+    <div id="page">
         <header>
             <main-navbar></main-navbar>
 
@@ -153,45 +153,29 @@
 </template>
 
 <script>
+    import homeStub from '../../stubs/home';
     import homeStore from '../../stores/home';
-    import mainNavbar from '../../components/main-navbar/app.vue';
-    import mainFooter from '../../components/main-footer/app.vue';
-    import jumbo from '../../components/jumbotron/app.vue';
+    import mainNavbar from '../../components/main-navbar/main-navbar.vue';
+    import mainFooter from '../../components/main-footer/main-footer.vue';
+    import jumbo from '../../components/jumbotron/jumbo.vue';
     import classCard from '../../components/cards/class.vue';
 
     export default {
-        replace: false,
-
         data () {
             return {
-                state: {
-                    softcore: {
-                        top: {
-                            hero: {},
-                            profile: {}
-                        },
-                        ladder: []
-                    },
-                    hardcore: {
-                        top: {
-                            hero: {},
-                            profile: {}
-                        },
-                        ladder: []
-                    }
-                }
+                state: homeStub
             }
         },
 
         computed: {
             softcoreTop () {
                 if (typeof this.state.softcore.top.class != 'undefined') {
-                    return base_url + '/img/' + this.state.softcore.top.class + '/crest.png';
+                    return BASE_URL + '/img/' + this.state.softcore.top.class + '/crest.png';
                 }
             },
             hardcoreTop () {
                 if (typeof this.state.hardcore.top.class != 'undefined') {
-                    return base_url + '/img/' + this.state.hardcore.top.class + '/crest.png';
+                    return BASE_URL + '/img/' + this.state.hardcore.top.class + '/crest.png';
                 }
             }
         },

@@ -1,5 +1,5 @@
 <style lang="scss">
-    @import './_app.scss';
+    @import './_main-navbar.scss';
 </style>
 
 <template>
@@ -28,7 +28,7 @@
     export default {
         computed: {
             logo () {
-                return base_url + '/img/diablorankings.png'
+                return BASE_URL + '/img/diablorankings.png'
             }
         }
     }

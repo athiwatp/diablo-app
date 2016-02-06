@@ -18,7 +18,7 @@
                     return '';
                 }
 
-                return base_url + this.img;
+                return BASE_URL + this.img;
             }
         },
 

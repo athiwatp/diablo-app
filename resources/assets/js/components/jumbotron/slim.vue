@@ -1,5 +1,5 @@
 <style lang="scss">
-    @import './_app.scss';
+    @import './_jumbo.scss';
 </style>
 
 <template>
