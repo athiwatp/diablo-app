@@ -7,6 +7,9 @@
 /public/img
 /public/js
 
+# Build Files
+resources/assets/build
+
 # Environment Specific Files
 .DS_Store
 .env
