@@ -5,6 +5,7 @@ namespace App\Diablo\Services\Hero;
 use App\Diablo\API\DiabloAPI;
 use App\Diablo\Services\Item\ItemService;
 use App\{Hero, HeroSkill, Item, Skill};
+use Carbon\Carbon;
 
 class HeroService
 {
@@ -81,6 +82,7 @@ class HeroService
         $this->updateFollowers($response->followers);
         $this->updateLegendaryPowers($response->legendaryPowers);
         $this->updateStats($response->stats);
+        $this->updateModel();
 
         return $this->model;
     }
@@ -268,8 +270,23 @@ class HeroService
         ], $hero_stats);
     }
 
+    /**
+     * Call API for Hero update
+     *
+     * @return array|\johnleider\BattleNet\Diablo|\stdClass
+     */
     private function callApi()
     {
         return $this->api->getHeroData($this->model);
+    }
+
+    /**
+     * Set queued and queued_at
+     */
+    private function updateModel()
+    {
+        $this->model->queued_at = Carbon::now();
+        $this->model->queued = false;
+        $this->model->save();
     }
 }
