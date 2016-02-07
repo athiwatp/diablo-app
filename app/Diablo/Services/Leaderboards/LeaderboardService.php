@@ -3,8 +3,6 @@
 namespace App\Diablo\Services\Leaderboards;
 
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\Http\Controllers\HeroController;
-use App\Jobs\UpdateHero;
 use App\{Leaderboard, Profile, Hero};
 
 class LeaderboardService
@@ -20,16 +18,13 @@ class LeaderboardService
     public function save($record)
     {
         $profile = Profile::firstOrCreate([
-            'battle_tag' => $record['battle_tag'],
-            'region' => $record['region']
+            'battle_tag' => $record['battle_tag']
         ]);
 
         $hero = Hero::updateOrCreate([
             'battlenet_hero_id' => $record['battlenet_hero_id'],
             'profile_id' => $profile->id
         ], $record);
-
-        $this->dispatch(new UpdateHero($hero));
 
         Leaderboard::updateOrCreate([
             'profile_id' => $profile->id,
