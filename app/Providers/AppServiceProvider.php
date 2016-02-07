@@ -27,10 +27,6 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with(compact('menu'));
         });
-
-        Queue::after(function (JobProcessed $event) {
-            //
-        });
     }
 
     /**
