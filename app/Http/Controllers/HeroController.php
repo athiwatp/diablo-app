@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Item;
 use App\Jobs\UpdateHero;
 use Cache;
+use Carbon\Carbon;
 use Diablo;
 use Request;
 use Response;
@@ -54,7 +55,18 @@ class HeroController extends Controller
      */
     public function showApi(Hero $hero) : string
     {
-        return $hero->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills'])
-            ->toJson();
+        // TODO: Need to abstract this functionality out of the controller
+        $hero = $hero->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills']);
+        $hero->queable = is_null($hero->queued_at) || $hero->queued_at->lte(Carbon::now()->subHours(12))
+            ? true
+            : false;
+
+        if ($hero->queable) {
+            $hero->queue_available = 'Now';
+        } else {
+            $hero->queue_available = $hero->queued_at->copy()->addHours(12)->diffForHumans();
+        }
+
+        return $hero->toJson();
     }
 }
