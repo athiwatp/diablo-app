@@ -26,31 +26,25 @@
 .text {
   @include m('barbarian') {
     color: #b52615;
-    font-weight: 700;
   }
 
   @include m('crusader') {
     color: #D2B48C;
-    font-weight: 700;
   }
 
   @include m('demon-hunter') {
     color: #735289;
-    font-weight: 700;
   }
 
   @include m('monk') {
     color: #e5d34d;
-    font-weight: 700;
   }
 
   @include m('witch-doctor') {
     color: #46c230;
-    font-weight: 700;
   }
 
   @include m('wizard') {
     color: #5fc6e5;
-    font-weight: 700;
   }
 }
