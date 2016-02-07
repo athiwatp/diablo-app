@@ -4,11 +4,14 @@ namespace App\Console\Commands;
 
 use App\Diablo\API\DiabloAPI;
 use App\Hero;
-use App\Leaderboard as Leader;
+use App\Jobs\UpdateHero;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class TopHundred extends Command
 {
+    use DispatchesJobs;
+
     private $api;
 
     /**
@@ -45,20 +48,20 @@ class TopHundred extends Command
     {
         $t = microtime(true);
 
-        $records = Hero::where('players', 1)
-            ->join('leaderboards', 'leaderboards.hero_id', '=', 'heroes.id')
-            ->join('profiles', 'profiles.id', '=', 'leaderboards.profile_id')
-            ->where('leaderboards.period', '=', 5)
-            ->where('leaderboards.season', '=', 1)
+        $records = Hero::join('leaderboards', function ($join) {
+            $join->on('leaderboards.hero_id', '=', 'heroes.id')
+                ->where('leaderboards.season', '=', 1)
+                ->where('leaderboards.players', '=', 1)
+                ->where('leaderboards.hardcore', '=', 0);
+        })
             ->orderBy('leaderboards.rift_level', 'desc')
-            ->limit(15)
-            ->select('heroes.*')
+            ->limit(100)
             ->get();
 
         $bar = $this->output->createProgressBar(count($records));
 
         foreach ($records as $record) {
-            $record->api()->update();
+            $this->dispatch(new UpdateHero($record));
             $bar->advance();
         }
 
