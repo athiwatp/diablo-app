@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Diablo\Rankings;
 use App\Leaderboard;
 use App\Http\Requests;
+use Cache;
 use Illuminate\Database\Eloquent\Collection;
 
 class HomeController extends Controller
@@ -17,7 +18,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        return Cache::remember('homePage', 60, function () {
+            return view('home.index')->render();
+        });
     }
 
     /**
