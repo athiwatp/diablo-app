@@ -8,6 +8,12 @@
     font-size: 0.8rem;
     background-color: #fff !important;
 
+    img {
+      position: relative;
+      top: 50%;
+      transform: translateY(-60%);
+    }
+
     .card--gear-block__footer {
       margin: 0;
       padding: 0;
