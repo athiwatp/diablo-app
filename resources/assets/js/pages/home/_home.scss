@@ -4,10 +4,6 @@ section h2 {
   text-transform: uppercase;
 }
 
-#home.container {
-  margin-top: 0px !important;
-
-  h2 {
-    margin: 2rem 0;
-  }
+section > .row > div:last-child .card--diablo {
+	margin: 0px auto !important;
 }
