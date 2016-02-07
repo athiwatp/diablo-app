@@ -24,6 +24,7 @@
         </header>
 
         <div class="container">
+            <h2 class="section-header">Hero Information</h2>
             <div class="row">
                 <div class="col-md-12">
                     <note type="success"
@@ -59,9 +60,9 @@
 
                                     <li class="list-group-item">
                                         <p>
-                                            <small>Last updated: {{ state.queued_at || 'Never' }}</small>
+                                            <small>Update available {{ state.queue_available }}</small>
                                         </p>
-                                        <div>
+                                        <div v-if="state.queable">
                                             <button class="btn btn--secondary-outline m-t-2"
                                                     v-if="!state.queued"
                                                     @click="update"
