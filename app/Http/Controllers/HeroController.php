@@ -34,6 +34,9 @@ class HeroController extends Controller
      */
     public function update(Hero $hero) : string
     {
+        $hero->queued = true;
+        $hero->save();
+
         $this->dispatch(new UpdateHero($hero));
         
         return Response::json(['status' => 'queued'], 200);
