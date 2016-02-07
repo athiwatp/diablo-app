@@ -1,18 +1,38 @@
+@import '../../../sass/variables';
 @import '../../../sass/mixins';
 
-.gear-block {
-  height: 120px;
-  position: relative;
-  margin-bottom: 2em;
+.card {
+  @include m('gear-block') {
+    height: 110px;
+    transition: all 0.4s ease-in-out;
+    font-size: 0.8rem;
+    background-color: #fff !important;
 
-  @include e('item') {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-  }
+    .card--gear-block__footer {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      border: none;
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background-color: darken($primary-color, 5%);
+      color: #fff;
+      border-radius: 0;
+      transition: all 0.4s ease-in-out;
+      font-family: Oswald;
+      letter-spacing: 1px;
+      padding: 3px 0;
+    }
 
-  h6 {
-    color: black;
+    &:hover {
+      box-shadow: $box-shadow-hover;
+      border-color: $secondary-color;
+
+      .card--gear-block__footer {
+        color: $secondary-color !important;
+      }
+    }
   }
 }

@@ -3,19 +3,15 @@
 </style>
 
 <template>
-    <div class="text-xs-center gear-block"
+    <a class="card card--diablo card--gear-block"
+       href="{{ item.pivot.tool_tip_params }}"
+       data-d3tooltip="{{ item.pivot.tool_tip_params }}"
     >
-        <h6>{{ item.slot }}</h6>
-        <img :src="icon"
-             alt="gear-icon">
-        <div class="gear-block__item">
-            <a href="{{ item.pivot.tool_tip_params }}"
-               data-d3tooltip="{{ item.pivot.tool_tip_params }}"
-            >
-                {{ item.name }}
-            </a>
+        <img :src="icon" alt="" class="card-img-top img-fluid">
+        <div class="card-footer card--gear-block__footer">
+            {{ item.name }}
         </div>
-    </div>
+    </a>
 </template>
 
 <script>
