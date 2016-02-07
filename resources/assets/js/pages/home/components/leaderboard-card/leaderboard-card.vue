@@ -31,7 +31,9 @@
                         <span class="label label--diablo">{{ ranking.rift_level }}</span>
                     </div>
                     <div class="col-md-4 text-md-right text-xs-center">
-                        <span :class="ranking.class | classText">
+                        <span :class="ranking.class | classText"
+                              class="hidden-md-down"
+                        >
                             {{ ranking.class | capitalize }}
                         </span>
                         <img :src="ranking | classPortrait"
