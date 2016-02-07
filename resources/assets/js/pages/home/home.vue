@@ -15,10 +15,9 @@
         <div id="home"
              class="container"
         >
+            <h2 class="section-header">Season Leaderboards</h2>
             <section class="leaderboards-section">
                 <div class="row">
-                    <h2 class="col-md-12">Season Leaderboards</h2>
-
                     <div class="col-md-6">
                         <leaderboard-card :leaderboard="state.softcore"
                                           orientation="left"
@@ -37,10 +36,10 @@
                 </div>
             </section>
 
+            <h2 class="section-header">Classes</h2>
+
             <section class="classes-section">
                 <div class="row">
-                    <h2 class="col-md-12">Classes</h2>
-
                     <div class="col-md-2">
                         <class-card img="/img/barbarian/crest.png">Barbarian</class-card>
                     </div>
@@ -67,10 +66,10 @@
                 </div>
             </section>
 
+            <h2 class="section-header">Teams</h2>
+
             <section class="teams-section">
                 <div class="row">
-                    <h2 class="col-md-12">Teams</h2>
-
                     <div class="col-md-4">
                         <class-card class="card--class-tint" img="/img/team/2-players.jpg">2 Players</class-card>
                     </div>
