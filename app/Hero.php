@@ -29,6 +29,17 @@ class Hero extends Model
     ];
 
     /**
+     * Dates
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'queued_at'
+    ];
+
+    /**
      * Casts
      *
      * @var array
@@ -48,21 +59,6 @@ class Hero extends Model
     public function api()
     {
         return new HeroService($this);
-    }
-
-    /**
-     * Return queued attribute as diff for humans
-     *
-     * @param $attribute
-     * @return string
-     */
-    public function getQueuedAtAttribute($attribute)
-    {
-        if (is_null($attribute)) {
-            return $attribute;
-        }
-
-        return Carbon::parse($attribute)->diffForHumans();
     }
 
     /**
