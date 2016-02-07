@@ -3,8 +3,12 @@
 namespace App;
 
 use App\Diablo\Services\Hero\HeroService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property bool queued
+ */
 class Hero extends Model
 {
     /**
@@ -25,6 +29,18 @@ class Hero extends Model
     ];
 
     /**
+     * Casts
+     *
+     * @var array
+     */
+    protected $casts = [
+        'hardcore' => 'boolean',
+        'dead' => 'boolean',
+        'season' => 'boolean',
+        'queued' => 'boolean'
+    ];
+
+    /**
      * Access Hero API
      *
      * @return Heroes
@@ -32,6 +48,21 @@ class Hero extends Model
     public function api()
     {
         return new HeroService($this);
+    }
+
+    /**
+     * Return queued attribute as diff for humans
+     *
+     * @param $attribute
+     * @return string
+     */
+    public function getQueuedAtAttribute($attribute)
+    {
+        if (is_null($attribute)) {
+            return $attribute;
+        }
+
+        return Carbon::parse($attribute)->diffForHumans();
     }
 
     /**
@@ -75,7 +106,7 @@ class Hero extends Model
     public function items()
     {
         return $this->belongsToMany(Item::class)
-            ->orderByRaw("field(slot, 'head', 'shoulder', 'chest', 'neck', 'hands', 'bracers', 'left-hand', 'right-hand', 'waist', 'legs', 'finger', 'feet')")
+            ->orderByRaw("field(slot, 'shoulder', 'head', 'neck', 'hands', 'chest', 'bracers', 'finger', 'legs', 'left-hand', 'waist', 'right-hand', 'feet')")
             ->withPivot('tool_tip_params');
     }
 
