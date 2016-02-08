@@ -121,15 +121,12 @@
                 </div>
             </div>
         </div>
-        
-        <main-footer></main-footer>
     </div>
 </template>
 
 <script>
     import heroesStore from '../../stores/heroes';
     import mainNavbar from '../../components/main-navbar/main-navbar.vue';
-    import mainFooter from '../../components/main-footer/main-footer.vue';
     import jumbo from '../../components/jumbotron/slim.vue';
     import note from '../../components/notes/note.vue';
     import gearBlock from '../../components/hero/gear-block.vue';
@@ -141,7 +138,7 @@
             }
         },
 
-        components: { mainNavbar, mainFooter, jumbo, note, gearBlock },
+        components: { mainNavbar, jumbo, note, gearBlock },
 
         filters: {
             active (obj) {
@@ -184,9 +181,9 @@
         ready () {
             var id = document.getElementById('hero_id').value;
 
-            heroesStore.byId(id, function () {
+            heroesStore.byId(id, () => {
                 this.state = heroesStore.state;
-            }.bind(this));
+            });
         },
 
         methods: {
