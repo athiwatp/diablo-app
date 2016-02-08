@@ -31,11 +31,18 @@
   background-color: transparent;
   border-color: $secondary-color;
   color: $secondary-color;
-}
 
-.btn--secondary-outline:hover {
-  background-color: $secondary-color;
-  color: #fff;
+  &:hover {
+    background-color: $secondary-color;
+    color: #fff;
+  }
+
+  &:focus {
+    background-color: transparent;
+    border-color: $secondary-color;
+    color: $secondary-color;
+    outline: none;
+  }
 }
 
 .btn--primary-outline {
