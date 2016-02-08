@@ -29,7 +29,13 @@
       transition: all 0.4s ease-in-out;
       font-family: Oswald;
       letter-spacing: 1px;
-      padding: 3px 0;
+      padding: 3px 9px;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      word-wrap: break-word;
     }
 
     &:hover {
