@@ -12,13 +12,7 @@
                 <a href="/" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link">Leaderboards</a>
-            </li>
-            <li class="nav-item">
-                <a href="/profiles" class="nav-link">Profiles</a>
-            </li>
-            <li class="nav-item">
-                <a href="/heroes" class="nav-link">Heroes</a>
+                <a href="/leaderboards" class="nav-link">Leaderboards</a>
             </li>
         </ul>
     </nav>
