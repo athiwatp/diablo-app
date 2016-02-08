@@ -62,7 +62,7 @@ class HeroController extends Controller
             : false;
 
         if ($hero->queable) {
-            $hero->queue_available = 'Now';
+            $hero->queue_available = '';
         } else {
             $hero->queue_available = $hero->queued_at->copy()->addHours(12)->diffForHumans();
         }
