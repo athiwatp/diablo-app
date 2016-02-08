@@ -66,22 +66,6 @@
                     return BASE_URL + '/img/' + this.leaderboard.top.class + '/crest.png';
                 }
             }
-        },
-
-        filters: {
-            classPortrait (ranking) {
-                var gender = ranking.gender == 'm' ? 'male' : 'female';
-                var c = ranking.class == 'crusader' ? 'x1_' + ranking.class : ranking.class;
-                return 'http://media.blizzard.com/d3/icons/portraits/21/' + c + '_' + gender + '.png';
-            },
-
-            classText (c) {
-                return 'text--' + c.split(' ').join('_');
-            },
-
-            battleTag (battle_tag) {
-                return battle_tag.split('#').shift();
-            }
         }
     }
 </script>
