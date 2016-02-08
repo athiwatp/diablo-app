@@ -11,6 +11,7 @@
     import heroesPage from './pages/heroes/heroes.vue';
     import homePage from './pages/home/home.vue';
     import profilePage from './pages/profile/profile.vue';
+    import leaderboardsPage from './pages/leaderboards/leaderboards.vue';
 
     export default {
         el: '#app',
@@ -21,7 +22,8 @@
             errorPage,
             heroesPage,
             homePage,
-            profilePage
+            profilePage,
+            leaderboardsPage
         }
     }
 </script>
