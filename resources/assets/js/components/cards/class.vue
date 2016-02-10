@@ -2,8 +2,11 @@
     @import './_class.scss';
 </style>
 <template>
-    <a class="card card--diablo card--class" :class="class">
-        <img :src="image" alt="" class="card-img-top img-fluid">
+    <a class="card card--diablo card--class"
+       :class="class"
+       :href="href"
+    >
+        <img :src="image" alt="class" class="card-img-top img-fluid">
         <div class="card-footer card--class__footer">
             <slot></slot>
         </div>
@@ -19,9 +22,17 @@
                 }
 
                 return BASE_URL + this.img;
+            },
+
+            href () {
+                if (! this.leaderboard) {
+                    return '';
+                }
+
+                return BASE_URL + '/leaderboards' + this.leaderboard;
             }
         },
 
-        props: ['img', 'class']
+        props: ['img', 'class', 'leaderboard']
     }
 </script>
