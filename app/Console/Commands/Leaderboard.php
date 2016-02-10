@@ -82,8 +82,6 @@ class Leaderboard extends Command
 
         $bar->finish();
 
-        $this->call('tophundred:update');
-
         $this->info(PHP_EOL . 'Leaderboard updated in ' . (microtime(true) - $t) . ' seconds');
     }
 }
