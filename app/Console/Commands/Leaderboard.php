@@ -5,10 +5,14 @@ namespace App\Console\Commands;
 use App\Diablo\Services\Leaderboards\LeaderboardService;
 use App\Diablo\Parsers\Leaderboards\LeaderboardParser;
 use App\Diablo\API\DiabloAPI;
+use App\Jobs\UpdateLeaderboard;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Leaderboard extends Command
 {
+    use DispatchesJobs;
+    
     private $service;
     private $api;
     private $parser;
@@ -66,17 +70,14 @@ class Leaderboard extends Command
         $rankings = $this->parser->parse($request, $this->argument('limit'));
 
         $bar = $this->output->createProgressBar(count($rankings));
-
-        foreach (array_chunk($rankings, 200) as $chunk) {
-            foreach ($chunk as $record) {
-                if (is_null($record['battle_tag'])) {
-                    continue;
-                }
-
-                $this->service->save($record);
-
-                $bar->advance();
+        foreach ($rankings as $record) {
+            if (is_null($record['battle_tag'])) {
+                continue;
             }
+
+            $this->dispatch(new UpdateLeaderboard($record));
+
+            $bar->advance();
         }
 
         $bar->finish();
