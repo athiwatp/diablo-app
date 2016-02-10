@@ -41,27 +41,51 @@
             <section class="classes-section">
                 <div class="row">
                     <div class="col-md-2">
-                        <class-card img="/img/barbarian/crest.png">Barbarian</class-card>
+                        <class-card img="/img/barbarian/crest.png"
+                                    leaderboard="/barbarians"
+                        >
+                            Barbarian
+                        </class-card>
                     </div>
 
                     <div class="col-md-2">
-                        <class-card img="/img/crusader/crest.png">Crusader</class-card>
+                        <class-card img="/img/crusader/crest.png"
+                                    leaderboard="/crusaders"
+                        >
+                            Crusader
+                        </class-card>
                     </div>
 
                     <div class="col-md-2">
-                        <class-card img="/img/demon-hunter/crest.png">Demon Hunter</class-card>
+                        <class-card img="/img/demon-hunter/crest.png"
+                                    leaderboard="/demonhunters"
+                        >
+                            Demon Hunter
+                        </class-card>
                     </div>
 
                     <div class="col-md-2">
-                        <class-card img="/img/monk/crest.png">Monk</class-card>
+                        <class-card img="/img/monk/crest.png"
+                                    leaderboard="/monks"
+                        >
+                            Monk
+                        </class-card>
                     </div>
 
                     <div class="col-md-2">
-                        <class-card img="/img/witch-doctor/crest.png">Witch Doctor</class-card>
+                        <class-card img="/img/witch-doctor/crest.png"
+                                    leaderboard="/witchdoctors"
+                        >
+                            Witch Doctor
+                        </class-card>
                     </div>
 
                     <div class="col-md-2">
-                        <class-card img="/img/wizard/crest.png">Wizard</class-card>
+                        <class-card img="/img/wizard/crest.png"
+                                    leaderboard="/wizards"
+                        >
+                            Wizard
+                        </class-card>
                     </div>
                 </div>
             </section>
@@ -71,15 +95,30 @@
             <section class="teams-section">
                 <div class="row">
                     <div class="col-md-4">
-                        <class-card class="card--class-tint" img="/img/team/2-players.jpg">2 Players</class-card>
+                        <class-card class="card--class-tint"
+                                    img="/img/team/2-players.jpg"
+                                    leaderboard="/2players"
+                        >
+                            2 Players
+                        </class-card>
                     </div>
 
                     <div class="col-md-4">
-                        <class-card class="card--class-tint" img="/img/team/3-players.jpg">3 Players</class-card>
+                        <class-card class="card--class-tint"
+                                    img="/img/team/3-players.jpg"
+                                    leaderboard="/3players"
+                        >
+                            3 Players
+                        </class-card>
                     </div>
 
                     <div class="col-md-4">
-                        <class-card class="card--class-tint" img="/img/team/4-players.jpg">4 Players</class-card>
+                        <class-card class="card--class-tint"
+                                    img="/img/team/4-players.jpg"
+                                    leaderboard="/4players"
+                        >
+                            4 Players
+                        </class-card>
                     </div>
                 </div>
             </section>
