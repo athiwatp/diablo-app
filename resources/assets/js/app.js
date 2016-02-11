@@ -1,19 +1,22 @@
 import $ from 'jquery';
 import Vue from 'vue';
 import vueResource from 'vue-resource';
-import app from './app.vue';
 
-import {battleTag, classPortrait, classText} from './filters/filters.js';
+import {fade} from './transisions/transisions';
+import {battleTag, classPortrait, classText, number} from './filters/filters';
 
 Vue.use(vueResource);
 
 Vue.filter('battleTag', battleTag);
 Vue.filter('classPortrait', classPortrait);
 Vue.filter('classText', classText);
+Vue.filter('number', number);
+
+Vue.transition('fade', fade);
 
 Vue.config.debug = true;
 
 window.$ = $;
 window.Vue = Vue;
 
-new Vue(app);
+new Vue(require('./app.vue'));
