@@ -59,7 +59,7 @@
                                     {{ (index + 1) + ((currentPage - 1) * 25) }}
                                 </td>
                                 <td class="text-xs-center">
-                                    <span class="label label--diablo">{{ ranking.rift_level }}</span>
+                                    <span class="label label--tertiary">{{ ranking.rift_level }}</span>
                                 </td>
                                 <td class="text-xs-right">
                                     <span :class="ranking.class | classText"
