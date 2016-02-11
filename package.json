@@ -8,6 +8,7 @@
     "vue-resource": "^0.1.17"
   },
   "dependencies": {
+    "animate.css": "^3.5.1",
     "bootstrap": "^4.0.0-alpha.2",
     "jquery": "^1.12",
     "laravel-elixir": "^4.0.0",
