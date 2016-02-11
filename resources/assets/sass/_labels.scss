@@ -1,5 +1,32 @@
-.label--diablo {
-  background-color: #98BA97;
+@import './mixins';
+@import "./variables";
+
+.label {
   padding: 5px 10px;
   border-radius: 0;
+  letter-spacing: 1px;
+
+  @include m('primary') {
+    background-color: $primary-color;
+  }
+
+  @include m('secondary') {
+    background-color: brown;
+  }
+
+  @include m('tertiary') {
+    background-color: $tertiary-color;
+  }
+
+  @include m('quaternary') {
+    background-color: $quaternary-color;
+  }
+
+  @include m('quinary') {
+    background-color: $quinary-color;
+  }
+
+  @include m('senary') {
+    background-color: $senary-color;
+  }
 }
