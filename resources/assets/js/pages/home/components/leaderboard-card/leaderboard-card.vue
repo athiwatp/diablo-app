@@ -28,7 +28,7 @@
             >
                 <div class="row">
                     <div class="col-md-2 text-xs-center">
-                        <span class="label label--diablo">{{ ranking.rift_level }}</span>
+                        <span class="label label--tertiary">{{ ranking.rift_level }}</span>
                     </div>
                     <div class="col-md-4 text-md-right text-xs-center">
                         <span :class="ranking.class | classText"
