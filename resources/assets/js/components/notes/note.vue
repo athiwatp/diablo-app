@@ -14,7 +14,11 @@
 </style>
 
 <template>
-	<div class="alert" :class="class" role="alert">
+	<div class="alert animated"
+         :class="class"
+         role="alert"
+         transition="fade"
+    >
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
