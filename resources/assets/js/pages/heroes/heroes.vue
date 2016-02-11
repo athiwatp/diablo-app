@@ -1,9 +1,20 @@
 <style lang="scss">
     @import '../../../sass/_variables.scss';
 
-    .power--icon {
-        width: 10%;
+    .power {
+        min-height: 80px;
+    }
+    .power__icon {
         margin-top: -5px;
+        display: inline-block;
+        float: left;
+    }
+
+    .power__label {
+        display: inline-block;
+        float: left;
+        width: 85%;
+        margin-top: 15px;
     }
 
     .hero-aside .list-group-item:hover {
@@ -14,6 +25,10 @@
     h5 {
         text-align: center;
     }
+
+    hr {
+        border-top: 2px solid $secondary-color;
+    }
 </style>
 
 <template>
@@ -23,9 +38,10 @@
             <jumbo>{{ state.name }} {{ state.clan_tag ? '&lt;'+state.clan_tag+'&gt;' : '' }}</jumbo>
         </header>
 
-        <div class="container">
+        <div class="container p-b-2">
             <h2 class="section-header">Hero Information</h2>
-            <div class="row">
+            <hr>
+            <section class="row">
                 <div class="col-md-12">
                     <note type="success"
                           v-if="state.queued"
@@ -34,49 +50,41 @@
                     </note>
                 </div>
                 <div class="col-md-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card--diablo text-xs-center">
-                                <img :src="crest" alt="" class="card-img-top img-fluid">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">{{ state.clan_name || 'No Clan' }}</li>
+                    <h5>Profile</h5>
+                    <div class="card card--diablo text-xs-center">
+                        <img :src="crest" alt="" class="card-img-top img-fluid">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{ state.clan_name || 'No Clan' }}</li>
 
-                                    <li class="list-group-item">{{ state.region }}</li>
+                            <li class="list-group-item">{{ state.region }}</li>
 
-                                    <li class="list-group-item">
-                                        <a href="#">Battle.net</a>
-                                    </li>
+                            <li class="list-group-item">
+                                <a href="#">Battle.net</a>
+                            </li>
 
-                                    <li class="list-group-item text-xs-left">
-                                        Paragon
-                                        <span class="pull-xs-right label label--diablo">{{ state.paragon_level }}</span>
-                                    </li>
-                                    <li class="list-group-item text-xs-left"
-                                        v-for="leaderboard in state.leaderboards"
+                            <li class="list-group-item text-xs-left">
+                                Paragon
+                                <span class="pull-xs-right label label--quaternary">{{ state.paragon_level | number }}</span>
+                            </li>
+
+                            <li class="list-group-item">
+                                <p>
+                                    <small>Update available {{ state.queue_available }}</small>
+                                </p>
+                                <div v-if="state.queable">
+                                    <button class="btn btn--secondary-outline m-t-2"
+                                            v-if="!state.queued"
+                                            @click="update"
                                     >
-                                        {{ leaderboard.players }} Player Rift
-                                        <span class="pull-xs-right label label--diablo">{{ leaderboard.rift_level }}</span>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <p>
-                                            <small>Update available {{ state.queue_available }}</small>
-                                        </p>
-                                        <div v-if="state.queable">
-                                            <button class="btn btn--secondary-outline m-t-2"
-                                                    v-if="!state.queued"
-                                                    @click="update"
-                                            >
-                                                Update
-                                            </button>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                                        Update
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-9">
+                    <h5>Gear</h5>
                     <div class="row">
                         <div v-for="item in state.items"
                              class="col-md-4"
@@ -85,7 +93,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+            </section>
+            <hr>
+            <section class="row">
+                <div class="col-md-4">
+                    <h5>Active</h5>
                     <ul class="list-group list-group-flush hero-aside">
                         <ul class="list-group list-group-flush m-b-1">
                             <a class="list-group-item"
@@ -97,7 +109,10 @@
                             </a>
                         </ul>
                     </ul>
-                    <ul class="list-group list-group-flush m-b-1 hero-aside">
+                </div>
+                <div class="col-md-4">
+                    <h5>Passive</h5>
+                    <ul class="list-group list-group-flush hero-aside">
                         <a class="list-group-item"
                             v-for="skill in state.skills | passive"
                             href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/passive/{{ skill.slug }}"
@@ -106,20 +121,71 @@
                             <img :src="skill.icon | skillIcon" alt="" class="pull-xs-right">
                         </a>
                     </ul>
-                    <ul class="list-group list-group-flush m-b-1 hero-aside">
-                        <a class="list-group-item"
+                </div>
+                <div class="col-md-4">
+                    <h5>Cube</h5>
+                    <ul class="list-group list-group-flush hero-aside">
+                        <a class="list-group-item power"
                            v-for="power in state.powers"
                            href="{{ power.tool_tip_params }}"
                            data-d3tooltip="{{ power.tool_tip_params }}"
                         >
-                            {{ power.name }}
+                            <span class="power__label">{{ power.name }}</span>
                             <img :src="power.icon | powerIcon"
                                  alt=""
-                                 class="pull-xs-right power--icon">
+                                 class="power__icon">
                         </a>
                     </ul>
                 </div>
-            </div>
+            </section>
+            <hr>
+            <section class="row">
+                <div class="col-md-4">
+                    <h5>Rift</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-xs-left"
+                            v-for="leaderboard in state.leaderboards"
+                        >
+                            {{ leaderboard.players }} Player Rift
+                            <span class="pull-xs-right label label--senary">{{ leaderboard.rift_level }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Stats</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-xs-left">
+                            Damage
+                            <span class="pull-xs-right label label--secondary">
+                                {{ state.stats.damage | number }}
+                            </span>
+                        </li>
+                        <li class="list-group-item text-xs-left">
+                            Toughness
+                            <span class="pull-xs-right label label--quinary">
+                                {{ state.stats.toughness | number }}
+                            </span>
+                        </li>
+                        <li class="list-group-item text-xs-left">
+                            Healing
+                            <span class="pull-xs-right label label--tertiary">
+                                {{ state.stats.healing | number }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Character</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-xs-left">
+                            Level
+                            <span class="pull-xs-right label label--primary">
+                                70
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
         </div>
     </div>
 </template>
@@ -134,7 +200,14 @@
     export default {
         data () {
             return {
-                state: {}
+                state: {
+                    paragon_level: 0,
+                    stats: {
+                        damage: 0,
+                        toughness: 0,
+                        healing: 0
+                    }
+                }
             }
         },
 
