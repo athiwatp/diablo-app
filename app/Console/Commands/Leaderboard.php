@@ -13,8 +13,22 @@ class Leaderboard extends Command
 {
     use DispatchesJobs;
     
+    /**
+     * Leaderboard service
+     * @var object
+     */
     private $service;
+
+    /**
+     * Leaderboard API
+     * @var object
+     */
     private $api;
+
+    /**
+     * Leaderboard Parser
+     * @var object
+     */
     private $parser;
 
     /**
@@ -75,7 +89,8 @@ class Leaderboard extends Command
                 continue;
             }
 
-            $this->dispatch(new UpdateLeaderboard($record));
+            $job = (new UpdateLeaderboard($record))->onQueue('leaderboards');
+            $this->dispatch($job);
 
             $bar->advance();
         }

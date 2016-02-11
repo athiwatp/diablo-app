@@ -61,7 +61,8 @@ class TopHundred extends Command
         $bar = $this->output->createProgressBar(count($records));
 
         foreach ($records as $record) {
-            $this->dispatch(new UpdateHero($record));
+            $job = (new UpdateHero($record))->onQueue('heroes');
+            $this->dispatch($job);
             $bar->advance();
         }
 

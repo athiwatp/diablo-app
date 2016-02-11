@@ -38,7 +38,9 @@ class HeroController extends Controller
         $hero->queued = true;
         $hero->save();
 
-        $this->dispatch(new UpdateHero($hero));
+        $job = (new UpdateHero($hero))->onQueue('heroes');
+
+        $this->dispatch($job);
         
         return Response::json(['status' => 'queued'], 200);
     }
@@ -60,6 +62,8 @@ class HeroController extends Controller
         $hero->queable = is_null($hero->queued_at) || $hero->queued_at->lte(Carbon::now()->subHours(12))
             ? true
             : false;
+
+        $hero->queable = true;
 
         if ($hero->queable) {
             $hero->queue_available = '';
