@@ -12,3 +12,7 @@ export function battleTag (battle_tag) {
 export function classText (c) {
     return 'text--' + c.split(' ').join('_');
 }
+
+export function number (n) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
