@@ -1,50 +1,40 @@
-.text--white {
-  color: #fff;
-  font-weight: 100;
-}
-
-.text--secondary {
-  color: $secondary-color !important;
-}
-
-.text--tertiary {
-  color: #98BA97 !important;
-}
-
-.relative {
-  position: relative;
-}
-
-.bg--secondary {
-  background-color: #29363B;
-}
-
-.img-fluid {
-  margin: 0 auto;
-}
+@import "variables";
+@import "mixins";
 
 .text {
-  @include m('barbarian') {
-    color: #b52615;
-  }
+    @include m('primary') {
+        color: $primary-color !important;
+    }
+    
+    @include m('secondary') {
+        color: $secondary-color !important;
+    }
 
-  @include m('crusader') {
-    color: #D2B48C;
-  }
+    @include m('tertiary') {
+        color: $tertiary-color !important;
+    }
 
-  @include m('demon-hunter') {
-    color: #735289;
-  }
+    @include m('barbarian') {
+      color: #b52615;
+    }
 
-  @include m('monk') {
-    color: #e5d34d;
-  }
+    @include m('crusader') {
+      color: #D2B48C;
+    }
 
-  @include m('witch-doctor') {
-    color: #46c230;
-  }
+    @include m('demon-hunter') {
+      color: #735289;
+    }
 
-  @include m('wizard') {
-    color: #5fc6e5;
-  }
+    @include m('monk') {
+      color: #e5d34d;
+    }
+
+    @include m('witch-doctor') {
+      color: #46c230;
+    }
+
+    @include m('wizard') {
+      color: #5fc6e5;
+    }
 }

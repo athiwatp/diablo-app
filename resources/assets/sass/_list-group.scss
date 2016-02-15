@@ -1,3 +1,48 @@
-.list-group-item--diablo a {
-  color: #29363B;
+@import './mixins';
+@import './variables';
+
+.list-group-ranking {
+	margin-bottom: 2rem;
+
+	span {
+		padding: 1rem;
+	}
+
+	@include e('rank') {
+		width: 10%;
+		display: inline-block;
+		border-right: 1px solid #fff;
+		text-align: center;
+	}
+
+	@include e('rift') {
+	    width: 10%;
+	    display: inline-block;
+		text-align: center;
+	}
+
+	@include e('class') {
+	    width: 40%;
+	    padding-left: 1rem;
+	    display: inline-block;
+	}
+
+	@include e('hero') {
+	    width: 35%;
+	    display: inline-block;
+	}
+
+	li {
+	   	background-color: lighten($primary-color, 10%) !important;
+		border-color: lighten($primary-color, 10%) !important;
+		border: none;
+		color: #fff;
+		border-radius: 0;
+		margin-bottom: .5rem;
+		padding: 0;
+
+		&:hover {
+			background-color: rgba($secondary-color, 0.3) !important;
+		}
+	}
 }

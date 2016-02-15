@@ -1,0 +1,12 @@
+@import './variables';
+
+#page {
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: $primary-color;
+}
+
+.content {
+    margin-bottom: 0;
+}

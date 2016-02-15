@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <component :is="page">
+        <component :is="page" :data="data">
             <slot></slot>
         </component>
     </div>
@@ -16,7 +16,7 @@
     export default {
         el: '#app',
 
-        props: ['page'],
+        props: ['page', 'data'],
 
         components: {
             errorPage,

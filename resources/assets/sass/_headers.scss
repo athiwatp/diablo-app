@@ -1,15 +1,16 @@
+@import "variables";
+
 h1, h2, h3, h4, h5, h6 {
-  font-family: Oswald;
-  letter-spacing: 5px;
-  color: #fff;
+	font-family: Oswald;
+	letter-spacing: 5px;
+	color: #fff;
 }
 
-.container {
-  margin-top: 0px !important;
+.page-header {
+	letter-spacing: 10px;
+	text-transform: uppercase;
+}
 
-  h2.section-header {
-    margin: 2rem 0;
-    text-align: center;
-    text-transform: uppercase;
-  }
+.section-header {
+	text-transform: uppercase;
 }
