@@ -7,20 +7,19 @@
         <div class="container">
             <a href="/" class="navbar-brand">
                 <img :src="logo" alt="">
-                <span class="navbar-brand__text">
-                    D<span class="navbar-brand__subtext">iablo</span>
-                    R<span class="navbar-brand__subtext">ankings</span>
-                </span>
             </a>
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a href="/" class="nav-link">Home</a>
+                    <a href="/leaderboards" class="nav-link">
+                        Leaderboards
+                        <span class="nav-link__subtext">rankings</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/leaderboards" class="nav-link">Leaderboards</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/profiles" class="nav-link">Profiles</a>
+                    <a href="/profiles" class="nav-link">
+                        Profiles
+                        <span class="nav-link__subtext">battlenet</span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -28,6 +27,13 @@
 </template>
 
 <script>
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 100) {
+            $('nav').addClass('navbar--scroll');
+        } else {
+            $('nav').removeClass('navbar--scroll');
+        }
+    })
     export default {
         computed: {
             logo () {
