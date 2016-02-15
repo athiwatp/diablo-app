@@ -44,6 +44,12 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
+        $query->map(function ($i) {
+            $i->show = false;
+
+            return $i;
+        });
+
         $ladders->put('softcore',
             [
                 'ladder' => $query
@@ -59,6 +65,12 @@ class HomeController extends Controller
             ->with(['hero', 'profile'])
             ->limit(10)
             ->get();
+
+        $query->map(function ($i) {
+            $i->show = false;
+
+            return $i;
+        });
 
         $ladders->put('hardcore',
             [
