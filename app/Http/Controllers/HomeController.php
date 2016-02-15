@@ -44,7 +44,14 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
-        $query->map(function ($i) {
+        $first_show = false;
+        $query->map(function ($i) use (&$first_show) {
+            if (! $first_show) {
+                $i->show = true;
+                $first_show = true;
+
+                return $i;
+            }
             $i->show = false;
 
             return $i;
@@ -66,9 +73,16 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
-        $query->map(function ($i) {
-            $i->show = false;
+        $first_show = false;
+        $query->map(function ($i) use (&$first_show) {
+            if (! $first_show) {
+                $i->show = true;
+                $first_show = true;
 
+                return $i;
+            }
+            $i->show = false;
+            
             return $i;
         });
 
