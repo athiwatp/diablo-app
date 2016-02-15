@@ -11,21 +11,15 @@
         <section class="content">
             <div class="leaderboard">
                 <div class="container-fluid leaderboard__rankings">
-                    <div class="row section-wrapper">
-                        <div class="col-md-6">
-                            <h2 class="section-header">Softcore</h2>
-                        </div>
-                        <div class="col-md-6">
-                            <h2 class="section-header">Hardcore</h2>
-                        </div>
-                    </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-sm-12 col-md-6">
+                            <h2 class="section-header">Softcore</h2>
                             <leaderboard-card :leaderboard="state.softcore"
                                               orientation="left"
                             ></leaderboard-card>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-12 col-md-6">
+                            <h2 class="section-header">Hardcore</h2>
                             <leaderboard-card :leaderboard="state.hardcore"
                                               orientation="left"
                             ></leaderboard-card>
@@ -35,37 +29,37 @@
 
                 <div class="container-fluid leaderboard__classes">
                     <div class="row section-wrapper">
-                        <div class="col-md-12">
+                        <div class="col-sm-12 col-md-12">
                             <h2 class="section-header">Leaderboards</h2>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-6 col-xs-12">
                             <a href="#" class="leaderboard__classes__class">
                                 <img src="/img/barbarian/crest.png" alt="" class="img-fluid">
                             </a>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-6 col-xs-12">
                             <a href="#" class="leaderboard__classes__class">
                                 <img src="/img/crusader/crest.png" alt="" class="img-fluid">
                             </a>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-6 col-xs-12">
                             <a href="#" class="leaderboard__classes__class">
                                 <img src="/img/demon-hunter/crest.png" alt="" class="img-fluid">
                             </a>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-6 col-xs-12">
                             <a href="#" class="leaderboard__classes__class">
                                 <img src="/img/monk/crest.png" alt="" class="img-fluid">
                             </a>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-6 col-xs-12">
                             <a href="#" class="leaderboard__classes__class">
                                 <img src="/img/witch-doctor/crest.png" alt="" class="img-fluid">
                             </a>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-6 col-xs-12">
                             <a href="#" class="leaderboard__classes__class">
                                 <img src="/img/wizard/crest.png" alt="" class="img-fluid">
                             </a>

@@ -12,8 +12,8 @@
     @include e('image') {
         background: url('http://orig12.deviantart.net/4ad1/f/2014/072/c/6/diablo_3_fanart___crusader_by_m_hugo-d7a3ush.jpg') no-repeat fixed;
         background-size: cover;
+        background-position: 0 200px;
         position: absolute;
-        background-position: 50% 350px;
         top: 0;
         left: 0;
         width: 100%;
@@ -24,6 +24,10 @@
     @include e('text') {
         position: relative;
         width: 100%;
+
+        .col-md-12  {
+            margin: 0 auto;
+        }
     }
 }
 

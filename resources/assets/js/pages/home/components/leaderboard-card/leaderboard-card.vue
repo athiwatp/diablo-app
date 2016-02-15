@@ -43,10 +43,10 @@
                  v-show="ranking.show"
                  transition="expand"
             >
-                <div class="col-md-5 text-xs-center">
+                <div class="col-sm-5 col-md-4 text-xs-center hidden-xs-down">
                     <img :src="ranking.class | topImage" alt="" class="img-fluid">
                 </div>
-                <div class="col-md-7">
+                <div class="col-sm-7 col-md-8">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item list-group-ranking__info__item">
                             <span class="list-group-ranking__info__left">Profile</span>
@@ -62,7 +62,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-12 text-xs-right">
+                <div class="col-sm-12 col-md-12 text-xs-right">
                     <a  href="/heroes/{{ ranking.hero.id }}"
                         class="btn btn--secondary">Go to Hero Page</a>
                 </div>

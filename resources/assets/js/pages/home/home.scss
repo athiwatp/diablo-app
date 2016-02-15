@@ -14,9 +14,7 @@
 	}
 
 	@include e('rankings') {
-		.col-md-6 {
-			width: 100%;
-		}
+		
 	}
 
 	@include e('classes') {
@@ -27,6 +25,10 @@
 			display: block;
 			margin-bottom: 0.5rem;
 			transition: $transition;
+
+			img {
+				margin: 0 auto;
+			}
 
 			&:hover {
 				background-color: rgba($secondary-color, 0.3) !important;
