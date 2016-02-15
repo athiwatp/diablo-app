@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Diablo\Rankings;
-use App\Leaderboard;
 use App\Http\Requests;
+use App\Leaderboard;
 use Cache;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
@@ -14,13 +15,15 @@ class HomeController extends Controller
     /**
      * Home Index
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Support\Facades\View
      */
     public function index()
     {
-        return Cache::remember('homePage', 60, function () {
-            return view('home.index')->render();
+        $data = Cache::remember('home-page', 60, function () {
+            return $this->data();
         });
+
+        return View::make('home.index', compact('data'));
     }
 
     /**
@@ -29,8 +32,9 @@ class HomeController extends Controller
      * @param Collection $ladders
      * @return string
      */
-    public function data(Collection $ladders)
+    public function data() : string
     {
+        $ladders = new Collection;
         $query = Leaderboard::season()
             ->period(5)
             ->solo()
@@ -42,7 +46,6 @@ class HomeController extends Controller
 
         $ladders->put('softcore',
             [
-                'top' => $query->shift(),
                 'ladder' => $query
             ]
         );
@@ -59,7 +62,6 @@ class HomeController extends Controller
 
         $ladders->put('hardcore',
             [
-                'top' => $query->shift(),
                 'ladder' => $query
             ]
         );
