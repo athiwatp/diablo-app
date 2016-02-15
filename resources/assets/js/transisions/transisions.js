@@ -3,6 +3,12 @@ var fade = {
     leaveClass: 'fadeOut'
 }
 
+var slide = {
+	enterClass: 'fadeInDown',
+	leaveClass: 'fadeOutUp'
+}
+
 export {
-    fade
+    fade,
+    slide
 };

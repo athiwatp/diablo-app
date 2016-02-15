@@ -11,8 +11,8 @@
 <template>
     <ul class="list-group list-group-flush list-group-ranking">
         <div v-for="(index, ranking) in leaderboard.ladder">
-            <li class="list-group-item"
-                @click="ranking.show = true"
+            <li class="list-group-item list-group-ranking__item"
+                @click="ranking.show = !ranking.show"
             >
                 <span class="list-group-ranking__rank">{{ index + 1 }}</span>
                 <span class="list-group-ranking__rift">{{ ranking.rift_level }}</span>
@@ -27,12 +27,28 @@
                     {{ ranking.profile.battle_tag | battleTag }} {{ ranking.hero.clan_tag ? '&lt;' + ranking.hero.clan_tag + '&gt;' : '' }}
                 </span>
             </li>
-            <div class="card card--ranking"
+            <div class="list-group-ranking__info row animated"
                  v-show="ranking.show"
+                 transition="fade"
             >
-                <img :src="ranking.class | topImage" alt="" class="card-img-top ">
-                <div class="card-img-overlay text-xs-right">
-                    here
+                <div class="col-md-5 text-xs-center">
+                    <img :src="ranking.class | topImage" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-7">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item list-group-ranking__info__item">
+                            <span class="list-group-ranking__info__left">Profile</span>
+                            <span class="list-group-ranking__info__right">{{ ranking.profile.battle_tag }}</span>
+                        </li>
+                        <li class="list-group-item list-group-ranking__info__item">
+                            <span class="list-group-ranking__info__left">Region</span>
+                            <span class="list-group-ranking__info__right">{{ ranking.region }}</span>
+                        </li>
+                        <li class="list-group-item list-group-ranking__info__item">
+                            <span class="list-group-ranking__info__left">Clan</span>
+                            <span class="list-group-ranking__info__right">{{ ranking.hero.clan_name }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

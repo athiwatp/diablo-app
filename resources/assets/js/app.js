@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Vue from 'vue';
 import vueResource from 'vue-resource';
 
-import {fade} from './transisions/transisions';
+import {fade, slide} from './transisions/transisions';
 import {battleTag, classPortrait, classText, number} from './filters/filters';
 
 Vue.use(vueResource);
@@ -13,6 +13,7 @@ Vue.filter('classText', classText);
 Vue.filter('number', number);
 
 Vue.transition('fade', fade);
+Vue.transition('slide', slide);
 
 Vue.config.debug = true;
 

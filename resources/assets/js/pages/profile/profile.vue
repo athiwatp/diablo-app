@@ -1,9 +1,3 @@
-<style lang="scss">
-    .container {
-        margin-top: 3rem;
-    }
-</style>
-
 <template>
     <div id="page">
 
