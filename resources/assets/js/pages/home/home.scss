@@ -1,38 +1,7 @@
 @import "../../../sass/mixins";
 @import "../../../sass/variables";
 
-.banner {
-	position: relative;
-	display: flex;
-	min-height: 550px;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-
-	@include e('image') {
-	    background: url('/img/bg.jpg');
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    width: 100%;
-	    height: 100%;
-	    background-attachment: fixed;
-	    background-repeat: no-repeat;
-	    background-size: cover;
-	    opacity: 0.6;
-	}
-
-	@include e('text') {
-		position: relative;
-		width: 100%;
-	}
-}
-
 .leaderboard {
-	h2 {
-		padding: 1rem 2rem;
-	}
-
 	li {
 		border-radius: 0 !important;
 		background: none;
@@ -48,5 +17,35 @@
 		.col-md-6 {
 			width: 100%;
 		}
+	}
+
+	@include e('classes') {
+		@include e('class') {
+			background-color: lighten($primary-color, 10%) !important;
+			border-color: lighten($primary-color, 10%) !important;
+			height: 100%;
+			display: block;
+			margin-bottom: 0.5rem;
+			transition: $transition;
+
+			&:hover {
+				background-color: rgba($secondary-color, 0.3) !important;
+				cursor: pointer;
+			}
+		}
+	}
+
+	/* always present */
+	.expand-transition {
+		transition: all .4s ease;
+		height: 300px;
+		overflow: hidden;
+	}
+
+	/* .expand-enter defines the starting state for entering */
+	/* .expand-leave defines the ending state for leaving */
+	.expand-enter, .expand-leave {
+		height: 0;
+		opacity: 0;
 	}
 }
