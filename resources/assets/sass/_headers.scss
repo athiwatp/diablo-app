@@ -6,11 +6,13 @@ h1, h2, h3, h4, h5, h6 {
 	color: #fff;
 }
 
-.page-header {
-	letter-spacing: 10px;
-	text-transform: uppercase;
-}
-
-.section-header {
-	text-transform: uppercase;
+.section-wrapper {
+	background: rgba($secondary-color, 0.4);
+	margin-bottom: 0.5rem;
+	
+	.section-header {
+		text-transform: uppercase;
+		padding: 1rem 2rem;
+		margin: 0;
+	}
 }
