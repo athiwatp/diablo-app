@@ -5,7 +5,7 @@
 	margin-bottom: 2rem;
 
 	span {
-		padding: 1rem;
+		padding: .5rem 1rem;
 	}
 
 	@include e('rank') {
@@ -38,11 +38,12 @@
 		border: none;
 		color: #fff;
 		border-radius: 0;
-		margin-bottom: .5rem;
 		padding: 0;
+		margin-bottom: .5rem !important;
 
 		&:hover {
 			background-color: rgba($secondary-color, 0.3) !important;
+			cursor: pointer;
 		}
 	}
 }

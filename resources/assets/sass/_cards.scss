@@ -11,4 +11,10 @@
 		color: #fff;
 		border-radius: 0;
 	}
+
+	@include m('ranking') {
+		background-color: transparent !important;
+		border: none;
+		color: #fff;
+	}
 }
