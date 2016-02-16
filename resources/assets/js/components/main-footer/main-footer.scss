@@ -10,9 +10,9 @@
     width: 100%;
 
     @include e('image') {
-        background: url('http://orig12.deviantart.net/4ad1/f/2014/072/c/6/diablo_3_fanart___crusader_by_m_hugo-d7a3ush.jpg') no-repeat fixed;
+        background: url('/img/footer.jpg') no-repeat fixed;
         background-size: cover;
-        background-position: 0 200px;
+        background-position: 0 250px;
         position: absolute;
         top: 0;
         left: 0;
