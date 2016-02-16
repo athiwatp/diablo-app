@@ -1,13 +1,11 @@
 <style lang="scss">
-    @import './_main-navbar.scss';
+    @import './main-navbar';
 </style>
 
 <template>
-    <nav class="navbar navbar-light bg-faded navbar-full navbar--diablo">
-        <div class="container">
-            <a href="/" class="navbar-brand">
-                <img :src="logo" alt="">
-            </a>
+    <nav class="navbar">
+        <div class="container navbar__container">
+            <img :src="logo" alt="">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
                     <a href="/leaderboards" class="nav-link">
@@ -21,19 +19,26 @@
                         <span class="nav-link__subtext">battlenet</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/profiles" class="nav-link">
+                        Heroes
+                        <span class="nav-link__subtext">sanctuary</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
 </template>
 
 <script>
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 100) {
+    window.onscroll = function () {
+        if (window.pageYOffset > 100) {
             $('nav').addClass('navbar--scroll');
         } else {
             $('nav').removeClass('navbar--scroll');
         }
-    })
+    };
+
     export default {
         computed: {
             logo () {
