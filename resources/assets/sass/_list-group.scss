@@ -2,8 +2,6 @@
 @import './variables';
 
 .list-group-ranking {
-	margin-bottom: 2rem;
-
 	div {
 		&:nth-child(even) li {
 			background-color: lighten($primary-color, 5%) !important;
