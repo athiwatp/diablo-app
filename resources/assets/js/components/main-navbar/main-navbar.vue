@@ -3,26 +3,28 @@
 </style>
 
 <template>
-    <nav class="navbar">
-        <div class="container navbar__container">
-            <img :src="logo" alt="">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a href="/leaderboards" class="nav-link">
+    <nav class="nav">
+        <div class="nav__container container">
+            <img :src="logo"
+                 alt="logo"
+                 class="nav__logo">
+            <ul class="nav__items">
+                <li class="nav__item">
+                    <a href="/leaderboards" class="nav__link">
                         Leaderboards
-                        <span class="nav-link__subtext">rankings</span>
+                        <span class="nav__link__subtext">rankings</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/profiles" class="nav-link">
+                <li class="nav__item">
+                    <a href="/profiles" class="nav__link">
                         Profiles
-                        <span class="nav-link__subtext">battlenet</span>
+                        <span class="nav__link__subtext">battlenet</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/profiles" class="nav-link">
+                <li class="nav__item">
+                    <a href="/profiles" class="nav__link">
                         Heroes
-                        <span class="nav-link__subtext">sanctuary</span>
+                        <span class="nav__link__subtext">sanctuary</span>
                     </a>
                 </li>
             </ul>
@@ -33,9 +35,9 @@
 <script>
     window.onscroll = function () {
         if (window.pageYOffset > 100) {
-            $('nav').addClass('navbar--scroll');
+            $('nav').addClass('nav--scroll');
         } else {
-            $('nav').removeClass('navbar--scroll');
+            $('nav').removeClass('nav--scroll');
         }
     };
 
