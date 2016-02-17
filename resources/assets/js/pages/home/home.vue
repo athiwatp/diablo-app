@@ -6,7 +6,12 @@
     <div id="page">
         <main-header></main-header>
         
-        <top-banner></top-banner>
+        <banner :parameters.once="topBannerParameters">
+            <div class="home-banner-content">
+                <h1>Diablo Rankings</h1>
+                <h6>Leaderboards, statistics and more</h6>
+            </div>
+        </banner>
 
         <section class="content">
             <div class="leaderboard">
@@ -75,7 +80,7 @@
 
 <script>
     import mainHeader from '../../components/main-header/main-header.vue';
-    import topBanner from '../../components/top-banner/top-banner.vue';
+    import banner from '../../components/banner/banner.vue';
     import mainFooter from '../../components/main-footer/main-footer.vue';
     import leaderboardCard from './components/leaderboard-card/leaderboard-card.vue';
     import homeStub from '../../stubs/home';
@@ -84,13 +89,18 @@
     export default {
         data () {
             return {
-                state: homeStub
+                state: homeStub,
+                topBannerParameters: {
+                    background: 'url("/img/bg.jpg") no-repeat fixed',
+                    backgroundSize: 'cover',
+                    backgroundPosition: '50% -120px'
+                }
             }
         },
 
         props: ['data'],
 
-        components: { mainHeader, topBanner, mainFooter, leaderboardCard },
+        components: { mainHeader, banner, mainFooter, leaderboardCard },
 
         ready () {
             homeStore.get(() => {

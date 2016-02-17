@@ -1,6 +1,14 @@
 @import "../../../sass/mixins";
 @import "../../../sass/variables";
 
+.home-banner-content {
+	margin: 0 9.5rem;
+}
+
+section.content {
+	margin-top: 0.5rem;
+}
+
 .leaderboard {
 	li {
 		border-radius: 0 !important;
@@ -50,4 +58,8 @@
 		height: 0;
 		opacity: 0;
 	}
+}
+
+.banner__content h1 {
+	letter-spacing: 8.5px !important;
 }
