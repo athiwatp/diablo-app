@@ -3,7 +3,6 @@
 
         <header>
             <navbar></navbar>
-            <jumbo>zeroskillz#1838</jumbo>
         </header>
 
         <div class="container">
@@ -91,7 +90,6 @@
 </template>
 <script>
     import navbar from '../../components/main-navbar/main-navbar.vue';
-    import jumbo from '../../components/jumbotron/slim.vue';
 
     export default {
         data: function () {
@@ -125,6 +123,6 @@
             }
         },
 
-        components: {navbar, jumbo}
+        components: {navbar}
     }
 </script>

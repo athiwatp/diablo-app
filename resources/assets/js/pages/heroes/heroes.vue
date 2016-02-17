@@ -40,7 +40,6 @@
     <div id="page">
         <header>
             <main-navbar></main-navbar>
-            <jumbo>{{ state.name }} {{ state.clan_tag ? '&lt;'+state.clan_tag+'&gt;' : '' }}</jumbo>
         </header>
 
         <div class="container">
@@ -51,7 +50,6 @@
 <script>
     import heroesStore from '../../stores/heroes';
     import mainNavbar from '../../components/main-navbar/main-navbar.vue';
-    import jumbo from '../../components/jumbotron/slim.vue';
     import note from '../../components/notes/note.vue';
     import gearBlock from '../../components/hero/gear-block.vue';
 
@@ -69,7 +67,7 @@
             }
         },
 
-        components: { mainNavbar, jumbo, note, gearBlock },
+        components: { mainNavbar, note, gearBlock },
 
         filters: {
             active (obj) {

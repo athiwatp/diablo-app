@@ -6,9 +6,6 @@
     <div id="app">
         <header>
             <main-navbar></main-navbar>
-            <jumbo>
-                <slot></slot>
-            </jumbo>
         </header>
         
         <main-footer></main-footer>
@@ -18,7 +15,6 @@
 <script>
     import mainNavbar from '../../components/main-navbar/main-navbar.vue';
     import mainFooter from '../../components/main-footer/main-footer.vue';
-    import jumbo from '../../components/jumbotron/jumbo.vue';
 
     export default {
         data () {
@@ -27,7 +23,7 @@
             }
         },
 
-        components: { mainNavbar, mainFooter, jumbo },
+        components: { mainNavbar, mainFooter },
 
         computed: {
             //

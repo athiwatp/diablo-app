@@ -8,10 +8,6 @@
     <div id="page">
         <header>
             <main-navbar></main-navbar>
-
-            <jumbo>
-                Diablo Rankings
-            </jumbo>
         </header>
 
         <div class="container">
@@ -105,7 +101,6 @@
 
 <script>
     import mainNavbar from '../../components/main-navbar/main-navbar.vue';
-    import jumbo from '../../components/jumbotron/jumbo.vue';
     import http from '../../services/http';
 
     export default {
@@ -142,7 +137,7 @@
             }
         },
 
-        components: { mainNavbar, jumbo },
+        components: { mainNavbar },
 
         methods: {
             loadLeaderboards () {
