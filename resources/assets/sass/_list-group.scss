@@ -2,11 +2,13 @@
 @import './variables';
 
 .list-group-ranking {
-
+	li {
+		transition: $transition;
+	}
+	
 	@include e('item') {
 	   	background-color: lighten($primary-color, 10%) !important;
-		border-color: lighten($primary-color, 10%) !important;
-		border: none;
+		border: none !important;
 		color: #fff;
 		border-radius: 0;
 		padding: 0;
@@ -18,7 +20,8 @@
 		}
 
 		&:hover {
-			background-color: rgba($secondary-color, 0.7) !important;
+			border: none;
+			background-color: rgba($secondary-color, 1) !important;
 			cursor: pointer;
 		}
 	}
@@ -63,11 +66,11 @@
 
 		@include e('item') {
 		   	background-color: lighten($primary-color, 10%) !important;
-			border-color: lighten($primary-color, 10%) !important;
 			color: #fff;
 			border-radius: 0;
 			padding: 0;
 			margin-bottom: .5rem !important;
+			border: none !important;
 
 			>span {
 				padding: .5rem 1rem;

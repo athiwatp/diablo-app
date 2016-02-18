@@ -8,12 +8,12 @@
 }
 
 .btn--secondary {
-  background-color: rgba($secondary-color, 0.7);
+  background-color: $secondary-color;
   color: #fff;
 }
 
 .btn--secondary:hover {
-  background-color: $secondary-color;
+  background-color: lighten($secondary-color, 10%);
   color: #fff;
 }
 
