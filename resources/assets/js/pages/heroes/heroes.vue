@@ -26,10 +26,6 @@
         text-align: center;
         margin-bottom: 1rem;
     }
-    
-    section {
-        margin-bottom: 2rem;
-    }
 
     .gear .row .col-md-4:last-child {
         margin-left: 33.333333333333%;
