@@ -42,7 +42,7 @@
                 footerBannerParameters: {
                     background: 'url("/img/footer.jpg") no-repeat fixed',
                     backgroundSize: 'cover',
-                    backgroundPosition: '50% 250px'
+                    backgroundPosition: '50% 150px'
                 }
             }
         },
