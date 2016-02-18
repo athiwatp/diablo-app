@@ -21,15 +21,15 @@
 
 <template>
     <ul class="list-group list-group-flush list-group-ranking">
-        <div v-for="(index, ranking) in leaderboard.ladder">
+        <template v-for="(index, ranking) in leaderboard.ladder">
             <li class="list-group-item list-group-ranking__item"
-                @click="ranking.show = !ranking.show"
+                @click="toggle($event)"
             >
                 <span class="list-group-ranking__rank">{{ index + 1 }}</span>
                 <span class="list-group-ranking__rift">{{ ranking.rift_level }}</span>
                 <span class="list-group-ranking__class hidden-sm-down"> 
                     <img :src="ranking | classPortrait"
-                         alt=""
+                         alt="portrait"
                          class="class-portrait"
                     >
                     {{ ranking.class | capitalize }}
@@ -44,7 +44,10 @@
                  transition="expand"
             >
                 <div class="col-sm-5 col-md-4 text-xs-center hidden-xs-down">
-                    <img :src="ranking.class | topImage" alt="" class="img-fluid">
+                    <img :src="ranking.class | classCrest" 
+                         alt="portrait"
+                         class="img-fluid"
+                    >
                 </div>
                 <div class="col-sm-7 col-md-8">
                     <ul class="list-group list-group-flush">
@@ -67,17 +70,17 @@
                         class="btn btn--secondary">Go to Hero Page</a>
                 </div>
             </div>
-        </div>
+        </template>
     </ul>
 </template>
 
 <script>
     export default {
-        props: ['leaderboard', 'orientation'],
+        props: ['leaderboard'],
 
-        filters: {
-            topImage (value) {
-                return BASE_URL + '/img/' + value + '/crest.png';
+        methods: {
+            toggle (e) {
+                $(e.target).parent().next().slideToggle();
             }
         }
     }
