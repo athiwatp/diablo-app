@@ -16,3 +16,7 @@ export function classText (c) {
 export function number (n) {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export function classCrest (c) {
+	return '/img/' + c + '/crest.png';
+}
