@@ -12,8 +12,38 @@
     padding: 0;
 
     @include e('logo') {
-        width: 35px;
-        transition: $transition;
+        position: relative;
+        width: 270px;
+
+        &:hover {
+            .nav__logo__text {
+                transition: $transition;
+                margin-left: 0;
+                opacity: 1;
+            }
+        }
+
+        @include e('img') {
+            width: 35px;
+            transition: $transition;
+            position: relative;
+        }
+
+        @include e('text') {
+            vertical-align: sub;
+            text-transform: uppercase;
+            color: #fff !important;
+            text-decoration: none !important;
+            font-size: 1rem;
+            letter-spacing: 5px;
+            margin-left: 3rem;
+            position: absolute;
+            top: 4px;
+            left: 50px;
+            transition: $transition;
+            opacity: 0;
+            width: 250px;
+        }
     }
 
     @include e('items') {
@@ -26,6 +56,19 @@
     @include e('item') {
         padding: 1.6rem 1rem;
         transition: $transition;
+        position: relative;
+
+        @include m('active') {
+            &:after {
+                content: '';
+                position: absolute;
+                background: #fff;
+                height: 3px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        }
     }
 
     @include e('link') {
@@ -61,7 +104,7 @@
     }
 
     @include m('scroll') {
-        background: rgba($primary-color, 0.9) !important;
+        background: rgba($primary-color, 0.94) !important;
 
         .nav__item {
             padding: .9rem 1rem;
@@ -73,7 +116,7 @@
             }
 
             .nav__link__subtext {
-            display: none;
+                display: none;
             }
         }
     }
