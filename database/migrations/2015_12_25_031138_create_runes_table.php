@@ -16,6 +16,7 @@ class CreateRunesTable extends Migration
             $table->increments('id');
             $table->char('name');
             $table->char('slug');
+            $table->char('type');
             $table->string('tool_tip_params');
             $table->timestamps();
         });

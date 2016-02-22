@@ -17,6 +17,7 @@ class CreateHeroSkillPivotTable extends Migration
             $table->foreign('hero_id')->references('id')->on('heroes');
             $table->integer('skill_id')->unsigned();
             $table->foreign('skill_id')->references('id')->on('skills');
+            $table->integer('rune_id')->nullable();
         });
     }
 
