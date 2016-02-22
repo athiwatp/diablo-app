@@ -15,18 +15,6 @@ use App\Http\Controllers\Controller;
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $profiles = Profile::paginate(25);
-
-        return view('profiles.index', compact('profiles'));
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param Profile $profile
@@ -35,18 +23,21 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        $profile->load(['heroes' => function ($q) {
-            $q->with('soloRift')
-                ->orderBy('season', 'desc')
-                ->orderBy('created_at', 'asc');
-        }]);
+        $profile->load('heroes', 'riftRankings');
 
         return view('profiles.show', compact('profile')); 
     }
 
     public function update(Profile $profile)
     {
-        return redirect()
-            ->back();
+        $profile->api()->update();
+        $profile->queued = true;
+        $profile->save();
+
+        $job = (new UpdateProfile($profile))->onQueue('profiles');
+
+        $this->dispatch($job);
+        
+        return Response::json(['status' => 'queued'], 200);
     }
 }
