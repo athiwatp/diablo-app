@@ -1,10 +1,6 @@
 @import "../../../sass/mixins";
 @import "../../../sass/variables";
 
-.home-banner-content {
-	margin: 0 9.5rem;
-}
-
 section.content {
 	margin-top: 0.5rem;
 }
@@ -19,20 +15,6 @@ section.content {
 		a {
 			color: #fff;
 		}
-	}
-
-	/* always present */
-	.expand-transition {
-		transition: all .4s ease;
-		height: 300px;
-		overflow: hidden;
-	}
-
-	/* .expand-enter defines the starting state for entering */
-	/* .expand-leave defines the ending state for leaving */
-	.expand-enter, .expand-leave {
-		height: 0;
-		opacity: 0;
 	}
 }
 
@@ -84,10 +66,6 @@ section.content {
 }
 
 .banner {
-	&:nth-of-type(1) {
-		margin-bottom: 0.5rem;
-	}
-
 	@include e('content') {
 		h1 {
 			letter-spacing: 8.5px !important;

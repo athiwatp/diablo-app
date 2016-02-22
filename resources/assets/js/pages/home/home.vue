@@ -4,7 +4,7 @@
 
 <template>
     <div id="page">
-        <main-header></main-header>
+        <main-header :page="page"></main-header>
         
         <banner :parameters.once="topBannerParameters">
             <div class="home-banner-content">
@@ -63,9 +63,8 @@
             return {
                 state: homeStub,
                 topBannerParameters: {
-                    background: 'url("/img/bg.jpg") no-repeat fixed',
-                    backgroundSize: 'cover',
-                    backgroundPosition: '50% -66px'
+                    background: 'url("/img/home-banner.jpg") no-repeat fixed',
+                    backgroundPosition: '50% 0'
                 },
                 classes: [
                     'barbarian', 'crusader', 'demon-hunter', 'monk', 'witch-doctor', 'wizard'
@@ -73,7 +72,7 @@
             }
         },
 
-        props: ['data'],
+        props: ['data', 'page'],
 
         components: { mainHeader, banner, mainFooter, leaderboardCard },
 
