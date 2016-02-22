@@ -17,9 +17,14 @@ class LeaderboardService
      */
     public function save($record)
     {
-        $profile = Profile::firstOrCreate([
+        $profile = Profile::firstOrNew([
             'battle_tag' => $record['battle_tag']
         ]);
+
+        if (! $profile->exists) {
+            $profile->region = $record['region'];
+            $profile->save();
+        }
 
         $hero = Hero::updateOrCreate([
             'battlenet_hero_id' => $record['battlenet_hero_id'],

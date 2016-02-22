@@ -3,8 +3,7 @@
 namespace App\Diablo\Services\Hero;
 
 use App\Diablo\API\DiabloAPI;
-use App\Diablo\Services\Item\ItemService;
-use App\{Hero, HeroSkill, Item, Skill};
+use App\{Hero, Item};
 use Carbon\Carbon;
 
 class HeroService
@@ -20,15 +19,8 @@ class HeroService
      * The modal instance
      *
      * @var Hero
-     */
+     */     
     private $model;
-
-    /**
-     * The Item Service instance
-     *
-     * @var ItemService
-     */
-    private $item_service;
 
     /**
      * The api instance
@@ -38,255 +30,151 @@ class HeroService
     private $api;
 
     /**
+     * Item update instance
+     * 
+     * @var ItemUpdate
+     */
+    private $items;
+
+    /**
+     * Legendary Power update instance
+     * 
+     * @var LegendaryPowerUpdate
+     */
+    private $legendary_powers;
+
+    /**
+     * Skill update instance
+     * 
+     * @var SkillUpdate
+     */
+    private $skills;
+
+    /**
+     * Stat update instance
+     * 
+     * @var StatUpdate
+     */
+    private $stats;
+
+    /**
+     * Follower update instance
+     * 
+     * @var FollowerUpdate
+     */
+    private $followers;
+
+    /**
      * HeroService constructor
      *
      * @param Hero $hero
      */
     public function __construct(Hero $hero)
     {
-        $this->api = new DiabloAPI;
+        $this->bindApiInstance();
         $this->model = $hero;
-        $this->item_service = new ItemService;
+        $this->items = new ItemUpdate($hero);
+        $this->legendary_powers = new LegendaryPowerUpdate($hero);
+        $this->skills = new SkillUpdate($hero);
+        $this->stats = new StatUpdate($hero);
+        $this->followers = new FollowerUpdate($hero);
     }
 
     /**
-     * Perform API Request and start update
-     *
-     * @param $response
-     * @return \Hero|void
+     * Update the Hero model
+     * 
+     * @return App\Hero|void
      */
-    public function update($response = null)
+    public function update()
     {
-        if (is_null($response)) {
-            $response = $this->callApi();
-        }
+        $this->callApi();
 
-        if (isset($response->code) || is_null($response)) {
+        if ($this->apiHasNoResponse()) {
             return;
         }
 
-        if ($response->level < 65) {
+        if ($this->heroLevelIsTooLow()) {
             return;
         }
 
-        $this->model->update([
-            'name' => $response->name,
-            'level' => $response->level,
-            'kills' => $response->kills->elites,
-            'paragon_level' => $response->paragonLevel,
-            'dead' => $response->dead
-        ]);
-
-        $this->updateSkills($response->skills);
-        $this->updateItems($response->items);
-        $this->updateFollowers($response->followers);
-        $this->updateLegendaryPowers($response->legendaryPowers);
-        $this->updateStats($response->stats);
-        $this->updateModel();
+        $this->skills->update($this->response->skills);
+        $this->items->update($this->response->items);
+        $this->legendary_powers->update($this->response->legendaryPowers);
+        $this->stats->update($this->response->stats);
+        // $this->followers->update($this->response->followers);
+        $this->updateModel($this->response);
 
         return $this->model;
     }
 
     /**
-     * Update active and passive skills
-     *
-     * @param $skills
+     * Return the update stub for the Hero model
+     * 
+     * @return array
      */
-    private function updateSkills($skills)
+    private function heroStub() : array
     {
-        $passive_skills = $active_skills = [];
-        $db_skills = Skill::get(['id', 'slug']);
-
-        foreach ($skills->active as $active) {
-            $skill = $db_skills->filter(function ($i) use ($active) {
-                return $i->slug === $active->skill->slug;
-            })->first();
-
-            $active_skills[] = $skill->id;
-        }
-
-        foreach ($skills->passive as $passive) {
-            $skill = $db_skills->filter(function ($i) use ($passive) {
-                return $i->slug === $passive->skill->slug;
-            })->first();
-
-            $passive_skills[] = $skill->id;
-        }
-
-        $sync_skills = array_merge($active_skills, $passive_skills);
-
-        $this->model->skills()
-            ->sync($sync_skills);
+        return [
+            'name' => $this->response->name,
+            'level' => $this->response->level,
+            'kills' => $this->response->kills->elites,
+            'paragon_level' => $this->response->paragonLevel,
+            'dead' => $this->response->dead
+        ];
     }
 
     /**
-     * Update equipped items
-     * TODO: Need to update this process, it is a bit redundant, but for now, once we have the items filled in the db, it won't be used very often
-     *
-     * @param $items
+     * Check if hero level is too low
+     * 
+     * @return boolean
      */
-    private function updateItems($items)
+    private function heroLevelIsTooLow() : bool
     {
-        $hero_items = $query_items = [];
-        $db_items = Item::get(['id', 'battlenet_item_id']);
-
-        foreach ($items as $slot => $hero_item) {
-            $item = $db_items->filter(function ($i) use ($hero_item) {
-                return $i->battlenet_item_id === $hero_item->id;
-            })->first();
-
-            if (is_null($item)) {
-                $query_items[] = $hero_item->id;
-
-                continue;
-            }
-
-            $hero_items[$item->id] = [
-                'tool_tip_params' => $hero_item->tooltipParams
-            ];
-        }
-
-        if (! empty($query_items)) {
-            $hero_items = [];
-
-            $request = $this->api->getItemData($query_items);
-
-            if (! is_array($request)) {
-                $request = [$request];
-            }
-
-            foreach ($request as $response) {
-                $this->item_service->saveItem($response);
-            }
-
-            $db_items = Item::get(['id', 'battlenet_item_id']);
-
-            foreach ($items as $slot => $hero_item) {
-                $item = $db_items->filter(function ($i) use ($hero_item) {
-                    return $i->battlenet_item_id === $hero_item->id;
-                })->first();
-
-                if (is_null($item)) {
-                    continue;
-                }
-
-                $hero_items[$item->id] = [
-                    'tool_tip_params' => $hero_item->tooltipParams
-                ];
-            }
-        }
-
-        $this->model->items()
-            ->sync($hero_items);
+        return $this->response->level < 65;
     }
 
     /**
-     * Update Follower equipped items
-     *
-     * @param $followers
+     * Check for valid response from API
+     * 
+     * @return boolean
      */
-    private function updateFollowers($followers)
+    private function apiHasNoResponse() : bool
     {
-        //
+        return isset($this->response->code) || is_null($this->response);
     }
 
     /**
-     * Update used Kanai's cube powers
-     * TODO: Need to update this process, it is a bit redundant, but for now, once we have the items filled in the db, it won't be used very often
-     *
-     * @param $legendaryPowers
-     */
-    private function updateLegendaryPowers($legendaryPowers)
-    {
-        $powers = $query_items = [];
-        $db_items = Item::get(['id', 'battlenet_item_id']);
-
-        foreach ($legendaryPowers as $legendaryPower) {
-            $item = $db_items->filter(function ($i) use ($legendaryPower) {
-                return $i->battlenet_item_id === $legendaryPower->id;
-            })->first();
-
-            if (is_null($item)) {
-                $query_items[] = $legendaryPower->id;
-
-                continue;
-            }
-
-            $powers[] = [
-                'item_id' => $item->id,
-            ];
-        }
-
-        if (! empty($query_items)) {
-            $powers = [];
-
-            $request = $this->api->getItemData($query_items);
-
-            if (! is_array($request)) {
-                $request = [$request];
-            }
-
-            foreach ($request as $response) {
-                $this->item_service->saveItem($response);
-            }
-
-            $db_items = Item::get(['id', 'battlenet_item_id']);
-
-            foreach ($legendaryPowers as $legendaryPower) {
-                $item = $db_items->filter(function ($i) use ($legendaryPower) {
-                    return $i->battlenet_item_id === $legendaryPower->id;
-                })->first();
-
-                if (is_null($item)) {
-                    continue;
-                }
-
-                $powers[] = [
-                    'item_id' => $item->id,
-                ];
-            }
-        }
-
-        $this->model->powers()
-            ->sync($powers);
-    }
-
-    /**
-     * Update Hero's stats
-     *
-     * @param $stats
-     */
-    private function updateStats($stats)
-    {
-        $hero_stats = [];
-
-        foreach ((array)$stats as $key => $stat) {
-            $hero_stats[snake_case($key)] = $stat;
-        }
-
-        $this->model->stats()->updateOrCreate([
-            'hero_id' => $this->model->id,
-            'profile_id' => $this->model->profile->id
-        ], $hero_stats);
-    }
-
-    /**
-     * Call API for Hero update
-     *
-     * @return array|\johnleider\BattleNet\Diablo|\stdClass
+     * Get response from API
+     * 
+     * @return void
      */
     private function callApi()
     {
-        return $this->api->getHeroData($this->model);
+        $this->response = $this->api->getHeroData($this->model);
+        dd($this->response);
     }
 
     /**
-     * Set queued and queued_at
+     * Save the Hero Model
+     * 
+     * @return void
      */
     private function updateModel()
     {
+        $this->model->fill($this->heroStub());
         $this->model->queued_at = Carbon::now();
         $this->model->queued = false;
         $this->model->save();
+    }
+
+    /**
+     * Bind the API instance to the container
+     * 
+     * @return void
+     */
+    private function bindApiInstance()
+    {
+        $this->api = new DiabloAPI;
+        app()->instance('api', $this->api);
     }
 }
