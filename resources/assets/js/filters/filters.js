@@ -2,6 +2,7 @@ export function classPortrait (ranking) {
     var gender = ranking.gender == 'm' ? 'male' : 'female';
     var c = ranking.class == 'crusader' ? 'x1_' + ranking.class : ranking.class;
     c = c.replace(' ', '');
+    
     return 'http://media.blizzard.com/d3/icons/portraits/21/' + c + '_' + gender + '.png';
 }
 
@@ -19,4 +20,23 @@ export function number (n) {
 
 export function classCrest (c) {
 	return '/img/' + c + '/crest.png';
+}
+
+export function region (r) {
+	switch (r) {
+		case 'US':
+			return 'Americas';
+		break;	
+		case 'EU':
+			return 'Europe';
+		break;
+		case 'TW':
+			return 'Taiwan';
+		break;
+		case 'KR':
+			return 'Korea';
+		break;
+		default:
+			return '';
+	}
 }
