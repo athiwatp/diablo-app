@@ -1,84 +1,38 @@
 @import './mixins';
 @import './variables';
 
-.list-group-ranking {
-	li {
-		transition: $transition;
-	}
-	
+.list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+
 	@include e('item') {
-	   	background-color: lighten($primary-color, 10%) !important;
-		border: none !important;
+		transition: $transition;
 		color: #fff;
-		border-radius: 0;
-		padding: 0;
-		margin-bottom: .5rem !important;
+		padding: .5rem 1rem;
+		background-color: lighten($primary-color, 10%) !important;
+		width: 100%;
 		display: flex;
-	    width: 100%;
-		>span {
-			padding: .5rem 1rem;
-		}
+		margin-bottom: .5rem;
+		text-decoration: none !important;
 
-		&:hover {
-			border: none;
-			background-color: rgba($secondary-color, 1) !important;
-			cursor: pointer;
-		}
-	}
-
-	@include e('rank') {
-		flex-grow: 1;
-		flex: 1 5%;
-	}
-
-	@include e('rift') {
-	  	flex-grow: 1;
-	  	flex: 1 5%;
-	}
-
-	@include e('class') {
-		flex-grow: 2;
-		flex: 1 25%;
-	}
-
-	@include e('hero') {
-	    flex-grow: 2;
-	    flex: 1 35%;
-	    text-align: right;
-	}
-
-	@include e('info') {
-		padding-bottom: 1rem;
-		color: #fff;
-
-		@media (max-width: 768px) {
-			justify-content: flex-end;
-		}
-
-		.list-group-item {
-			display: flex !important;
-			flex-wrap: wrap;
-		}
-
-		@include e('left') {
-			flex-grow: 1;
-		}
-
-		@include e('item') {
-		   	background-color: lighten($primary-color, 10%) !important;
-			color: #fff;
-			border-radius: 0;
-			padding: 0;
-			margin-bottom: .5rem !important;
-			border: none !important;
-
-			>span {
-				padding: .5rem 1rem;
-			}
-
+		@include m('link') {
 			&:hover {
+				color: #fff;
+				border: none;
 				background-color: rgba($secondary-color, 1) !important;
 				cursor: pointer;
+			}
+		}
+
+		@include m('header') {
+			background-color: darken($primary-color, 5%) !important;
+			margin-bottom: 0;
+			cursor: auto;
+
+			&:hover {
+				background-color: darken($primary-color, 5%) !important;
 			}
 		}
 	}
