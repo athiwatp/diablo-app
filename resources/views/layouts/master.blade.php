@@ -7,7 +7,7 @@
         var BASE_URL = '{!! url('/') !!}'
     </script>
 
-    <script src="/js/app.js"></script>
+    <script src="/js/app.js" async></script>
     @yield('js')
 </body>
 </html>
