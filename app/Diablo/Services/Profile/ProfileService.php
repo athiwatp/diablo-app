@@ -2,34 +2,23 @@
 
 namespace App\Diablo\Services\Profile;
 
-use DB;
+use App\Diablo\API\DiabloAPI;
+use App\Diablo\Services\Service;
+use App\Profile;
 
-class ProfileService
+class ProfileService extends Service
 {
-    public function insertOrUpdate(array $rows)
+    protected $update_method = 'getProfileData';
+
+    public function __construct(Profile $profile)
     {
-        $table = 'profiles';
-
-
-        $first = reset($rows);
-
-        $columns = implode(',',
-            array_map(function ($value) { return "$value"; }, array_keys($first))
-        );
-
-        $values = implode(',', array_map(function ($row) {
-                return '('.implode(',',
-                    array_map(function ($value) { return '"'.str_replace('"', '""', $value).'"'; }, $row)
-                ).')';
-            }, $rows)
-        );
-
-        $updates = implode( ',',
-            array_map(function ($value) { return "$value = VALUES($value)"; } ,array_keys($first))
-        );
-
-        $sql = "INSERT INTO {$table}({$columns}) VALUES {$values} ON DUPLICATE KEY UPDATE {$updates}";
-
-        return DB::statement($sql);
+        $this->bindApiInstance();
+        $this->model = $profile;
     }
+
+    public function update()
+    {
+        $this->callApi();
+        dd($this->response);
+    }    
 }
