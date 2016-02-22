@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Diablo\Services\Profile\ProfileService;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -14,6 +15,28 @@ class Profile extends Model
     protected $fillable = [
         'battle_tag', 'region'
     ];
+
+    /**
+     * Access Hero API
+     *
+     * @return Heroes
+     */
+    public function api()
+    {
+        return new ProfileService($this);
+    }
+
+    /**
+     * A Profile has many Rift Rankings
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function riftRankings()
+    {
+        return $this->hasMany(Leaderboard::class)
+            ->where('season', '=', true)
+            ->groupBy('period')
+            ->orderBy('rift_level', 'desc');
+    }
 
     /**
      * A Profile has many Heroes
@@ -33,5 +56,10 @@ class Profile extends Model
     public function leaderboards()
     {
         return $this->hasMany(Leaderboard::class);
+    }
+
+    public function stats()
+    {
+        return $this->hasOne(ProfileStat::class);
     }
 }
