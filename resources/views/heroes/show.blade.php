@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-    <input type="hidden" id="hero_id" value="{{ $id }}">
     <div id="app" page="heroesPage"></div>
 @stop
 
