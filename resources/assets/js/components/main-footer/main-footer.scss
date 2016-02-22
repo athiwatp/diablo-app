@@ -1,43 +1,55 @@
 @import "../../../sass/variables";
 @import '../../../sass/mixins';
 
-.icons {
-    justify-content: space-around;
-    margin-top: 5rem;
-    color: #fff;
-    display: flex;
+footer {
+    position: relative;
 
-    i {
-        font-size: 3em;
+    .footer {
+        background-color: rgba($secondary-color, 0.3);
+        padding: 1.344rem 0;
+        margin-top: 2rem;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         color: #fff;
-        padding: 2rem;
-        background-color: rgba($primary-color, 0.6);
-        transition: $transition;
-        width: 125px;
-        text-align: center;
+    }
 
-        &:hover {
-            background-color: rgba($primary-color, 0.8);
+    .banner {
+        height: 350px !important;
+
+        .banner__content {
+            padding-top: 0;
         }
     }
-
-    p {
-        text-align: center;
-    }
-}
-
-footer {
-    background-color: rgba($secondary-color, 0.3);
-    padding: 1.344rem 0;
-    margin-top: 2rem;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    color: #fff;
 
     .container {
         margin-top: 0;
         text-transform: none;
+    }
+
+    .icons {
+        justify-content: space-around;
+        margin-top: 3rem;
+        color: #fff;
+        display: flex;
+
+        i {
+            font-size: 3em;
+            color: #fff;
+            padding: 2rem;
+            background-color: rgba($primary-color, 0.6);
+            transition: $transition;
+            width: 125px;
+            text-align: center;
+
+            &:hover {
+                background-color: rgba($primary-color, 0.8);
+            }
+        }
+
+        p {
+            text-align: center;
+        }
     }
 }
