@@ -19,6 +19,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        Cache::forget('home-page');
         $data = Cache::remember('home-page', 60, function () {
             return $this->data();
         });
@@ -44,18 +45,7 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
-        $first_show = false;
-        $query->map(function ($i) use (&$first_show) {
-            if (! $first_show) {
-                $i->show = true;
-                $first_show = true;
-
-                return $i;
-            }
-            $i->show = false;
-
-            return $i;
-        });
+        $query->all()[0]['show'] = true;
 
         $ladders->put('softcore',
             [
@@ -73,18 +63,7 @@ class HomeController extends Controller
             ->limit(10)
             ->get();
 
-        $first_show = false;
-        $query->map(function ($i) use (&$first_show) {
-            if (! $first_show) {
-                $i->show = true;
-                $first_show = true;
-
-                return $i;
-            }
-            $i->show = false;
-            
-            return $i;
-        });
+        $query->all()[0]['show'] = true;
 
         $ladders->put('hardcore',
             [
