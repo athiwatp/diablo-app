@@ -2,6 +2,7 @@
 
 namespace App\Diablo\API;
 
+use App\Hero;
 use johnleider\BattleNet\Diablo;
 
 class DiabloAPI
@@ -24,10 +25,10 @@ class DiabloAPI
 	public function __construct()
 	{
 		$this->api = new Diablo(
-                env('BATTLENET_API_KEY'),
-                env('BATTLENET_API_SECRET'),
-                env('BATTLENET_API_TOKEN')
-            );
+            env('BATTLENET_API_KEY'),
+            env('BATTLENET_API_SECRET'),
+            env('BATTLENET_API_TOKEN')
+        );
 	}
 
     /**
@@ -95,22 +96,13 @@ class DiabloAPI
      * @param $heroes
      * @return array|Diablo|\stdClass
      */
-    public function getHeroData($heroes)
+    public function getHeroData(Hero $hero)
     {
-        if (! is_array($heroes)) {
-            $this->api->setRegion($heroes->region);
+        $this->api->setRegion($hero->region);
 
-            return $this->api
-                ->hero($heroes->profile->battle_tag, $heroes->battlenet_hero_id)
-                ->get();
-        }
-
-        foreach ($heroes as $hero) {
-            $this->api->setRegion($hero->region);
-            $this->api->hero($hero->battle_tag, $hero->battlenet_hero_id);
-        }
-
-        return $this->api->get();
+        return $this->api
+            ->hero($hero->profile->battle_tag, $hero->battlenet_hero_id)
+            ->get();
     }
 
     /**
@@ -123,10 +115,6 @@ class DiabloAPI
     {
         $this->api->setRegion('us');
 
-        if (! is_array($items)) {
-            return $this->api->item($items);
-        }
-
         foreach ($items as $item) {
             $this->api->item($item);
         }
@@ -135,12 +123,15 @@ class DiabloAPI
     }
 
     /**
-     * Perform the API Request
-     *
-     * @return array|\stdClass
+     * Query Battlenet API for Profile
+     * @param  $profile
+     * @return stdClass
      */
-    public function get()
+    public function getProfileData($profile)
     {
+        $this->api->setRegion($profile->region);
+        $this->api->careerProfile($profile->battle_tag);
+
         return $this->api->get();
     }
 }
