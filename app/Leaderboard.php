@@ -26,6 +26,15 @@ class Leaderboard extends Model
     ];
 
     /**
+     * The model casts
+     * 
+     * @var array
+     */
+    protected $casts = [
+        'season' => 'boolean'
+    ];
+
+    /**
      * A Leaderboard belongs to a Hero
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
-    Route::get('profiles/{profile}', 'ProfileController@update');
+    Route::patch('profiles/{profile}', 'ProfileController@update');
 });
 
 Route::group(['middleware' => 'web'], function () {

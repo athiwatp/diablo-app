@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Diablo\Services\Profile\ProfileService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -15,6 +16,11 @@ class Profile extends Model
     protected $fillable = [
         'battle_tag', 'region'
     ];
+
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->diffForHumans();
+    }
 
     /**
      * Access Hero API
@@ -45,7 +51,9 @@ class Profile extends Model
      */
     public function heroes()
     {
-        return $this->hasMany(Hero::class);
+        return $this->hasMany(Hero::class)
+            ->orderBy('season', 'desc')
+            ->orderBy('name');
     }
 
     /**

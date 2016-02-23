@@ -14,14 +14,7 @@ export default {
     },
 
     update (id, cb) {
-        http.patch('/api/profiles/' + id, data => {
-            if (data.status == 'queued') {
-                // Queued, do something
-                console.log('Hero update queued');
-            } else {
-                this.state = data;
-            }
-
+        http.patch('/api/profiles/' + id, () => {
             if (cb) {
                 cb();
             }

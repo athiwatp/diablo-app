@@ -2,14 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Hero;
 use App\Jobs\Job;
-use Log;
+use App\Profile;
 use Cache;
 use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Log;
 
 class UpdateProfile extends Job implements ShouldQueue
 {
@@ -22,7 +22,7 @@ class UpdateProfile extends Job implements ShouldQueue
      *
      * @param Hero $hero
      */
-    public function __construct(Hero $profile)
+    public function __construct(Profile $profile)
     {
         $this->profile = $profile;
     }

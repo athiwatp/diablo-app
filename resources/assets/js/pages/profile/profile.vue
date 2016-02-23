@@ -1,4 +1,6 @@
-<style>
+<style lang="scss">
+    @import '../../../sass/mixins';
+
     .profile-page .banner {
         height: 450px;
     }
@@ -9,6 +11,36 @@
 
     .profile-section {
         padding: 0 1rem;
+    }
+
+    .block {
+        .block__footer:not(:last-child) {
+            margin-bottom: .5rem;
+        }
+    }
+
+    .list {
+        @include m('profile') {
+            li {
+                display: flex;
+                align-items: center;
+            }
+
+            @include e('title') {
+                text-align: left;
+            }
+
+            @include e('statistic') {
+                font-weight: 900;
+                font-size: 2rem;
+                text-align: right;
+
+                @include m('small') {
+                    font-size: 1.5rem;
+                    text-align: right;
+                }
+            }
+        }
     }
 </style>
 <template>
@@ -26,6 +58,7 @@
         </banner>
 
         <div class="content">
+            <message></message>
             <h2 class="section-header">Profile</h2>
             <section class="profile-section">
                 <div class="container-fluid">
@@ -35,7 +68,7 @@
                                 <div class="block__body">
                                     <a href="#">Battle.net</a>
                                     <p>
-                                        <small>Last Updated: {{ state.updated_at }}</small>
+                                        <small>Last Updated: {{ state.updated_at || 'Never' }}</small>
                                     </p>
                                     <button class="btn btn--secondary btn-lg"
                                             @click="updateProfile"
@@ -51,6 +84,69 @@
                                         >
                                             <span class="flex-50">{{ ranking.players }} Players</span>
                                             <span class="flex-50">{{ ranking.rift_level }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="block__footer">
+                                    <h5 class="block__footer__header">Season</h5>
+                                    <ul class="list list--profile">
+                                        <li>
+                                            <span class="flex-50 list--profile__title">
+                                                Paragon
+                                            </span>
+                                            <span class="flex-50 text--tertiary list--profile__statistic"
+                                                  v-text="state.stats.paragon_level_season | number"
+                                            ></span>
+                                        </li>
+                                        <li>
+                                            <span class="flex-50 list--profile__title">
+                                                Paragon Hardcore
+                                            </span>
+                                            <span class="flex-50 text--quinary list--profile__statistic"
+                                                  v-text="state.stats.paragon_level_season_hardcore | number"
+                                            ></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="block__footer">
+                                    <h5 class="block__footer__header">Era</h5>
+                                    <ul class="list list--profile">
+                                        <li>
+                                            <span class="flex-50 list--profile__title">
+                                                Paragon
+                                            </span>
+                                            <span class="flex-50 text--quaternary list--profile__statistic"
+                                                  v-text="state.stats.paragon_level | number"
+                                            ></span>
+                                        </li>
+                                        <li>
+                                            <span class="flex-50 list--profile__title">
+                                                Paragon Hardcore
+                                            </span>
+                                            <span class="flex-50 text--secondary list--profile__statistic"
+                                                  v-text="state.stats.paragon_level_hardcore | number"
+                                            ></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="block__footer">
+                                    <h5 class="block__footer__header">Statistics</h5>
+                                    <ul class="list list--profile">
+                                        <li>
+                                            <span class="flex-50 list--profile__title">
+                                                Monster Kills
+                                            </span>
+                                            <span class="flex-50 list--profile__statistic--small"
+                                                  v-text="state.stats.kills_monsters | number"
+                                            ></span>
+                                        </li>
+                                        <li>
+                                            <span class="flex-50 list--profile__title">
+                                                Elite Kills
+                                            </span>
+                                            <span class="flex-50 list--profile__statistic--small"
+                                                  v-text="state.stats.kills_elites | number"
+                                            ></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -102,6 +198,7 @@
     </div>
 </template>
 <script>
+    import message from '../../components/message/message.vue';
     import banner from '../../components/banner/banner.vue';
     import mainNavbar from '../../components/main-navbar/main-navbar.vue';
     import mainFooter from '../../components/main-footer/main-footer.vue';
@@ -110,7 +207,15 @@
         data: function () {
             return {
                 state: {
-                    heroes: []
+                    heroes: [],
+                    stats: {
+                        paragon_level: 0,
+                        paragon_level_hardore: 0,
+                        paragon_level_season: 0,
+                        paragon_level_season_hardcore: 0,
+                        kills_monsters: 0,
+                        kills_elites: 0
+                    }
                 },
                 topBannerParameters: {
                     background: 'url("http://html.nkdev.info/youplay/dark/assets/images/banner-blog-bg.jpg") no-repeat fixed',
@@ -121,7 +226,17 @@
 
         props: ['data', 'page'],
 
-        components: {banner, mainNavbar, mainFooter},
+        components: {message, banner, mainNavbar, mainFooter},
+
+        watch: {
+            'state.queued' (value) {
+                if (value == true) {
+                    this.$broadcast('message:show', 'success', 'fa-refresh', 'Profile is currently in queue');
+                } else {
+                    this.$broadcast('message:hide');
+                }
+            }
+        },
 
         ready () {
             this.init();
@@ -134,7 +249,7 @@
 
             updateProfile () {
                 this.state.queued = true;
-                profilesStore.update(this.state.id);
+                this.$http.patch('/api/profiles/' + this.state.id);
             }
         }
     }

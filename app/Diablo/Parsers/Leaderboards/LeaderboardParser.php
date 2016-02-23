@@ -11,7 +11,7 @@ class LeaderboardParser
      *
      * @var
      */
-    public $self;
+    public $self = [];
 
     /**
      * Parsed leaderboard
@@ -115,6 +115,12 @@ class LeaderboardParser
                     unset($ranking[$rank]);
                 }
             }
+
+            $ranking['class'] = str_replace(' ', '-', $ranking['class']);
+
+            $ranking['gender'] = $ranking['gender'] == 'm'
+                ? 1
+                : 0;
 
             $this->leaderboard[] = $ranking;
             $i++;

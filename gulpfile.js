@@ -24,9 +24,10 @@ elixir(function(mix) {
 
     // JS libs
     .scripts([
-        'libs/d3tooltip.js'
+        'libs/d3tooltip.js',
+        'libs/parallax.min.js'
     ], 'public/js/libs.js')
 
     // Browsersync
-    .browserSync();
+    .browserSync({open: false, proxy: 'hs.diablo.dev'});
 });

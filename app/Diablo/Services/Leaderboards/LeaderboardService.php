@@ -2,8 +2,8 @@
 
 namespace App\Diablo\Services\Leaderboards;
 
+use App\{Leaderboard, Profile, ProfileStat, Hero};
 use Illuminate\Foundation\Bus\DispatchesJobs;
-use App\{Leaderboard, Profile, Hero};
 
 class LeaderboardService
 {
@@ -25,6 +25,10 @@ class LeaderboardService
             $profile->region = $record['region'];
             $profile->save();
         }
+
+        ProfileStat::updateOrCreate([
+            'profile_id' => $profile->id
+        ]);
 
         $hero = Hero::updateOrCreate([
             'battlenet_hero_id' => $record['battlenet_hero_id'],

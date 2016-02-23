@@ -64,6 +64,8 @@ class HeroService
      */
     private $followers;
 
+    protected $update_method = 'getHeroData';
+
     /**
      * HeroService constructor
      *
@@ -102,7 +104,7 @@ class HeroService
         $this->legendary_powers->update($this->response->legendaryPowers);
         $this->stats->update($this->response->stats);
         // $this->followers->update($this->response->followers);
-        $this->updateModel($this->response);
+        $this->updateModel();
 
         return $this->model;
     }
@@ -134,27 +136,6 @@ class HeroService
     }
 
     /**
-     * Check for valid response from API
-     * 
-     * @return boolean
-     */
-    private function apiHasNoResponse() : bool
-    {
-        return isset($this->response->code) || is_null($this->response);
-    }
-
-    /**
-     * Get response from API
-     * 
-     * @return void
-     */
-    private function callApi()
-    {
-        $this->response = $this->api->getHeroData($this->model);
-        dd($this->response);
-    }
-
-    /**
      * Save the Hero Model
      * 
      * @return void
@@ -165,16 +146,5 @@ class HeroService
         $this->model->queued_at = Carbon::now();
         $this->model->queued = false;
         $this->model->save();
-    }
-
-    /**
-     * Bind the API instance to the container
-     * 
-     * @return void
-     */
-    private function bindApiInstance()
-    {
-        $this->api = new DiabloAPI;
-        app()->instance('api', $this->api);
     }
 }

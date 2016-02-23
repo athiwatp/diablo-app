@@ -20,6 +20,7 @@ class CreateProfileStatsTable extends Migration
             $table->integer('paragon_level')->nullable();
             $table->integer('paragon_level_hardcore')->nullable();
             $table->integer('paragon_level_season')->nullable();
+            $table->integer('paragon_level_season_hardcore')->nullable();
             $table->integer('kills_monsters')->nullable();
             $table->integer('kills_elites')->nullable();
             $table->timestamps();

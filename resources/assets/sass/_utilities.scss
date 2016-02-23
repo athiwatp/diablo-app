@@ -9,9 +9,17 @@
     @include m('secondary') {
         color: $secondary-color !important;
     }
-
+    
     @include m('tertiary') {
         color: $tertiary-color !important;
+    }
+    
+    @include m('quaternary') {
+        color: $quaternary-color !important;
+    }
+
+    @include m('quinary') {
+        color: $quinary-color !important;
     }
 
     @include m('barbarian') {
