@@ -25,6 +25,9 @@ class ProfileController extends Controller
     {
         $profile->load('heroes', 'riftRankings', 'stats');
 
+        $profile->setQueuable();
+        $profile->setAvailableIn();
+
         return view('profiles.show', compact('profile')); 
     }
 
@@ -32,6 +35,7 @@ class ProfileController extends Controller
     {
         $profile->api()->update();
         $profile->queued = true;
+        $profile->queued_at = Carbon::now();
         $profile->save();
 
         $job = (new UpdateProfile($profile))->onQueue('profiles');

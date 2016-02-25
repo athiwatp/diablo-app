@@ -24,8 +24,7 @@ elixir(function(mix) {
 
     // JS libs
     .scripts([
-        'libs/d3tooltip.js',
-        'libs/parallax.min.js'
+        'libs/d3tooltip.js'
     ], 'public/js/libs.js')
 
     // Browsersync

@@ -2,34 +2,16 @@
 
 namespace App\Console\Commands;
 
-use App\Diablo\Services\Leaderboards\LeaderboardService;
-use App\Diablo\Parsers\Leaderboards\LeaderboardParser;
-use App\Diablo\API\DiabloAPI;
 use App\Jobs\UpdateLeaderboard;
+use App\Rankings\API\DiabloAPI;
+use App\Rankings\Parsers\Leaderboards\LeaderboardParser;
+use App\Rankings\Services\Leaderboards\LeaderboardService;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class Leaderboard extends Command
 {
     use DispatchesJobs;
-    
-    /**
-     * Leaderboard service
-     * @var object
-     */
-    private $service;
-
-    /**
-     * Leaderboard API
-     * @var object
-     */
-    private $api;
-
-    /**
-     * Leaderboard Parser
-     * @var object
-     */
-    private $parser;
 
     /**
      * The name and signature of the console command.
@@ -37,13 +19,27 @@ class Leaderboard extends Command
      * @var string
      */
     protected $signature = 'leaderboard:update {mode} {period} {limit}';
-
     /**
      * The console command description
      *
      * @var string
      */
     protected $description = 'Update ladder records';
+    /**
+     * Leaderboard service
+     * @var object
+     */
+    private $service;
+    /**
+     * Leaderboard API
+     * @var object
+     */
+    private $api;
+    /**
+     * Leaderboard Parser
+     * @var object
+     */
+    private $parser;
 
     /**
      * Create a new command instance.
@@ -56,7 +52,8 @@ class Leaderboard extends Command
         LeaderboardParser $parser,
         LeaderboardService $service,
         DiabloAPI $api
-    ) {
+    )
+    {
         parent::__construct();
 
         $this->parser = $parser;
@@ -76,16 +73,19 @@ class Leaderboard extends Command
         $this->info('Updating leaderboards...');
         $t = microtime(true);
 
-        $request = $this->api->getLeaderboardData(
+        $request = $this->api->leaderboards(
             $this->argument('mode'),
             $this->argument('period')
         );
 
-        $rankings = $this->parser->parse($request, $this->argument('limit'));
+        $rankings = $this->parser->parse(
+            $request,
+            $this->argument('limit')
+        );
 
         $bar = $this->output->createProgressBar(count($rankings));
         foreach ($rankings as $record) {
-            if (is_null($record['battle_tag'])) {
+            if (is_null($record->battle_tag)) {
                 continue;
             }
 

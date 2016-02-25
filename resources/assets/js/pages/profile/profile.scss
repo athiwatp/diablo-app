@@ -1,0 +1,43 @@
+@import '../../../sass/mixins';
+
+.profile-page .banner {
+  height: 450px;
+}
+
+.content {
+  margin-top: 0.5rem;
+}
+
+.profile-section {
+  padding: 0 1rem;
+}
+
+.block {
+  .block__footer:not(:last-child) {
+    margin-bottom: .5rem;
+  }
+}
+
+.list {
+  @include m('profile') {
+    li {
+      display: flex;
+      align-items: center;
+    }
+
+    @include e('title') {
+      text-align: left;
+    }
+
+    @include e('statistic') {
+      font-weight: 900;
+      font-size: 2rem;
+      text-align: right;
+
+      @include m('small') {
+        font-size: 1.5rem;
+        text-align: right;
+      }
+    }
+  }
+}

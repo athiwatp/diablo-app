@@ -17,6 +17,7 @@ class CreateHeroTable extends Migration
             $table->integer('profile_id')->unsigned();
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->integer('battlenet_hero_id')->unsigned();
+            $table->string('battle_tag');
             $table->enum('class', ['barbarian', 'crusader', 'demon-hunter', 'monk', 'witch-doctor', 'wizard']);
             $table->boolean('gender');
             $table->boolean('hardcore');

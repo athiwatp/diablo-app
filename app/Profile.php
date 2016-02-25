@@ -17,9 +17,42 @@ class Profile extends Model
         'battle_tag', 'region'
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'queued_at'
+    ];
+
+    /**
+     * @param $value
+     * @return string
+     */
     public function getUpdatedAtAttribute($value)
     {
         return Carbon::parse($value)->diffForHumans();
+    }
+
+    /**
+     * @return bool
+     */
+    public function setQueuable()
+    {
+        if (is_null($this->queued_at)) {
+            $this->queuable = true;
+        } else {
+            $this->queuable = Carbon::now()->addHours(12)->lte($this->queued_at);
+        }
+
+    }
+
+    public function setAvailableIn()
+    {
+        if (is_null($this->queued_at)) {
+            $this->available_in = null;
+        } else {
+            $this->available_in = $this->queued_at->addHours(12)->diffForHumans();
+        }
+
     }
 
     /**
