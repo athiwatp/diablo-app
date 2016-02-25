@@ -9,7 +9,9 @@
 
         <main-navbar :page="page"></main-navbar>
 
-        <banner :parameters.once="topBannerParameters">
+        <banner :parameters.once="topBannerParameters"
+                id="top-banner"
+        >
             <div>
                 <h1>{{ state.battle_tag }}</h1>
                 <h3>{{ state.stats && state.stats.clan_name || '' }}</h3>
