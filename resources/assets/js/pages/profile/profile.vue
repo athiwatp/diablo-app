@@ -44,65 +44,67 @@
                                         Update
                                     </button>
                                 </div>
-                                <div class="block__footer">
-                                    <h5 class="block__footer__header">Greater rift</h5>
-                                    <ul class="list">
-                                        <li class="list__item m-b-0"
-                                            v-for="ranking in state.rift_rankings"
-                                        >
-                                            <span class="flex-50">{{ ranking.players }} Players</span>
-                                            <span class="flex-50">{{ ranking.rift_level }}</span>
-                                        </li>
-                                    </ul>
+                                <div class="block__body block__body--flush">
+                                    <div class="block__row">
+                                        <h5 class="block__header">Greater rift</h5>
+                                        <ul class="list">
+                                            <li class="list__item m-b-0"
+                                                v-for="ranking in state.rift_rankings"
+                                            >
+                                                <span class="flex-50">{{ ranking.players }} Players</span>
+                                                <span class="flex-50">{{ ranking.rift_level }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="block__footer"
+                                <div class="block__body"
                                      v-if="state.stats"
                                 >
-                                    <div class="block__footer">
-                                        <h5 class="block__footer__header">Season</h5>
+                                    <div class="block__row">
+                                        <h5 class="block__header">Season</h5>
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
-                                                <h3 class="text--tertiary profile-info__header">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 block__col divider">
+                                                <h3 class="text--tertiary block__col__header">
                                                     {{ state.stats.paragon_level_season | number }}
                                                 </h3>
                                                 <small>softcore</small>
                                             </div>
-                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
-                                                <h3 class="text--secondary profile-info__header">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 block__col">
+                                                <h3 class="text--secondary block__col__header">
                                                     {{ state.stats.paragon_level_season_hardcore | number }}
                                                 </h3>
                                                 <small>hardcore</small>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="block__footer">
-                                        <h5 class="block__footer__header">Era</h5>
+                                    <div class="block__row">
+                                        <h5 class="block__header">Era</h5>
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
-                                                <h3 class="text--tertiary profile-info__header">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 block__col divider">
+                                                <h3 class="text--tertiary block__col__header">
                                                     {{ state.stats.paragon_level | number }}
                                                 </h3>
                                                 <small>softcore</small>
                                             </div>
-                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
-                                                <h3 class="text--secondary profile-info__header">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 block__col">
+                                                <h3 class="text--secondary">
                                                     {{ state.stats.paragon_level_hardcore | number }}
                                                 </h3>
                                                 <small>hardcore</small>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="block__footer m-b-0">
-                                        <h5 class="block__footer__header">Statistics</h5>
+                                    <div class="block__row">
+                                        <h5 class="block__header">Statistics</h5>
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
-                                                <h5 class="text--quaternary profile-info__header">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 block__col divider">
+                                                <h5 class="text--quaternary block__col__header">
                                                     {{ state.stats.kills_monsters | number }}
                                                 </h5>
                                                 <small>monsters</small>
                                             </div>
-                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
-                                                <h5 class="text--quaternary profile-info__header">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 block__col">
+                                                <h5 class="text--quaternary block__col__header">
                                                     {{ state.stats.kills_elites | number }}
                                                 </h5>
                                                 <small>elites</small>

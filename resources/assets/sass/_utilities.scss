@@ -68,3 +68,29 @@
     flex: 1 #{$i}0%;
   }
 }
+
+.divider:after {
+  content: " ";
+  position: absolute;
+  right: -1px;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: lighten($primary-color, 10%);
+
+  @media (max-width: 768px) {
+    left: 0;
+    bottom: 0;
+    top: unset;
+    width: 40%;
+    height: 1px;
+    margin: 0px auto;
+    text-align: center;
+  }
+}
+
+.battlenet-link {
+  transition: $transition;
+  font-size: 2rem;
+  text-decoration: none !important;
+}
