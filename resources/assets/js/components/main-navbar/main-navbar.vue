@@ -11,7 +11,7 @@
                 <img :src="logo"
                  alt="logo"
                  class="nav__logo__img">
-                 <span class="nav__logo__text">Diablo Rankings</span>
+                 <span class="nav__logo__text"><span class="text--secondary">Diablo</span> Rankings</span>
             </a>
             <ul class="nav__items">
                 <li class="nav__item"
