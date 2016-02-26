@@ -1,48 +1,84 @@
 <style lang="scss">
-    @import '../../../sass/_variables.scss';
-
-    .power {
-        min-height: 80px;
-    }
-    .power__icon {
-        margin-top: -5px;
-        display: inline-block;
-        float: left;
-    }
-
-    .power__label {
-        display: inline-block;
-        float: left;
-        width: 85%;
-        margin-top: 15px;
-    }
-
-    .hero-aside .list-group-item:hover {
-        background-color: #fff;
-        color: $secondary-color;
-    }
-
-    .gear .row .col-md-4:last-child {
-        margin-left: 33.333333333333%;
-    }
 </style>
 
 <template>
     <div id="page">
-        <header>
-            <main-navbar></main-navbar>
-        </header>
+        <main-navbar></main-navbar>
 
-        <div class="container">
+        <banner :parameters.once="topBannerParameters"
+                id="top-banner"
+                class="banner--slim"
+        >
+            <div>
+                <h1>{{ state.name || 'New Record' }}</h1>
+                <h3>{{ state.clan_name || '' }}</h3>
+                <h6>{{ state.region | region}}</h6>
+            </div>
+        </banner>
+
+        <div class="content">
+            <message></message>
+            <h2 class="section-header">Hero</h2>
+            <section class="hero-section">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 col-xs-12">
+                            <div class="block">
+                                <div class="block__body">
+                                    <img :src="state.class | classCrest"
+                                         alt="portrait"
+                                         class="img-fluid img-center"
+                                    >
+                                    <a href="#"
+                                       class="battlenet-link"
+                                    >
+                                        Battle.net
+                                    </a>
+                                    <p>
+                                        <small>Update Available: {{ state.available_in || 'Now' }}</small>
+                                    </p>
+                                    <button class="btn btn--secondary btn-lg"
+                                            @click="updateProfile"
+                                            :disabled="! state.queuable"
+                                    >
+                                        Update
+                                    </button>
+                                </div>
+                                <div class="block__footer">
+                                    <h5 class="block__footer__header">Greater rift</h5>
+                                    <ul class="list">
+                                        <li class="list__item m-b-0"
+                                            v-for="ranking in state.leaderboards"
+                                        >
+                                            <span class="flex-50">{{ ranking.players }} Players</span>
+                                            <span class="flex-50">{{ ranking.rift_level }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="block__footer">
+                                    <div class="profile-info">
+                                        <h3 class="text--tertiary profile-info__header">
+                                            {{ state.paragon_level | number }}
+                                        </h3>
+                                        <small>paragon</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
+
+        <main-footer></main-footer>
     </div>
 </template>
 
 <script>
-    import heroesStore from '../../stores/heroes';
+    import message from '../../components/message/message.vue';
+    import banner from '../../components/banner/banner.vue';
     import mainNavbar from '../../components/main-navbar/main-navbar.vue';
-    import note from '../../components/notes/note.vue';
-    import gearBlock from '../../components/hero/gear-block.vue';
+    import mainFooter from '../../components/main-footer/main-footer.vue';
 
     export default {
         data () {
@@ -54,11 +90,17 @@
                         toughness: 0,
                         healing: 0
                     }
+                },
+                topBannerParameters: {
+                    background: 'url("http://3.bp.blogspot.com/-eR6-WzxRxn4/UWy-owwLWQI/AAAAAAAAQS4/Dhh6XXtFh8c/s1600/diablo-3-barbarian-wallpapers_1680x1050.jpg") no-repeat fixed',
+                    backgroundPosition: '50% 0'
                 }
             }
         },
 
-        components: { mainNavbar, note, gearBlock },
+        components: {message, banner, mainNavbar, mainFooter},
+
+        props: ['data'],
 
         filters: {
             active (obj) {
@@ -99,17 +141,12 @@
         },
 
         ready () {
-            var id = document.getElementById('hero_id').value;
-
-            heroesStore.byId(id, () => {
-                this.state = heroesStore.state;
-            });
+            this.init();
         },
 
         methods: {
-            update () {
-                this.state.queued = true;
-                heroesStore.update(this.state.id);
+            init () {
+                this.state = JSON.parse(this.data);
             }
         }
     }

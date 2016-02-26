@@ -1,8 +1,5 @@
 @import '../../../sass/mixins';
-
-.profile-page .banner {
-  height: 450px;
-}
+@import '../../../sass/variables';
 
 .content {
   margin-top: 0.5rem;
@@ -16,6 +13,45 @@
   .block__footer:not(:last-child) {
     margin-bottom: .5rem;
   }
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  position: relative;
+
+  &:first-child:after {
+    content: " ";
+    position: absolute;
+    right: -1px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: lighten($primary-color, 10%);
+
+    @media (max-width: 768px) {
+      left: 0;
+      bottom: 0;
+      top: unset;
+      width: 40%;
+      height: 1px;
+      margin: 0px auto;
+      text-align: center;
+    }
+  }
+
+  @include e('header') {
+    margin-right: -5px;
+  }
+}
+
+.battlenet-link {
+  transition: $transition;
+  font-size: 2rem;
+  text-decoration: none !important;
 }
 
 .list {

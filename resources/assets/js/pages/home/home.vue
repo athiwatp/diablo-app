@@ -4,7 +4,7 @@
 
 <template>
     <div id="page">
-        <main-header :page="page"></main-header>
+        <main-header></main-header>
         
         <banner :parameters.once="topBannerParameters"
                 id="top-banner"
@@ -74,7 +74,7 @@
             }
         },
 
-        props: ['data', 'page'],
+        props: ['data'],
 
         components: { mainHeader, banner, mainFooter, leaderboardCard },
 

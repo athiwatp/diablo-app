@@ -14,8 +14,12 @@
         margin-bottom: .5rem;
 
         &:hover {
-            background-color: $secondary-color;
-            border-color: $secondary-color;
+            background-color: rgba($secondary-color, 0.4);
+            border-color: transparent;
+        }
+
+        &:focus {
+            outline: rgba($secondary-color, 0.4) !important;
         }
     }
 }

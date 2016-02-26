@@ -40,19 +40,25 @@ class Profile extends Model
         if (is_null($this->queued_at)) {
             $this->queuable = true;
         } else {
-            $this->queuable = Carbon::now()->addHours(12)->lte($this->queued_at);
+            $this->queuable = $this->queued_at->addHours(12)->lte(Carbon::now());
         }
 
     }
 
+    /**
+     * Set available in dynamic attribute
+     */
     public function setAvailableIn()
     {
         if (is_null($this->queued_at)) {
             $this->available_in = null;
         } else {
-            $this->available_in = $this->queued_at->addHours(12)->diffForHumans();
-        }
+            $available = $this->queued_at->addHours(12)->lte(Carbon::now());
 
+            $this->available_in = $available
+                ? null
+                : $this->queued_at->addHours(12)->diffForHumans();
+        }
     }
 
     /**

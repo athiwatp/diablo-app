@@ -7,10 +7,11 @@
          class="profile-page"
     >
 
-        <main-navbar :page="page"></main-navbar>
+        <main-navbar></main-navbar>
 
         <banner :parameters.once="topBannerParameters"
                 id="top-banner"
+                class="banner--slim"
         >
             <div>
                 <h1>{{ state.battle_tag }}</h1>
@@ -28,7 +29,11 @@
                         <div class="col-md-4 col-sm-12 col-xs-12">
                             <div class="block">
                                 <div class="block__body">
-                                    <a href="#">Battle.net</a>
+                                    <a href="#"
+                                       class="battlenet-link"
+                                    >
+                                        Battle.net
+                                    </a>
                                     <p>
                                         <small>Update Available: {{ state.available_in || 'Now' }}</small>
                                     </p>
@@ -42,7 +47,7 @@
                                 <div class="block__footer">
                                     <h5 class="block__footer__header">Greater rift</h5>
                                     <ul class="list">
-                                        <li class="list__item"
+                                        <li class="list__item m-b-0"
                                             v-for="ranking in state.rift_rankings"
                                         >
                                             <span class="flex-50">{{ ranking.players }} Players</span>
@@ -53,71 +58,57 @@
                                 <div class="block__footer"
                                      v-if="state.stats"
                                 >
-                                    <h5 class="block__footer__header">Season</h5>
-                                    <ul class="list list--profile">
-                                        <li>
-                                            <span class="flex-50 list--profile__title">
-                                                Paragon
-                                            </span>
-                                            <span class="flex-50 text--tertiary list--profile__statistic"
-                                                  v-text="state.stats.paragon_level_season | number"
-                                            ></span>
-                                        </li>
-                                        <li>
-                                            <span class="flex-50 list--profile__title">
-                                                Paragon Hardcore
-                                            </span>
-                                            <span class="flex-50 text--secondary list--profile__statistic"
-                                                  v-text="state.stats.paragon_level_season_hardcore | number"
-                                            ></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="block__footer"
-                                     v-if="state.stats"
-                                >
-                                    <h5 class="block__footer__header">Era</h5>
-                                    <ul class="list list--profile">
-                                        <li>
-                                            <span class="flex-50 list--profile__title">
-                                                Paragon
-                                            </span>
-                                            <span class="flex-50 text--tertiary list--profile__statistic"
-                                                  v-text="state.stats.paragon_level | number"
-                                            ></span>
-                                        </li>
-                                        <li>
-                                            <span class="flex-50 list--profile__title">
-                                                Paragon Hardcore
-                                            </span>
-                                            <span class="flex-50 text--secondary list--profile__statistic"
-                                                  v-text="state.stats.paragon_level_hardcore | number"
-                                            ></span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="block__footer"
-                                     v-if="state.stats"
-                                >
-                                    <h5 class="block__footer__header">Statistics</h5>
-                                    <ul class="list list--profile">
-                                        <li>
-                                            <span class="flex-50 list--profile__title">
-                                                Monster Kills
-                                            </span>
-                                            <span class="flex-50 list--profile__statistic--small"
-                                                  v-text="state.stats.kills_monsters | number"
-                                            ></span>
-                                        </li>
-                                        <li>
-                                            <span class="flex-50 list--profile__title">
-                                                Elite Kills
-                                            </span>
-                                            <span class="flex-50 list--profile__statistic--small"
-                                                  v-text="state.stats.kills_elites | number"
-                                            ></span>
-                                        </li>
-                                    </ul>
+                                    <div class="block__footer">
+                                        <h5 class="block__footer__header">Season</h5>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
+                                                <h3 class="text--tertiary profile-info__header">
+                                                    {{ state.stats.paragon_level_season | number }}
+                                                </h3>
+                                                <small>softcore</small>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
+                                                <h3 class="text--secondary profile-info__header">
+                                                    {{ state.stats.paragon_level_season_hardcore | number }}
+                                                </h3>
+                                                <small>hardcore</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block__footer">
+                                        <h5 class="block__footer__header">Era</h5>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
+                                                <h3 class="text--tertiary profile-info__header">
+                                                    {{ state.stats.paragon_level | number }}
+                                                </h3>
+                                                <small>softcore</small>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
+                                                <h3 class="text--secondary profile-info__header">
+                                                    {{ state.stats.paragon_level_hardcore | number }}
+                                                </h3>
+                                                <small>hardcore</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="block__footer m-b-0">
+                                        <h5 class="block__footer__header">Statistics</h5>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
+                                                <h5 class="text--quaternary profile-info__header">
+                                                    {{ state.stats.kills_monsters | number }}
+                                                </h5>
+                                                <small>monsters</small>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 col-xs-12 profile-info">
+                                                <h5 class="text--quaternary profile-info__header">
+                                                    {{ state.stats.kills_elites | number }}
+                                                </h5>
+                                                <small>elites</small>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +122,7 @@
                                 </li>
                                 <a class="list__item list__item--link list__item--link--{{ hero.hardcore ? 'hardcore' : 'softcore' }}"
                                     v-for="hero in state.heroes"
-                                    href="#"
+                                    href="/heroes/{{ hero.id }}"
                                 >
 
                                     <span class="flex-30"
@@ -194,7 +185,7 @@
             }
         },
 
-        props: ['data', 'page'],
+        props: ['data'],
 
         components: {message, banner, mainNavbar, mainFooter},
 

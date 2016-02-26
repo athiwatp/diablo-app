@@ -47,20 +47,24 @@
     }
 }
 
-.caret {
-      display: inline-block;
-      width: 0px;
-      height: 0px;
-      margin-left: 2px;
-      vertical-align: middle;
-      border-top: 4px dashed;
-      border-right: 4px solid transparent;
-      border-left: 4px solid transparent;
-      margin-top: 10px;
-  }
+.img-center {
+  margin: 0 auto;
+}
 
-  @for $i from 1 through 10 {
-    .flex-#{$i}0 {
-      flex: 1 #{$i}0%;
-    }
+.caret {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    margin-top: 10px;
+}
+
+@for $i from 1 through 10 {
+  .flex-#{$i}0 {
+    flex: 1 #{$i}0%;
   }
+}
