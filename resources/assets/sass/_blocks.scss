@@ -6,12 +6,40 @@
 	color: #fff;
 	text-align: center;
 
+    @include m('gear') {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none !important;
+        color: #fff !important;
+        transition: $transition;
+
+        &:hover {
+            background-color: lighten($primary-color, 15%) !important;
+        }
+
+        .block__body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 143px;
+        }
+
+        @include e('img') {
+            margin: 0 0 auto 0;
+        }
+
+        @include e('text') {
+            margin: auto 0 0 0 !important;
+        }
+    }
+
 	@include e('body') {
-		padding: 0 1rem 1rem 1rem;
+		padding: 1rem;
 
         @include m('flush') {
-            padding-left: 0;
-            padding-right: 0;
+            padding: 0;
         }
 
         &:last-child {

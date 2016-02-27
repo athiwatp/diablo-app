@@ -17,6 +17,10 @@
 		margin-bottom: .5rem;
 		text-decoration: none !important;
 
+        &:last-child {
+            margin-bottom: 0;
+        }
+
 		@include m('link') {
 
 			&:hover {

@@ -5,7 +5,7 @@
     <div id="page">
         <main-navbar></main-navbar>
 
-        <banner :parameters.once="topBannerParameters"
+        <banner :parameters="topBannerParameters"
                 id="top-banner"
                 class="banner--slim"
         >
@@ -38,30 +38,57 @@
                                         <small>Update Available: {{ state.available_in || 'Now' }}</small>
                                     </p>
                                     <button class="btn btn--secondary btn-lg"
-                                            @click="updateProfile"
                                             :disabled="! state.queuable"
                                     >
                                         Update
                                     </button>
                                 </div>
-                                <div class="block__footer">
-                                    <h5 class="block__footer__header">Greater rift</h5>
-                                    <ul class="list">
-                                        <li class="list__item m-b-0"
-                                            v-for="ranking in state.leaderboards"
-                                        >
-                                            <span class="flex-50">{{ ranking.players }} Players</span>
-                                            <span class="flex-50">{{ ranking.rift_level }}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="block__footer">
-                                    <div class="profile-info">
-                                        <h3 class="text--tertiary profile-info__header">
-                                            {{ state.paragon_level | number }}
-                                        </h3>
-                                        <small>paragon</small>
+                                <div class="block__body block__body--flush">
+                                    <div class="block__row">
+                                        <h5 class="block__header">Greater rift</h5>
+                                        <ul class="list">
+                                            <li class="list__item"
+                                                v-for="ranking in state.season_rankings"
+                                            >
+                                                <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
+                                                <span class="flex-50">{{ ranking.rift_level }}</span>
+                                            </li>
+                                        </ul>
                                     </div>
+                                </div>
+                                <div class="block__body">
+                                    <div class="block__row">
+                                        <h5 class="block__header">
+                                            {{ state.season ? 'Season' : 'Era' }}
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 block__col">
+                                                <h3 class="text--tertiary block__col__header">
+                                                    {{ state.paragon_level | number }}
+                                                </h3>
+                                                <small>paragon</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row" style="justify-content: center;">
+                                <div class="col-md-4 m-b-1"
+                                     v-for="item in state.items"
+                                >
+                                    <a href="#"
+                                       class="block block--gear"
+                                       data-d3tooltip="{{ item.pivot.tool_tip_params }}"
+                                    >
+                                        <div class="block__body">
+                                            <img :src="item.icon | powerIcon" alt="" class="block--gear__img">
+                                            <p class="block--gear__text">
+                                                {{ item.name }}
+                                            </p>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -90,17 +117,21 @@
                         toughness: 0,
                         healing: 0
                     }
-                },
-                topBannerParameters: {
-                    background: 'url("http://3.bp.blogspot.com/-eR6-WzxRxn4/UWy-owwLWQI/AAAAAAAAQS4/Dhh6XXtFh8c/s1600/diablo-3-barbarian-wallpapers_1680x1050.jpg") no-repeat fixed',
-                    backgroundPosition: '50% 0'
                 }
             }
         },
 
+        props: ['data'],
+
         components: {message, banner, mainNavbar, mainFooter},
 
-        props: ['data'],
+        computed: {
+            topBannerParameters () {
+                return {
+                    background: 'url("/img/' + this.state.class + '/banner.jpg") no-repeat fixed 50% 0',
+                }
+            }
+        },
 
         filters: {
             active (obj) {
@@ -132,10 +163,13 @@
             }
         },
 
-        computed: {
-            crest () {
-                if (typeof this.state.class !== 'undefined') {
-                    return BASE_URL + '/img/' + this.state.class.split(' ').join('-') + '/crest.png'
+
+        watch: {
+            'state.queued' (value) {
+                if (value == true) {
+                    this.$broadcast('message:show', 'success', 'fa-refresh', 'Profile is currently in queue');
+                } else {
+                    this.$broadcast('message:hide');
                 }
             }
         },
@@ -145,8 +179,16 @@
         },
 
         methods: {
+            showNewHeroMessage () {
+                this.$broadcast('message:show', 'warning', 'fa-warning', 'New Hero Record');
+            },
+
             init () {
                 this.state = JSON.parse(this.data);
+
+                if (this.state.stats == null) {
+                    this.showNewHeroMessage();
+                }
             }
         }
     }

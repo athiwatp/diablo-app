@@ -5,6 +5,7 @@ namespace App\Diablo\Services\Hero;
 use App\Hero;
 use App\Rune;
 use App\Skill;
+use stdClass;
 
 class SkillUpdate
 {
@@ -24,13 +25,22 @@ class SkillUpdate
         $passive_skills = $active_skills = [];
 
         foreach ($skills->active as $active) {
+            if (!isset($active->skill)) {
+                continue;
+            }
+
             $skill = $this->db_skills->filter(function ($i) use ($active) {
                 return $i->slug === $active->skill->slug;
             })->first();
 
-            $rune = $this->db_runes->filter(function ($i) use ($active) {
-                return $i->slug === $active->rune->slug;
-            })->first();
+            if (isset($active->rune)) {
+                $rune = $this->db_runes->filter(function ($i) use ($active) {
+                    return $i->slug === $active->rune->slug;
+                })->first();
+            } else {
+                $rune = new stdClass();
+                $rune->id = null;
+            }
 
             $sync_skills[$skill->id] = ['rune_id' => $rune->id];
         }

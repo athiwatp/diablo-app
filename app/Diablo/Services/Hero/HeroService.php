@@ -4,9 +4,10 @@ namespace App\Diablo\Services\Hero;
 
 use App\Diablo\API\DiabloAPI;
 use App\{Hero, Item};
+use App\Diablo\Services\Service;
 use Carbon\Carbon;
 
-class HeroService
+class HeroService extends Service
 {
     /**
      * Response object
@@ -19,15 +20,15 @@ class HeroService
      * The modal instance
      *
      * @var Hero
-     */     
-    private $model;
+     */
+    public $model;
 
     /**
      * The api instance
      *
      * @var DiabloAPI
      */
-    private $api;
+    public $api;
 
     /**
      * Item update instance

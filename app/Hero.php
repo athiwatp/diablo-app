@@ -100,6 +100,21 @@ class Hero extends Model
     }
 
     /**
+     * A Profile has many Rift Rankings
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function seasonRankings()
+    {
+        return $this->hasMany(Leaderboard::class)
+            ->where('season', '=', true)
+            ->where('period', '=', 5)
+            ->groupBy('players')
+            ->groupBy('period')
+            ->orderBy('players', 'asc')
+            ->orderBy('rift_level', 'desc');
+    }
+
+    /**
      * A Hero belongs to many Items
      *
      * @return $this

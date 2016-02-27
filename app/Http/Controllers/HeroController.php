@@ -22,7 +22,7 @@ class HeroController extends Controller
      */
     public function show(Hero $hero) : View
     {
-        $hero->load(['leaderboards', 'items', 'profile', 'powers', 'stats', 'skills']);
+        $hero->load(['seasonRankings', 'items', 'profile', 'powers', 'stats', 'skills']);
 
         return view('heroes.show', compact('hero'));
     }

@@ -48,10 +48,10 @@
                                     <div class="block__row">
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
-                                            <li class="list__item m-b-0"
+                                            <li class="list__item"
                                                 v-for="ranking in state.rift_rankings"
                                             >
-                                                <span class="flex-50">{{ ranking.players }} Players</span>
+                                                <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
                                                 <span class="flex-50">{{ ranking.rift_level }}</span>
                                             </li>
                                         </ul>
@@ -87,7 +87,7 @@
                                                 <small>softcore</small>
                                             </div>
                                             <div class="col-md-6 col-sm-12 col-xs-12 block__col">
-                                                <h3 class="text--secondary">
+                                                <h3 class="text--secondary block__col__header">
                                                     {{ state.stats.paragon_level_hardcore | number }}
                                                 </h3>
                                                 <small>hardcore</small>
@@ -172,7 +172,7 @@
                     heroes: [],
                     stats: {
                         paragon_level: 0,
-                        paragon_level_hardore: 0,
+                        paragon_level_hardcore: 0,
                         paragon_level_season: 0,
                         paragon_level_season_hardcore: 0,
                         kills_monsters: 0,

@@ -26,6 +26,10 @@ export function classCrest (c) {
 	return '/img/' + c + '/crest.png';
 }
 
+export function classBanner (c) {
+    return '/img/' + c + '/banner.jpg';
+}
+
 export function region (r) {
 	switch (r) {
 		case 'US':

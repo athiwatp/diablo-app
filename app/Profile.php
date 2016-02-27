@@ -79,7 +79,9 @@ class Profile extends Model
     {
         return $this->hasMany(Leaderboard::class)
             ->where('season', '=', true)
+            ->groupBy('players')
             ->groupBy('period')
+            ->orderBy('players', 'asc')
             ->orderBy('rift_level', 'desc');
     }
 
