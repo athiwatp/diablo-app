@@ -3,8 +3,8 @@
 </style>
 
 <template>
-    <div class="message message--success animated"
-         :class="[type_class]"
+    <div class="message animated"
+         :class="[typeClass]"
          v-if="show"
          transition="fade"
     >
@@ -36,6 +36,9 @@
                 switch (this.type) {
                     case 'success':
                         return 'message--success'
+                    break;
+                    case 'warning':
+                        return 'message--warning'
                     break;
                 }
             }

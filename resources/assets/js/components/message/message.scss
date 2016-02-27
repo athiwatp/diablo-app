@@ -41,4 +41,16 @@
 	@include m('success') {
 		background-color: rgba($tertiary-color, .4);
 	}
+
+	@include m('warning') {
+		background-color: rgba($quinary-color, .4);
+	}
+
+	@include m('info') {
+		background-color: rgba($quaternary-color, .4);
+	}
+
+	@include m('error') {
+		background-color: rgba($senary-color, .4);
+	}
 }

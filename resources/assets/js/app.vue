@@ -3,7 +3,9 @@
 </style>
 <template>
     <div id="app">
-        <component :is="page" :data="data" :page="page">
+        <component :is="page" 
+                   :data="data"
+       >
             <slot></slot>
         </component>
     </div>
@@ -19,7 +21,7 @@
     export default {
         el: '#app',
 
-        props: ['page', 'data'],
+        props: ['data', 'page', 'menu'],
 
         components: {
             errorPage,
@@ -27,6 +29,10 @@
             homePage,
             profilePage,
             leaderboardsPage
+        },
+
+        ready () {
+            this.$broadcast('menu:active', this.menu);
         }
     }
 </script>

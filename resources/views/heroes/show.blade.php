@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-    <div id="app" page="heroesPage"></div>
+    <div id="app"
+         page="heroesPage"
+         menu="heroesPage"
+         data="{{ $hero }}"
+    ></div>
 @stop
 
 @section('js')

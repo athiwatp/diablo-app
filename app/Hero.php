@@ -19,6 +19,7 @@ class Hero extends Model
     protected $fillable = [
         'profile_id',
         'battlenet_hero_id',
+        'battle_tag',
         'class', 
         'gender',
         'season',
@@ -28,7 +29,8 @@ class Hero extends Model
         'clan_tag',
         'clan_name',
         'region',
-        'name'
+        'name',
+        'hardcore'
     ];
 
     /**

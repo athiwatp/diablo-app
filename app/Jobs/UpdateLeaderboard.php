@@ -2,11 +2,11 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
-use App\Diablo\Services\Leaderboards\LeaderboardService;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Rankings\Services\Leaderboards\LeaderboardService;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\{
+    InteractsWithQueue, SerializesModels
+};
 
 class UpdateLeaderboard extends Job implements ShouldQueue
 {
@@ -14,14 +14,14 @@ class UpdateLeaderboard extends Job implements ShouldQueue
 
     /**
      * Leaderboard service instance
-     * 
+     *
      * @var object
      */
     private $service;
 
     /**
      * The information to be saved
-     * 
+     *
      * @var stdClass
      */
     private $record;

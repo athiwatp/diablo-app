@@ -11,11 +11,11 @@
                 <img :src="logo"
                  alt="logo"
                  class="nav__logo__img">
-                 <span class="nav__logo__text">Diablo Rankings</span>
+                 <span class="nav__logo__text"><span class="text--secondary">Diablo</span> Rankings</span>
             </a>
             <ul class="nav__items">
                 <li class="nav__item"
-                    :class="{ 'nav__item--active': isActive('leaderboardPage') }"
+                    :class="{ 'nav__item--active': active == 'leaderboardPage' }"
                 >
                     <a href="/leaderboards" 
                        class="nav__link"
@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li class="nav__item"
-                    :class="{ 'nav__item--active': isActive('profilePage') }"
+                    :class="{ 'nav__item--active': active == 'profilePage' }"
                 >
                     <a href="/profiles" class="nav__link">
                         Profiles
@@ -33,7 +33,7 @@
                     </a>
                 </li>
                 <li class="nav__item"
-                    :class="{ 'nav__item--active': isActive('heroPage') }"
+                    :class="{ 'nav__item--active': active == 'heroesPage' }"
                 >
                     <a href="/profiles" class="nav__link">
                         Heroes
@@ -55,7 +55,11 @@
     };
 
     export default {
-        props: ['page'],
+        data () {
+            return {
+                active: ''
+            }
+        },
 
         computed: {
             logo () {
@@ -63,9 +67,9 @@
             }
         },
 
-        methods: {
-            isActive (page) {
-                return this.page == page;
+        events: {
+            'menu:active' (page) {
+                this.active = page;
             }
         }
     }

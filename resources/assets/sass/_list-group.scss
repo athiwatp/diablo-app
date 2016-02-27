@@ -18,12 +18,21 @@
 		text-decoration: none !important;
 
 		@include m('link') {
+
 			&:hover {
 				color: #fff;
-				border: none;
-				background-color: rgba($secondary-color, 1) !important;
+				border-color: transparent;
+				background-color: rgba($secondary-color, .4) !important;
 				cursor: pointer;
 			}
+
+          @include m('softcore') {
+            border-left: 4px solid $tertiary-color;
+          }
+
+          @include m('hardcore') {
+            border-left: 4px solid $secondary-color;
+          }
 		}
 
 		@include m('header') {

@@ -4,9 +4,11 @@
 
 <template>
     <div id="page">
-        <main-header :page="page"></main-header>
+        <main-header></main-header>
         
-        <banner :parameters.once="topBannerParameters">
+        <banner :parameters.once="topBannerParameters"
+                id="top-banner"
+        >
             <div class="home-banner-content">
                 <h1>Diablo Rankings</h1>
                 <h6>Leaderboards, statistics and more</h6>
@@ -72,7 +74,7 @@
             }
         },
 
-        props: ['data', 'page'],
+        props: ['data'],
 
         components: { mainHeader, banner, mainFooter, leaderboardCard },
 
