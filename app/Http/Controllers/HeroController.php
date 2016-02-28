@@ -24,6 +24,9 @@ class HeroController extends Controller
     {
         $hero->load(['seasonRankings', 'items', 'profile', 'powers', 'stats', 'skills']);
 
+        $hero->setQueuable();
+        $hero->setAvailableIn();
+
         return view('heroes.show', compact('hero'));
     }
 
@@ -37,6 +40,11 @@ class HeroController extends Controller
     {
         $hero->queued = true;
         $hero->save();
+
+        if (empty($hero->region)) {
+            $hero->region = $hero->profile->region;
+            $hero->save();
+        }
 
         $job = (new UpdateHero($hero))->onQueue('heroes');
 
