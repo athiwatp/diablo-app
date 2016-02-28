@@ -18,7 +18,9 @@
 
         <div class="content">
             <message></message>
-            <h2 class="section-header">Hero</h2>
+            <h2 class="section-header">
+                Hero
+            </h2>
             <section class="hero-section">
                 <div class="container-fluid">
                     <div class="row">
@@ -38,12 +40,15 @@
                                         <small>Update Available: {{ state.available_in || 'Now' }}</small>
                                     </p>
                                     <button class="btn btn--secondary btn-lg"
+                                            @click="updateHero"
                                             :disabled="! state.queuable"
                                     >
                                         Update
                                     </button>
                                 </div>
-                                <div class="block__body block__body--flush">
+                                <div class="block__body block__body--flush"
+                                     v-if="state.season_rankings.length > 0"
+                                >
                                     <div class="block__row">
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
@@ -70,6 +75,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="block__body">
+                                    <a href="/profiles/{{ this.state.profile_id }}"
+                                       class="btn btn--secondary"
+                                    >
+                                        Back to Profile
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +128,8 @@
                         damage: 0,
                         toughness: 0,
                         healing: 0
-                    }
+                    },
+                    season_rankings: []
                 }
             }
         },
@@ -167,7 +180,7 @@
         watch: {
             'state.queued' (value) {
                 if (value == true) {
-                    this.$broadcast('message:show', 'success', 'fa-refresh', 'Profile is currently in queue');
+                    this.$broadcast('message:show', 'success', 'fa-refresh', 'Hero is currently in queue');
                 } else {
                     this.$broadcast('message:hide');
                 }
@@ -189,6 +202,12 @@
                 if (this.state.stats == null) {
                     this.showNewHeroMessage();
                 }
+            },
+
+            updateHero () {
+                this.state.queued = true;
+                this.state.queuable = false;
+                this.$http.patch('/api/heroes/' + this.state.id);
             }
         }
     }
