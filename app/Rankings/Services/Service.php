@@ -1,11 +1,17 @@
 <?php
 
-namespace App\Diablo\Services;
-
-use App\Diablo\API\DiabloAPI;
+namespace App\Rankings\Services;
 
 abstract class Service
 {
+    /**
+     * Service constructor
+     */
+    public function __construct()
+    {
+        $this->api = $this->app('DiabloAPI');
+    }
+
     /**
      * Check for valid response from API
      * 
@@ -24,16 +30,5 @@ abstract class Service
     protected function callApi()
     {
         $this->response = $this->api->{$this->update_method}($this->model);
-    }
-
-    /**
-     * Bind the API instance to the container
-     * 
-     * @return void
-     */
-    protected function bindApiInstance()
-    {
-        $this->api = new DiabloAPI;
-        app()->instance('api', $this->api);
     }
 }

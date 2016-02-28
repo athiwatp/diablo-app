@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Diablo\API\DiabloAPI;
+use App\Rankings\API\DiabloAPI;
 use App\Hero;
 use App\Jobs\UpdateHero;
 use Illuminate\Console\Command;

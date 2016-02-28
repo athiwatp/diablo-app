@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Diablo\Rankings;
-use App\Http\Requests;
 use App\Leaderboard;
 use Cache;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Collection;
+use View;
 
 class HomeController extends Controller
 {
@@ -15,9 +14,9 @@ class HomeController extends Controller
     /**
      * Home Index
      *
-     * @return \Illuminate\Support\Facades\View
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index() : \Illuminate\View\View
     {
         Cache::forget('home-page');
         $data = Cache::remember('home-page', 60, function () {

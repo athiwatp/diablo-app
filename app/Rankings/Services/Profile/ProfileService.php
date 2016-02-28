@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Diablo\Services\Profile;
+namespace App\Rankings\Services\Profile;
 
-use App\Diablo\API\DiabloAPI;
-use App\Diablo\Services\Service;
+use App\Rankings\Services\Service;
 use App\Hero;
 use App\Profile;
 use App\ProfileStat;
@@ -16,7 +15,6 @@ class ProfileService extends Service
 
     public function __construct(Profile $profile)
     {
-        $this->bindApiInstance();
         $this->model = $profile;
         $this->stats_model = new ProfileStat;
     }

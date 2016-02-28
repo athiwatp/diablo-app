@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Diablo\Services\Item;
+namespace App\Rankings\Services\Item;
 
 use App\Item;
 

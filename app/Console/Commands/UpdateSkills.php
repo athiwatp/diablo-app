@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Diablo\API\DiabloAPI;
-use App\Diablo\Parsers\Skill\SkillParser;
-use App\Diablo\Services\Skill\SkillService;
+use App\Rankings\API\DiabloAPI;
+use App\Rankings\Parsers\Skill\SkillParser;
+use App\Rankings\Services\Skill\SkillService;
 use Illuminate\Console\Command;
 
-class Skill extends Command
+class UpdateSkills extends Command
 {
     /**
      * The name and signature of the console command.
@@ -70,7 +70,7 @@ class Skill extends Command
         $this->info('Updating skills...');
         $t = microtime(true);
 
-        $records = $this->parser->parse($this->api->getSkillData());
+        $records = $this->parser->parse($this->api->skills());
 
         $bar = $this->output->createProgressBar(count($records['skills']) + count($records['runes']));
 

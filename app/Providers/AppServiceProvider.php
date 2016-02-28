@@ -2,15 +2,8 @@
 
 namespace App\Providers;
 
-use Log;
-use Menu;
-use Cache;
-use Queue;
-use Config;
-use App\Ladder;
-use johnleider\BattleNet\Diablo;
+use App\Rankings\API\DiabloAPI;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Queue\Events\JobProcessed;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,11 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('structure::left-sidebar', function ($view) {
-            $menu = Menu::schema('structure-menu.schema')
-                ->parse(Config::get('structure-menu.menu'));
-
-            $view->with(compact('menu'));
+        $this->app->singleton('DiabloAPI', function () {
+            return new DiabloAPI;
         });
     }
 

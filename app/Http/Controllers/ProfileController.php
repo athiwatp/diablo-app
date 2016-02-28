@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Diablo\Parsers\HeroParser;
-use App\Hero;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Jobs\UpdateProfile;
 use App\Profile;
-use Carbon\Carbon;
-use Diablo;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use View;
 
 class ProfileController extends Controller
 {
@@ -19,29 +13,33 @@ class ProfileController extends Controller
      * Display the specified resource.
      *
      * @param Profile $profile
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function show(Profile $profile)
+    public function show(Profile $profile) : \Illuminate\View\View
     {
-        $profile->load('heroes', 'riftRankings', 'stats');
+        $profile->load([
+            'heroes', 
+            'riftRankings', 
+            'stats'
+        ]);
 
-        $profile->setQueuable();
-        $profile->setAvailableIn();
+        $profile->getAvailability();
 
-        return view('profiles.show', compact('profile')); 
+        return View::make('profiles.show', compact('profile')); 
     }
 
-    public function update(Profile $profile)
+    /**
+     * Update Profile
+     * 
+     * @param  Profile $profile
+     * @return string
+     */
+    public function update(Profile $profile) : string
     {
-        $profile->api()->update();
-        $profile->queued = true;
-        $profile->queued_at = Carbon::now();
-        $profile->save();
-
         $job = (new UpdateProfile($profile))->onQueue('profiles');
 
         $this->dispatch($job);
         
-        return Response::json(['status' => 'queued'], 200);
+        return Response::json(['queued' => true], 200);
     }
 }

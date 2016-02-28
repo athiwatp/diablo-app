@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Diablo\Services\Hero;
+namespace App\Rankings\Services\Hero;
 
 use App\Diablo\API\DiabloAPI;
 use App\{Hero, Item};
@@ -74,10 +74,11 @@ class HeroService extends Service
      */
     public function __construct(Hero $hero)
     {
-        $this->bindApiInstance();
+        parent::__construct();
+        
         $this->model = $hero;
-        $this->items = new ItemUpdate($hero);
-        $this->legendary_powers = new LegendaryPowerUpdate($hero);
+        $this->items = new ItemUpdate($this->api, $hero);
+        $this->legendary_powers = new LegendaryPowerUpdate($this->api, $hero);
         $this->skills = new SkillUpdate($hero);
         $this->stats = new StatUpdate($hero);
         $this->followers = new FollowerUpdate($hero);

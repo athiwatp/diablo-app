@@ -20,6 +20,11 @@ class Profile extends Model
         'battle_tag', 'region'
     ];
 
+    /**
+     * The attributes that are dates
+     * 
+     * @var array
+     */
     protected $dates = [
         'created_at',
         'updated_at',
@@ -81,6 +86,16 @@ class Profile extends Model
         return $this->hasMany(Leaderboard::class);
     }
 
+    public function availability()
+    {
+        return true;
+    }
+
+    /**
+     * A Profile has one stats
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function stats()
     {
         return $this->hasOne(ProfileStat::class);

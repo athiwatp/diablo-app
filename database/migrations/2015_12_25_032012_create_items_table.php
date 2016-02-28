@@ -18,6 +18,8 @@ class CreateItemsTable extends Migration
             $table->string('name');
             $table->char('slot');
             $table->char('display_color');
+            $table->string('icon');
+            $table->text('tool_tip_params');
             $table->timestamps();
         });
     }

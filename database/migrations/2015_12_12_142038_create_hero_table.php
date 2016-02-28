@@ -29,6 +29,8 @@ class CreateHeroTable extends Migration
             $table->boolean('dead');
             $table->char('region');
             $table->boolean('season');
+            $table->boolean('queued')->default(false);
+            $table->dateTime('queued_at')->nullable();
             $table->timestamps();
             $table->unique(['profile_id', 'battlenet_hero_id']);
         });

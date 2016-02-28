@@ -9,7 +9,7 @@ use App\Rankings\Services\Leaderboards\LeaderboardService;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 
-class Leaderboard extends Command
+class UpdateLeaderboards extends Command
 {
     use DispatchesJobs;
 

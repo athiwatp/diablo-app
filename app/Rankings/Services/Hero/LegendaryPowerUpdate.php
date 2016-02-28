@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Diablo\Services\Hero;
+namespace App\Rankings\Services\Hero;
 
-use App\Diablo\API\DiabloAPI;
-use App\Diablo\Services\Item\ItemService;
+use App\Rankings\Services\Item\ItemService;
 use App\{Hero, Item};
 use stdClass;
 
@@ -17,9 +16,9 @@ class LegendaryPowerUpdate
     private $query_powers = [];
     private $pending_powers = [];
 
-	public function __construct(Hero $hero)
+	public function __construct(DiabloAPI $api, Hero $hero)
 	{
-        $this->api = app()->make('api');
+        $this->api = $api;
 		$this->hero = $hero;
         $this->db_items = Item::get(['id', 'battlenet_item_id']);
         $this->item_service = new ItemService;

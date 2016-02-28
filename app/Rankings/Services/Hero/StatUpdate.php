@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Diablo\Services\Hero;
+namespace App\Rankings\Services\Hero;
 
 use App\Hero;
 

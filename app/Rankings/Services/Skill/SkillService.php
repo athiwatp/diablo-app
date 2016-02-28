@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Diablo\Services\Skill;
+namespace App\Rankings\Services\Skill;
 
 use App\Rune;
 use App\Skill;

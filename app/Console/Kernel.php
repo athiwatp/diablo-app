@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\UpdateLeaderboards;
+use App\Console\Commands\UpdateSkills;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,8 +16,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Crud::class,
-        Commands\Leaderboard::class,
-        Commands\Skill::class,
+        Commands\UpdateLeaderboards::class,
+        Commands\UpdateSkills::class,
         Commands\TopHundred::class,
     ];
 
@@ -27,6 +29,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        
+        //
     }
 }

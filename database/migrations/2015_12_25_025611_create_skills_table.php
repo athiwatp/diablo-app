@@ -18,6 +18,7 @@ class CreateSkillsTable extends Migration
             $table->char('slug')->unique();
             $table->enum('type', ['active', 'passive']);
             $table->string('tool_tip_url');
+            $table->string('icon');
             $table->timestamps();
         });
     }

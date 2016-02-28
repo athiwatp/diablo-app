@@ -44,6 +44,7 @@ class UpdateLeaderboard extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $this->service->save($this->record);
+        $this->service
+            ->save($this->record);
     }
 }

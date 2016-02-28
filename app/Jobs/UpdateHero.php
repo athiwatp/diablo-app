@@ -4,9 +4,6 @@ namespace App\Jobs;
 
 use App\Hero;
 use App\Jobs\Job;
-use Log;
-use Cache;
-use Carbon\Carbon;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
