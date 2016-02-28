@@ -10,6 +10,7 @@ Route::get('testing', function () {
 
 Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
     Route::patch('profiles/{profile}', 'ProfileController@update');
+    Route::patch('heroes/{hero}', 'HeroController@update');
 });
 
 Route::group(['middleware' => 'web'], function () {
