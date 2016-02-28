@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Diablo\Services\Hero\HeroService;
+use App\Traits\Queueable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Hero extends Model
 {
+    use Queueable;
+
     /**
      * The attributes that are mass assignable.
      *
