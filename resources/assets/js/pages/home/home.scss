@@ -37,7 +37,7 @@ section.content {
 		}
 
 		&:hover {
-			background-color: rgba($secondary-color, 0.7) !important;
+            background-color: rgba($secondary-color, .4) !important;
 			cursor: pointer;
 		}
 	}
