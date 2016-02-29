@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Diablo\Services\Hero\HeroService;
+use App\Rankings\Services\Hero\HeroService;
 use App\Traits\Queueable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

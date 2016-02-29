@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Diablo\Services\Profile\ProfileService;
+use App\Rankings\Services\Profile\ProfileService;
 use App\Traits\Queueable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

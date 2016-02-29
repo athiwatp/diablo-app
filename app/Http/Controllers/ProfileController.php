@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Jobs\UpdateProfile;
 use App\Profile;
+use Response;
 use View;
 
 class ProfileController extends Controller

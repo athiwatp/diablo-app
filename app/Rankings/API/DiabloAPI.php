@@ -3,6 +3,7 @@
 namespace App\Rankings\API;
 
 use johnleider\BattleNet\Diablo;
+use stdClass;
 
 class DiabloAPI
 {
@@ -41,7 +42,8 @@ class DiabloAPI
     public function hero(string $battle_tag, int $hero_id, string $region) : stdClass
     {
         return $this->api->setRegion($region)
-            ->hero($battle_tag, $hero_id);
+            ->hero($battle_tag, $hero_id)
+            ->get();
     }
 
     /**

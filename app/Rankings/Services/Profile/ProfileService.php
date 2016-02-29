@@ -11,17 +11,20 @@ use stdClass;
 
 class ProfileService extends Service
 {
-    protected $update_method = 'getProfileData';
+    protected $update_method = 'profile';
 
     public function __construct(Profile $profile)
     {
+        parent::__construct();
         $this->model = $profile;
         $this->stats_model = new ProfileStat;
     }
 
     public function update()
     {
-        $this->callApi();
+        $this->response = $this->api->profile(
+            $this->model->battle_tag, $this->model->region
+        );
         
         if ($this->apiHasNoResponse()) {
             return;
@@ -56,6 +59,9 @@ class ProfileService extends Service
         $hero['season'] = $hero['seasonal'] == true
             ? true
             : false;
+
+        $hero['region'] = strtolower($this->model->region);
+        $hero['battle_tag'] = $this->model->battle_tag;
 
         return $hero;
     }

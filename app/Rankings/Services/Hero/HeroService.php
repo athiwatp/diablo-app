@@ -2,10 +2,10 @@
 
 namespace App\Rankings\Services\Hero;
 
-use App\Diablo\API\DiabloAPI;
 use App\{Hero, Item};
-use App\Diablo\Services\Service;
+use App\Rankings\Services\Service;
 use Carbon\Carbon;
+use App\Rankings\API\DiabloAPI;
 
 class HeroService extends Service
 {
@@ -91,7 +91,11 @@ class HeroService extends Service
      */
     public function update()
     {
-        $this->callApi();
+        $this->response = $this->api->hero(
+            $this->model->battle_tag,
+            $this->model->battlenet_hero_id,
+            $this->model->region
+        );
 
         if ($this->apiHasNoResponse()) {
             return;

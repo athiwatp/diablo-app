@@ -4,12 +4,14 @@ namespace App\Rankings\Services;
 
 abstract class Service
 {
+    public $api;
+
     /**
      * Service constructor
      */
     public function __construct()
     {
-        $this->api = $this->app('DiabloAPI');
+        $this->api = app()->make('DiabloAPI');
     }
 
     /**
@@ -20,15 +22,5 @@ abstract class Service
     protected function apiHasNoResponse() : bool
     {
         return isset($this->response->code) || is_null($this->response);
-    }
-    
-	/**
-     * Get response from API
-     * 
-     * @return void
-     */
-    protected function callApi()
-    {
-        $this->response = $this->api->{$this->update_method}($this->model);
     }
 }

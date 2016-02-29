@@ -2,6 +2,7 @@
 
 namespace App\Rankings\Services\Hero;
 
+use App\Rankings\API\DiabloAPI;
 use App\Rankings\Services\Item\ItemService;
 use App\Hero;
 use App\Item;
@@ -91,7 +92,7 @@ class ItemUpdate
 		}
 
 		$request = $this->api
-			->getItemData($this->query_items);
+			->items($this->query_items);
 
 		if (! is_array($request)) {
 			$request = [$request];

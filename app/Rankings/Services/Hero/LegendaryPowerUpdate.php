@@ -2,6 +2,7 @@
 
 namespace App\Rankings\Services\Hero;
 
+use App\Rankings\API\DiabloAPI;
 use App\Rankings\Services\Item\ItemService;
 use App\{Hero, Item};
 use stdClass;
