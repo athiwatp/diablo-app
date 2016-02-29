@@ -33,7 +33,11 @@ class LegendaryPowerUpdate
 
     private function powers($legendaryPowers)
     {
-        foreach ($legendaryPowers as $legendaryPower) { 
+        foreach ($legendaryPowers as $legendaryPower) {
+            if (is_null($legendaryPower)) {
+                continue;
+            }
+
             if ($find = $this->findPower($legendaryPower)) {
                 $this->addToSync($find, $legendaryPower);
 

@@ -46,6 +46,10 @@ class SkillUpdate
         }
 
         foreach ($skills->passive as $passive) {
+            if (!isset($passive->skill)) {
+                continue;
+            }
+
             $skill = $this->db_skills->filter(function ($i) use ($passive) {
                 return $i->slug === $passive->skill->slug;
             })->first();
