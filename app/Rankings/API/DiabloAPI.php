@@ -105,9 +105,8 @@ class DiabloAPI
     public function leaderboards(string $mode, int $period) : array
     {
         foreach ($this->regions as $region) {
-            $this->api->setRegion($region);
-
-            $this->api->{$mode}($period)
+            $this->api->setRegion($region)
+                ->{$mode}($period)
                 ->softcore()
                 ->barbarian()
                 ->crusader()
@@ -117,9 +116,8 @@ class DiabloAPI
                 ->wizard()
                 ->team(2)
                 ->team(3)
-                ->team(4);
-
-            $this->api->{$mode}($period)
+                ->team(4)
+                ->{$mode}($period)
                 ->hardcore()
                 ->barbarian()
                 ->crusader()
