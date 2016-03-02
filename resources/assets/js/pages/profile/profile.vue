@@ -6,22 +6,20 @@
     <div id="page"
          class="profile-page"
     >
+        <main-header>
+            <banner :parameters.once="topBannerParameters"
+                    id="top-banner"
+                    class="banner--slim"
+                >
+                <div>
+                    <h1>{{ state.battle_tag }}</h1>
+                    <h3>{{ state.stats && state.stats.clan_name || '' }}</h3>
+                    <h6>{{ state.region | region}}</h6>
+                </div>
+            </banner>
+        </main-header>
 
-        <main-navbar></main-navbar>
-
-        <banner :parameters.once="topBannerParameters"
-                id="top-banner"
-                class="banner--slim"
-        >
-            <div>
-                <h1>{{ state.battle_tag }}</h1>
-                <h3>{{ state.stats && state.stats.clan_name || '' }}</h3>
-                <h6>{{ state.region | region}}</h6>
-            </div>
-        </banner>
-
-        <div class="content">
-            <message></message>
+        <main-content>
             <h2 class="section-header">Profile</h2>
             <section class="profile-section">
                 <div class="container-fluid">
@@ -57,8 +55,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="block__body"
+                                <div class="block__body animated"
                                      v-if="state.stats"
+                                     transition="fade"
                                 >
                                     <div class="block__row">
                                         <h5 class="block__header">Season</h5>
@@ -124,6 +123,7 @@
                                 </li>
                                 <a class="list__item list__item--link list__item--link--{{ hero.hardcore ? 'hardcore' : 'softcore' }}"
                                     v-for="hero in state.heroes"
+                                    stagger="100"
                                     href="/heroes/{{ hero.id }}"
                                 >
 
@@ -154,30 +154,21 @@
                     </div>
                 </div>
             </section>
-
-            <main-footer></main-footer>
-        </div>
+        </main-content>
     </div>
 </template>
+
 <script>
-    import message from '../../components/message/message.vue';
     import banner from '../../components/banner/banner.vue';
-    import mainNavbar from '../../components/main-navbar/main-navbar.vue';
-    import mainFooter from '../../components/main-footer/main-footer.vue';
+    import mainHeader from '../../components/main-header/main-header.vue';
+    import mainContent from '../../components/main-content/main-content.vue';
 
     export default {
         data: function () {
             return {
                 state: {
                     heroes: [],
-                    stats: {
-                        paragon_level: 0,
-                        paragon_level_hardcore: 0,
-                        paragon_level_season: 0,
-                        paragon_level_season_hardcore: 0,
-                        kills_monsters: 0,
-                        kills_elites: 0
-                    },
+                    stats: false,
                     queuable: true
                 },
                 topBannerParameters: {
@@ -189,39 +180,28 @@
 
         props: ['data'],
 
-        components: {message, banner, mainNavbar, mainFooter},
-
-        watch: {
-            'state.queued' (value) {
-                if (value == true) {
-                    this.$broadcast('message:show', 'success', 'fa-refresh', 'Profile is currently in queue');
-                } else {
-                    this.$broadcast('message:hide');
-                }
-            }
-        },
+        components: {banner, mainHeader, mainContent},
 
         ready () {
             this.init();
         },
 
         methods: {
-            showNewProfileMessage () {
-                this.$broadcast('message:show', 'warning', 'fa-warning', 'New Profile Record');
-            },
-
             init () {
                 this.state = JSON.parse(this.data);
 
                 if (this.state.stats == null) {
-                    this.showNewProfileMessage();
+                    this.$root.message('warning', 'New Profile.');
                 }
             },
 
             updateProfile () {
-                this.state.queued = true;
                 this.state.queuable = false;
-                this.$http.patch('/api/profiles/' + this.state.id);
+                this.$root.message('info', 'Profile is currently in queue.');
+                this.$http.patch('/api/profiles/' + this.state.id).then(function (response) {
+                    this.state = response.data;
+                    this.$root.message('success', 'Profile updated', 2000);
+                }.bind(this));
             }
         }
     }

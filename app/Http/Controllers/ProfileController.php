@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Jobs\UpdateProfile;
 use App\Profile;
+use App\Rankings\Services\Profile\ProfileService;
 use Response;
 use View;
 
@@ -37,10 +38,13 @@ class ProfileController extends Controller
      */
     public function update(Profile $profile) : string
     {
-        $job = (new UpdateProfile($profile))->onQueue('profiles');
+        $profile->api()->update();
 
-        $this->dispatch($job);
-        
-        return Response::json(['queued' => true], 200);
+        return $profile->fresh()
+            ->load([
+                'heroes',
+                'riftRankings',
+                'stats'
+            ]);
     }
 }

@@ -3,21 +3,20 @@
 
 <template>
     <div id="page">
-        <main-navbar></main-navbar>
+        <main-header>
+            <banner :parameters="topBannerParameters"
+                    id="top-banner"
+                    class="banner--slim"
+            >
+                <div>
+                    <h1>{{ state.name || 'New Record' }}</h1>
+                    <h3>{{ state.clan_name || '' }}</h3>
+                    <h6>{{ state.region | region}}</h6>
+                </div>
+            </banner>
+        </main-header>
 
-        <banner :parameters="topBannerParameters"
-                id="top-banner"
-                class="banner--slim"
-        >
-            <div>
-                <h1>{{ state.name || 'New Record' }}</h1>
-                <h3>{{ state.clan_name || '' }}</h3>
-                <h6>{{ state.region | region}}</h6>
-            </div>
-        </banner>
-
-        <div class="content">
-            <message></message>
+        <main-content>
             <h2 class="section-header">
                 Hero
             </h2>
@@ -107,17 +106,16 @@
                     </div>
                 </div>
             </section>
-        </div>
+        </main-content>
 
         <main-footer></main-footer>
     </div>
 </template>
 
 <script>
-    import message from '../../components/message/message.vue';
     import banner from '../../components/banner/banner.vue';
-    import mainNavbar from '../../components/main-navbar/main-navbar.vue';
-    import mainFooter from '../../components/main-footer/main-footer.vue';
+    import mainHeader from '../../components/main-header/main-header.vue';
+    import mainContent from '../../components/main-content/main-content.vue';
 
     export default {
         data () {
@@ -136,7 +134,7 @@
 
         props: ['data'],
 
-        components: {message, banner, mainNavbar, mainFooter},
+        components: {banner, mainHeader, mainContent},
 
         computed: {
             topBannerParameters () {
@@ -176,31 +174,16 @@
             }
         },
 
-
-        watch: {
-            'state.queued' (value) {
-                if (value == true) {
-                    this.$broadcast('message:show', 'success', 'fa-refresh', 'Hero is currently in queue');
-                } else {
-                    this.$broadcast('message:hide');
-                }
-            }
-        },
-
         ready () {
             this.init();
         },
 
         methods: {
-            showNewHeroMessage () {
-                this.$broadcast('message:show', 'warning', 'fa-warning', 'New Hero Record');
-            },
-
             init () {
                 this.state = JSON.parse(this.data);
 
                 if (this.state.stats == null) {
-                    this.showNewHeroMessage();
+                    this.$root.message('warning', 'New Hero Record');
                 }
             },
 

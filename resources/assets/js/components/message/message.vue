@@ -3,10 +3,8 @@
 </style>
 
 <template>
-    <div class="message animated"
-         :class="[typeClass]"
-         v-if="show"
-         transition="fade"
+    <div class="message"
+         :class="[type]"
     >
         <span class="message__icon">
             <i class="fa" :class="icon"></i>
@@ -15,7 +13,7 @@
             {{ message }}
         </span>
         <span class="message__close">
-            <i class="fa fa-times-circle" @click="show = false"></i>
+            <i class="fa fa-times-circle" @click="slideUp"></i>
         </span>
     </div>
 </template>
@@ -31,25 +29,63 @@
             }
         },
 
-        computed: {
-            typeClass () {
-                switch (this.type) {
-                    case 'success':
-                        return 'message--success'
-                    break;
-                    case 'warning':
-                        return 'message--warning'
-                    break;
-                }
+        events: {
+            'message:show' (type, message, duration) {
+                this.showMessage(type, message, duration);
+            },
+
+            'message:hide' () {
+                this.slideOut();
             }
         },
 
-        events: {
-            'message:show' (type, icon, message) {
-                this.show = true;
-                this.type = type;
-                this.icon = icon;
+        methods: {
+            showMessage (type, message, duration) {
+                this.type = 'message--' + type;
                 this.message = message;
+                this.setIcon(type);
+
+                if (!this.show) {
+                    this.slideIn();
+                }
+
+                if (typeof duration != 'undefined') {
+                    setTimeout(() => {
+                        this.slideUp();
+                    }, duration);
+
+                }
+            },
+
+            setIcon (type) {
+                switch (type) {
+                    case 'success':
+                        this.icon = 'fa fa-check';
+                        break;
+                    case 'info':
+                        this.icon = 'fa fa-info-circle';
+                        break;
+                    case 'warning':
+                        this.icon = 'fa fa-exclamation-triangle';
+                        break;
+                    case 'error':
+                        this.icon = 'fa fa-times';
+                        break;
+                }
+            },
+
+            slideIn () {
+                $('.message').css({
+                    display: 'flex'
+                }).hide().slideDown();
+
+                this.show = true;
+            },
+
+            slideUp () {
+                $('.message').slideUp();
+
+                this.show = false;
             }
         }
     }

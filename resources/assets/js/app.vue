@@ -1,6 +1,7 @@
 <style lang="scss">
     @import '../sass/app';
 </style>
+
 <template>
     <div id="app">
         <component :is="page" 
@@ -33,6 +34,12 @@
 
         ready () {
             this.$broadcast('menu:active', this.menu);
+        },
+
+        methods: {
+            message (type, message, duration) {
+                this.$broadcast('message:show', type, message, duration);
+            }
         }
     }
 </script>
