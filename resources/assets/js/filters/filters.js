@@ -23,6 +23,10 @@ export function number (n) {
 }
 
 export function classCrest (c) {
+    if (c == '') {
+        return '';
+    }
+
 	return '/img/' + c + '/crest.png';
 }
 

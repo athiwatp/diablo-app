@@ -125,7 +125,8 @@
                         toughness: 0,
                         healing: 0
                     },
-                    season_rankings: []
+                    season_rankings: [],
+                    class: ''
                 }
             }
         },
@@ -136,6 +137,10 @@
 
         computed: {
             topBannerParameters () {
+                if (this.state.class == '') {
+                    return;
+                }
+
                 return {
                     background: 'url("/img/' + this.state.class + '/banner.jpg") no-repeat fixed 50% 0',
                 }
