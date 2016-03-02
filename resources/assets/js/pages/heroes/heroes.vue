@@ -107,8 +107,6 @@
                 </div>
             </section>
         </main-content>
-
-        <main-footer></main-footer>
     </div>
 </template>
 
