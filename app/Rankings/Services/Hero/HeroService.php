@@ -6,6 +6,7 @@ use App\{Hero, Item};
 use App\Rankings\Services\Service;
 use Carbon\Carbon;
 use App\Rankings\API\DiabloAPI;
+use Response;
 
 class HeroService extends Service
 {
@@ -87,7 +88,7 @@ class HeroService extends Service
     /**
      * Update the Hero model
      * 
-     * @return App\Hero|void
+     * @return \App\Hero|void|Response
      */
     public function update()
     {
@@ -98,13 +99,15 @@ class HeroService extends Service
         );
 
         if ($this->apiHasNoResponse()) {
-            return;
+            return Response::json('Hero record not found, please try again later', 404);
         }
 
-        if ($this->heroLevelIsTooLow()) {
-            return;
+        if ($this->heroLevelIsTooLow($this->response)) {
+            return $this->model;
         }
 
+        $this->model->queued = true;
+        $this->model->save();
         $this->skills->update($this->response->skills);
         $this->items->update($this->response->items);
         $this->legendary_powers->update($this->response->legendaryPowers);
@@ -129,16 +132,6 @@ class HeroService extends Service
             'paragon_level' => $this->response->paragonLevel,
             'dead' => $this->response->dead
         ];
-    }
-
-    /**
-     * Check if hero level is too low
-     * 
-     * @return boolean
-     */
-    private function heroLevelIsTooLow() : bool
-    {
-        return $this->response->level < 65;
     }
 
     /**

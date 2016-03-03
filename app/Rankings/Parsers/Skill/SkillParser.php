@@ -72,6 +72,7 @@ class SkillParser
                 $this->runes[] = [
                     'name' => $rune->name, 
                     'slug' => $rune->slug,
+                    'type' => $rune->type,
                     'tool_tip_params' => $rune->tooltipParams
                 ];
             }

@@ -36,15 +36,22 @@ class ProfileController extends Controller
      * @param  Profile $profile
      * @return string
      */
-    public function update(Profile $profile) : string
+    public function update(Profile $profile)
     {
-        $profile->api()->update();
+        $response = $profile->api()->update();
 
-        return $profile->fresh()
-            ->load([
-                'heroes',
-                'riftRankings',
-                'stats'
-            ]);
+        if (!$response instanceof Profile) {
+            return $response;
+        }
+
+        $profile->fresh();
+
+        $profile->getAvailability();
+
+        return $profile->load([
+            'heroes',
+            'riftRankings',
+            'stats'
+        ]);
     }
 }

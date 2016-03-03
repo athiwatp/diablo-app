@@ -23,4 +23,14 @@ abstract class Service
     {
         return isset($this->response->code) || is_null($this->response);
     }
+
+    /**
+     * Check if hero level is too low
+     *
+     * @return boolean
+     */
+    protected function heroLevelIsTooLow($hero) : bool
+    {
+        return $hero->level < 65;
+    }
 }

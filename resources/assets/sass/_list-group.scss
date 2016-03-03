@@ -22,21 +22,38 @@
         }
 
 		@include m('link') {
+            text-decoration: none;
 
 			&:hover {
-				color: #fff;
+                text-decoration: none;
+				color: #fff !important;
 				border-color: transparent;
 				background-color: rgba($secondary-color, .4) !important;
 				cursor: pointer;
 			}
 
-          @include m('softcore') {
-            border-left: 4px solid $tertiary-color;
-          }
+            @include m('power') {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-          @include m('hardcore') {
-            border-left: 4px solid $secondary-color;
-          }
+                img {
+                    width: 23px;
+                }
+            }
+
+
+
+            @include m('softcore') {
+                border-left: 4px solid $tertiary-color;
+            }
+
+            @include m('hardcore') {
+                border-left: 4px solid $secondary-color;
+            }
 		}
 
 		@include m('header') {

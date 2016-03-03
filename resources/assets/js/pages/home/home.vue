@@ -4,18 +4,18 @@
 
 <template>
     <div id="page">
-        <main-header></main-header>
-        
-        <banner :parameters.once="topBannerParameters"
-                id="top-banner"
-        >
-            <div class="home-banner-content">
-                <h1>Diablo Rankings</h1>
-                <h6>Leaderboards, statistics and more</h6>
-            </div>
-        </banner>
+        <main-header>
+            <banner :parameters.once="topBannerParameters"
+                    id="top-banner"
+            >
+                <div class="home-banner-content">
+                    <h1>Diablo Rankings</h1>
+                    <h6>Leaderboards, statistics and more</h6>
+                </div>
+            </banner>
+        </main-header>
 
-        <div class="content">
+        <main-content>
             <section class="leaderboard-rankings">
                 <div class="container-fluid">
                     <div class="row">
@@ -30,7 +30,6 @@
                     </div>
                 </div>
             </section>
-
             <h2 class="section-header">Classes</h2>
             <section class="leaderboard-classes">
                 <div class="container-fluid">
@@ -47,16 +46,14 @@
                     </div>
                 </div>
             </section>
-        </div>
-
-        <main-footer></main-footer>
+        </main-content>
     </div>
 </template>
 
 <script>
     import mainHeader from '../../components/main-header/main-header.vue';
     import banner from '../../components/banner/banner.vue';
-    import mainFooter from '../../components/main-footer/main-footer.vue';
+    import mainContent from '../../components/main-content/main-content.vue';
     import leaderboardCard from './components/leaderboard-card/leaderboard-card.vue';
     import homeStub from '../../stubs/home';
 
@@ -76,7 +73,7 @@
 
         props: ['data'],
 
-        components: { mainHeader, banner, mainFooter, leaderboardCard },
+        components: { mainHeader, banner, mainContent, leaderboardCard },
 
         ready () {
             this.init();

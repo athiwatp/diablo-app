@@ -46,7 +46,7 @@
                 this.setIcon(type);
 
                 if (!this.show) {
-                    this.slideIn();
+                    this.slideDown();
                 }
 
                 if (typeof duration != 'undefined') {
@@ -74,7 +74,7 @@
                 }
             },
 
-            slideIn () {
+            slideDown () {
                 $('.message').css({
                     display: 'flex'
                 }).hide().slideDown();

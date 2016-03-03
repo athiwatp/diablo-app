@@ -162,15 +162,12 @@
     import banner from '../../components/banner/banner.vue';
     import mainHeader from '../../components/main-header/main-header.vue';
     import mainContent from '../../components/main-content/main-content.vue';
+    import profileStub from '../../stubs/profile'
 
     export default {
         data: function () {
             return {
-                state: {
-                    heroes: [],
-                    stats: false,
-                    queuable: true
-                },
+                state: profileStub,
                 topBannerParameters: {
                     background: 'url("/img/profile-banner.jpg") no-repeat fixed',
                     backgroundPosition: '50% 0'
@@ -201,6 +198,8 @@
                 this.$http.patch('/api/profiles/' + this.state.id).then(function (response) {
                     this.state = response.data;
                     this.$root.message('success', 'Profile updated', 2000);
+                }.bind(this), function (response) {
+                    this.$root.message('warning', response.data);
                 }.bind(this));
             }
         }

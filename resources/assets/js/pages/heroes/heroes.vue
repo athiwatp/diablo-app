@@ -1,4 +1,5 @@
 <style lang="scss">
+    @import './heroes';
 </style>
 
 <template>
@@ -23,7 +24,7 @@
             <section class="hero-section">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
                             <div class="block">
                                 <div class="block__body">
                                     <img :src="state.class | classCrest"
@@ -84,10 +85,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9 col-sm-9 col-xs-12 text-xs-center p-t-3"
+                             v-if="!state.queued_at"
+                        >
+                            <h1>
+                                <i class="fa fa-exclamation-triangle"></i>
+                                New Hero Record
+                            </h1>
+                            <h6>To refresh this hero's profile, click update.</h6>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 animated"
+                             v-if="state.items.length > 0"
+                             transition="fade"
+                        >
                             <div class="row" style="justify-content: center;">
-                                <div class="col-md-4 m-b-1"
+                                <div class="col-md-4 col-sm-4 col-xs-12"
                                      v-for="item in state.items"
+                                     style="margin-bottom: .5rem"
                                 >
                                     <a href="#"
                                        class="block block--gear"
@@ -103,6 +117,70 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 animated"
+                             v-if="state.skills.length > 0 || state.powers.length > 0"
+                             transition="fade"
+                        >
+                            <div class="block">
+                                <div class="block__body block__body--flush">
+                                    <div class="block__row"
+                                         v-if="state.skills.length > 0"
+                                    >
+                                        <h5 class="block__header">Active</h5>
+                                        <ul class="list">
+                                            <a class="list__item list__item--link list__item--link--power"
+                                               v-for="skill in state.skills | active"
+                                               href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/active/{{ skill.slug }}?runeType={{ skill.rune_type }}"
+                                            >
+                                                <span class="flex-70 text-xs-left">
+                                                    <div>{{ skill.name }}</div>
+                                                    <small class="text--quinary">{{ skill.rune }}</small>
+                                                </span>
+                                                <span class="flex-30 text-xs-right">
+                                                    <img :src="skill.icon | skillIcon" alt="">
+                                                </span>
+                                            </a>
+                                        </ul>
+                                    </div>
+                                    <div class="block__row"
+                                         v-if="state.skills.length > 0"
+                                    >
+                                        <h5 class="block__header">Passive</h5>
+                                        <ul class="list">
+                                            <a class="list__item list__item--link list__item--link--power"
+                                               v-for="skill in state.skills | passive"
+                                               href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/passive/{{ skill.slug }}"
+                                            >
+                                                <span class="flex-70 text-xs-left">
+                                                    <div>{{ skill.name }}</div>
+                                                </span>
+                                                <span class="flex-30 text-xs-right">
+                                                    <img :src="skill.icon | skillIcon" alt="">
+                                                </span>
+                                            </a>
+                                        </ul>
+                                    </div>
+                                    <div class="block__row"
+                                         v-if="state.powers.length > 0"
+                                    >
+                                        <h5 class="block__header">Powers</h5>
+                                        <ul class="list">
+                                            <a class="list__item list__item--link list__item--link--power"
+                                               v-for="power in state.powers"
+                                               data-d3tooltip="{{ power.tool_tip_params }}"
+                                            >
+                                                <span class="flex-70 text-xs-left">
+                                                    {{ power.name }}
+                                                </span>
+                                                <span class="flex-30 text-xs-right">
+                                                    <img :src="power.icon | powerIcon" alt="">
+                                                </span>
+                                            </a>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -114,20 +192,12 @@
     import banner from '../../components/banner/banner.vue';
     import mainHeader from '../../components/main-header/main-header.vue';
     import mainContent from '../../components/main-content/main-content.vue';
+    import heroStub from '../../stubs/hero';
 
     export default {
         data () {
             return {
-                state: {
-                    paragon_level: 0,
-                    stats: {
-                        damage: 0,
-                        toughness: 0,
-                        healing: 0
-                    },
-                    season_rankings: [],
-                    class: ''
-                }
+                state: heroStub
             }
         },
 
@@ -191,9 +261,14 @@
             },
 
             updateHero () {
-                this.state.queued = true;
                 this.state.queuable = false;
-                this.$http.patch('/api/heroes/' + this.state.id);
+                this.$root.message('info', 'Hero is currently in queue.');
+                this.$http.patch('/api/heroes/' + this.state.id).then(function (result) {
+                    this.state = result.data;
+                    this.$root.message('success', 'Hero updated', 2000);
+                }.bind(this), function (response) {
+                    this.$root.message('warning', response.data);
+                }.bind(this));
             }
         }
     }

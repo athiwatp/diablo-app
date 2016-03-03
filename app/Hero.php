@@ -157,6 +157,8 @@ class Hero extends Model
     public function skills()
     {
         return $this->belongsToMany(Skill::class)
-            ->withPivot('rune_id');
+            ->leftJoin('runes as runes', function($join) {
+                $join->on('hero_skill.rune_id', '=', 'runes.id');
+            })->select('skills.*', 'runes.name as rune', 'runes.type as rune_type');
     }
 }
