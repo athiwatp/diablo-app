@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Diablo\Rankings;
 use App\Leaderboard;
 use Cache;
 use Illuminate\Support\Collection;
@@ -18,10 +17,7 @@ class HomeController extends Controller
      */
     public function index() : \Illuminate\View\View
     {
-        Cache::forget('home-page');
-        $data = Cache::remember('home-page', 60, function () {
-            return $this->data();
-        });
+        $data = $this->data();
 
         return View::make('home.index', compact('data'));
     }
@@ -41,16 +37,12 @@ class HomeController extends Controller
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
             ->with(['hero', 'profile'])
-            ->limit(10)
+            ->limit(20)
             ->get();
 
         $query->all()[0]['show'] = true;
 
-        $ladders->put('softcore',
-            [
-                'ladder' => $query
-            ]
-        );
+        $ladders->put('softcore', $query);
 
         $query = Leaderboard::season()
             ->hardcore()
@@ -59,16 +51,12 @@ class HomeController extends Controller
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
             ->with(['hero', 'profile'])
-            ->limit(10)
+            ->limit(20)
             ->get();
 
         $query->all()[0]['show'] = true;
 
-        $ladders->put('hardcore',
-            [
-                'ladder' => $query
-            ]
-        );
+        $ladders->put('hardcore', $query);
 
         return $ladders->toJson();
     }

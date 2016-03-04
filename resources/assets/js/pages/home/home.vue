@@ -37,7 +37,7 @@
                         <div class="col-md-2 col-sm-6 col-xs-12"
                              v-for="class in classes"
                         >
-                            <a href="#" 
+                            <a :href="class | leaderboardClassLink"
                                class="leaderboard-classes__class"
                             >
                                 <img :src="class | classCrest">
@@ -54,7 +54,7 @@
     import mainHeader from '../../components/main-header/main-header.vue';
     import banner from '../../components/banner/banner.vue';
     import mainContent from '../../components/main-content/main-content.vue';
-    import leaderboardCard from './components/leaderboard-card/leaderboard-card.vue';
+    import leaderboardCard from '../../components/leaderboard-card/leaderboard-card.vue';
     import homeStub from '../../stubs/home';
 
     export default {
@@ -72,6 +72,12 @@
         },
 
         props: ['data'],
+
+        filters: {
+            leaderboardClassLink (c) {
+                return '/leaderboards/season/' + CURRENT_SEASON + '/class/' + c.replace('-', '');
+            }
+        },
 
         components: { mainHeader, banner, mainContent, leaderboardCard },
 

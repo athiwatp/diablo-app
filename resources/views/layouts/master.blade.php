@@ -5,6 +5,7 @@
 
     <script>
         var BASE_URL = '{!! url('/') !!}'
+        var CURRENT_SEASON = '{{ env('CURRENT_SEASON', 5) }}'
     </script>
 
     <script src="/js/app.js"></script>

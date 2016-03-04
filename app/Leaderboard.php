@@ -60,7 +60,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scopeBarbarians($q)
+    public function scopeBarbarian($q)
     {
         return $q->solo()
             ->where('leaderboards.class', '=', 'barbarian')
@@ -73,7 +73,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scopeCrusaders($q)
+    public function scopeCrusader($q)
     {
         return $q->solo()
             ->where('heroes.class', '=', 'crusader')
@@ -86,7 +86,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scopeDemonHunters($q)
+    public function scopeDemonHunter($q)
     {
         return $q->solo()
             ->where('heroes.class', '=', 'demon hunter')
@@ -99,7 +99,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scopeMonks($q)
+    public function scopeMonk($q)
     {
         return $q->solo()
             ->where('heroes.class', '=', 'monk')
@@ -112,7 +112,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scopeWitchDoctors($q)
+    public function scopeWitchDoctor($q)
     {
         return $q->solo()
             ->where('heroes.class', '=', 'witch doctor')
@@ -125,7 +125,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scopeWizards($q)
+    public function scopeWizard($q)
     {
         return $q->solo()
             ->where('heroes.class', '=', 'wizard')
@@ -138,7 +138,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scope2Players($q)
+    public function scope2Player($q)
     {
         return $q->teams(2);
     }
@@ -148,7 +148,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scope3Players($q)
+    public function scope3Player($q)
     {
         return $q->teams(3);
     }
@@ -159,7 +159,7 @@ class Leaderboard extends Model
      * @param $q
      * @return mixed
      */
-    public function scope4Players($q)
+    public function scope4Player($q)
     {
         return $q->teams(4);
     }
@@ -171,7 +171,7 @@ class Leaderboard extends Model
      * @param $players
      * @return mixed
      */
-    public function scopeTeams($q, $players)
+    public function scopeTeam($q, $players)
     {
         return $q->where('leaderboards.players', $players)
             ->ladder();

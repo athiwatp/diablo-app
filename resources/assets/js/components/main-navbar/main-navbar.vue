@@ -15,7 +15,7 @@
             </a>
             <ul class="nav__items">
                 <li class="nav__item"
-                    :class="{ 'nav__item--active': active == 'leaderboardPage' }"
+                    :class="{ 'nav__item--active': active == 'leaderboardsPage' }"
                 >
                     <a href="/leaderboards" 
                        class="nav__link"

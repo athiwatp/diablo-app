@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Leaderboard;
 use Cache;
 use Diablo;
+use Illuminate\Database\Eloquent\Collection;
 use Response;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -18,37 +19,48 @@ class LeaderboardsController extends Controller
      * @param null $type
      * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function index($type = null) : View
+    public function class(Request $request, $season, $class) : View
     {
-        return view('leaderboards.index', compact('type'));
+        $data = new Collection;
+        $data->put('softcore', $this->dataSoftcore($season, $class));
+        $data->put('hardcore', $this->dataHardcore($season, $class));
+
+        return view('leaderboards.class', compact('data'));
     }
 
-    /**
-     * API Return
-     *
-     * @param Request $request
-     * @param $type
-     */
-    public function data(Request $request, $type)
+    public function dataSoftcore($season, $class)
     {
-        if (is_null($type)) {
-            return;
-        }
-
-        $query = Leaderboard::with(['profile', 'hero'])
-            ->$type()
-            ->season()
+        return Leaderboard::season()
             ->softcore()
-            ->period(5)
-            ->orderBy('leaderboards.rift_level', 'desc');
+            ->period($season)
+            ->solo()
+            ->$class()
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_time', 'asc')
+            ->with(['hero', 'profile'])
+            ->paginate(20);
+    }
 
-        if ($request->has('searchText')) {
-            $query->join('profiles', function ($join) use ($request) {
-                $join->on('profiles.id', '=', 'leaderboards.profile_id')
-                    ->where('battle_tag', 'like', '%'.$request->get('searchText').'%');
-            });
-        }
+    public function dataHardcore($season, $class)
+    {
+        return Leaderboard::season()
+            ->hardcore()
+            ->period($season)
+            ->solo()
+            ->$class()
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_time', 'asc')
+            ->with(['hero', 'profile'])
+            ->paginate(20);
+    }
 
-        return $query->paginate(25);
+    public function search()
+    {
+//        if ($request->has('searchText')) {
+//            $query->join('profiles', function ($join) use ($request) {
+//                $join->on('profiles.id', '=', 'leaderboards.profile_id')
+//                    ->where('battle_tag', 'like', '%'.$request->get('searchText').'%');
+//            });
+//        }
     }
 }

@@ -10,5 +10,5 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('heroes/{hero}', 'HeroController@show');
     Route::get('profiles/{profile}', 'ProfileController@show');
-    Route::get('leaderboards/{type?}', 'LeaderboardsController@index');
+    Route::get('leaderboards/season/{season}/class/{class}', 'LeaderboardsController@class');
 });

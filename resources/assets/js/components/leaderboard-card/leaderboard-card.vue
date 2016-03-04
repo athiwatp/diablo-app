@@ -1,6 +1,6 @@
 <style lang="scss">
-    @import '../../../../../sass/variables';
-    @import '../../../../../sass/mixins';
+    @import '../../../sass/variables';
+    @import '../../../sass/mixins';
 
     .class-portrait {
         border-radius: 50%;
@@ -10,13 +10,13 @@
 
 <template>
     <ul class="list">
-        <template v-for="(index, ranking) in leaderboard.ladder">
+        <template v-for="(index, ranking) in leaderboard">
             <li class="list__item list__item--link"
                 @click="toggle($event)"
             >
                 <span class="flex-10">{{ index + 1 }}</span>
                 <span class="flex-20">{{ ranking.rift_level }}</span>
-                <span class="flex-30 hidden-sm-down"> 
+                <span class="flex-30 hidden-sm-down">
                     <img :src="ranking | classPortrait"
                          alt="portrait"
                          class="class-portrait"
@@ -32,7 +32,7 @@
                  v-show="ranking.show"
             >
                 <div class="col-sm-5 col-md-4 text-xs-center hidden-xs-down">
-                    <img :src="ranking.class | classCrest" 
+                    <img :src="ranking.class | classCrest"
                          alt="portrait"
                          class="img-fluid"
                     >
