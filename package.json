@@ -13,5 +13,8 @@
     "jquery": "^1.12",
     "laravel-elixir": "^4.0.0",
     "tether": "^1.1.1"
+  },
+  "scripts": {
+    "postinstall": "gulp"
   }
 }
