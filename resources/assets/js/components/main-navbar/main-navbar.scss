@@ -79,6 +79,11 @@
         text-transform: uppercase;
         transition: $transition;
 
+        &:focus {
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+
         &:hover {
             text-decoration: none;
             color: #fff;

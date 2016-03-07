@@ -6,7 +6,7 @@
     <div id="app">
         <component :is="page" 
                    :data="data"
-       >
+        >
             <slot></slot>
         </component>
     </div>
@@ -17,7 +17,11 @@
     import heroesPage from './pages/heroes/heroes.vue';
     import homePage from './pages/home/home.vue';
     import profilePage from './pages/profile/profile.vue';
-    import leaderboardsPage from './pages/leaderboards/leaderboards.vue';
+    import leaderboardsIndexPage from './pages/leaderboards/index.vue';
+    import leaderboardsClassIndexPage from './pages/leaderboards/class-index.vue';
+    import leaderboardsClassShowPage from './pages/leaderboards/class-show.vue';
+    import leaderboardsTeamIndexPage from './pages/leaderboards/team-index.vue';
+    import leaderboardsTeamShowPage from './pages/leaderboards/team-show.vue';
 
     export default {
         el: '#app',
@@ -29,7 +33,11 @@
             heroesPage,
             homePage,
             profilePage,
-            leaderboardsPage
+            leaderboardsIndexPage,
+            leaderboardsClassIndexPage,
+            leaderboardsClassShowPage,
+            leaderboardsTeamIndexPage,
+            leaderboardsTeamShowPage
         },
 
         ready () {

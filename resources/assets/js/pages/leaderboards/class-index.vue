@@ -1,17 +1,11 @@
-<style lang="scss">
-    @import './home';
-</style>
-
 <template>
     <div id="page">
         <main-header>
             <banner :parameters.once="topBannerParameters"
                     id="top-banner"
+                    class="banner--slim"
             >
-                <div class="home-banner-content">
-                    <h1>Diablo Rankings</h1>
-                    <h6>Leaderboards, statistics and more</h6>
-                </div>
+                <h1>Class Leaderboard</h1>
             </banner>
         </main-header>
 
@@ -23,35 +17,33 @@
                             <h2 class="section-header section-header--left">Softcore</h2>
                             <ul class="list">
                                 <ranking-item v-for="(index, ranking) in state.softcore"
-                                              :ranking="ranking"
-                                              :index="index"
+                                           :ranking="ranking"
+                                           :index="index"
                                 ></ranking-item>
                             </ul>
+                            <div>
+                                <a :href="state.softcore_show_all"
+                                   class="btn btn--secondary pull-xs-right"
+                                >
+                                    Show All
+                                </a>
+                            </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--right">Hardcore</h2>
                             <ul class="list">
                                 <ranking-item v-for="(index, ranking) in state.hardcore"
-                                              :ranking="ranking"
-                                              :index="index"
+                                           :ranking="ranking"
+                                           :index="index"
                                 ></ranking-item>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <h2 class="section-header">Classes</h2>
-            <section class="leaderboard-classes">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-2 col-sm-6 col-xs-12"
-                             v-for="class in classes"
-                        >
-                            <a :href="class | leaderboardClassLink"
-                               class="leaderboard-classes__class"
-                            >
-                                <img :src="class | classCrest">
-                            </a>
+                            <div>
+                                <a :href="state.hardcore_show_all"
+                                   class="btn btn--secondary pull-xs-right"
+                                >
+                                    Show All
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,27 +54,27 @@
 
 <script>
     import mainHeader from '../../components/main-header/main-header.vue';
-    import banner from '../../components/banner/banner.vue';
     import mainContent from '../../components/main-content/main-content.vue';
-    import rankingItem from '../../components/list/ranking-item.vue';
-    import homeStub from '../../stubs/home';
+    import banner from '../../components/banner/banner.vue';
+    import rankingItem from '../../components/list/ranking-item.vue'
+    import classIndexStub from '../../stubs/class-index.js';
 
     export default {
         data () {
-            return homeStub
+            return classIndexStub
+        },
+
+        ready () {
+            this.init();
         },
 
         props: ['data'],
 
         components: {
-            mainHeader, 
-            banner, 
+            mainHeader,
             mainContent, 
+            banner, 
             rankingItem
-        },
-
-        ready () {
-            this.init();
         },
 
         methods: {

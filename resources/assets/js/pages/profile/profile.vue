@@ -142,7 +142,9 @@
                                              alt="portrait"
                                              class="class-portrait"
                                         >
-                                        {{ hero.class | capitalize }}
+                                        <span class="text--{{ hero.class }}">
+                                            {{ hero.class | capitalize }}
+                                        </span>
                                     </span>
                                     <span class="flex-20">{{ hero.paragon_level }}</span>
                                     <span class="flex-20 text-xs-right">

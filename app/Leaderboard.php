@@ -186,8 +186,7 @@ class Leaderboard extends Model
     public function scopeLadder($q)
     {
         return $q->select('leaderboards.*')
-            ->join('heroes', 'heroes.id', '=', 'leaderboards.hero_id')
-            ->orderBy('leaderboards.rank');
+            ->join('heroes', 'heroes.id', '=', 'leaderboards.hero_id');
     }
 
     /**

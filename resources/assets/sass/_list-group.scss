@@ -21,6 +21,10 @@
             margin-bottom: 0;
         }
 
+        &:focus {
+            color: #fff !important;
+        }
+
 		@include m('link') {
             text-decoration: none;
 

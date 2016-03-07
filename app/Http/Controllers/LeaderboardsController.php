@@ -7,60 +7,93 @@ use App\Leaderboard;
 use Cache;
 use Diablo;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\View;
 use Response;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class LeaderboardsController extends Controller
 {
-    /**
-     * Display the specified resource.
-     *
-     * @param null $type
-     * @return \Illuminate\Contracts\View\Factory|View
-     */
-    public function class(Request $request, $season, $class) : View
+    public function index()
+    {
+        return View::make('leaderboards.index');
+    }
+
+    public function classIndex(Request $request, $mode, $period, $class)
     {
         $data = new Collection;
-        $data->put('softcore', $this->dataSoftcore($season, $class));
-        $data->put('hardcore', $this->dataHardcore($season, $class));
 
-        return view('leaderboards.class', compact('data'));
+        foreach (['softcore', 'hardcore'] as $type) {
+            $data->put($type,
+                Leaderboard::$mode()
+                    ->$type()
+                    ->period($period)
+                    ->$class()
+                    ->orderBy('rift_level', 'desc')
+                    ->orderBy('rift_time', 'asc')
+                    ->with(['hero', 'profile'])
+                    ->limit(25)
+                    ->get()
+            );
+        }
+        
+        $data->put('softcore_show_all', '/'.$request->path().'/softcore');
+        $data->put('hardcore_show_all', '/'.$request->path().'/hardcore');
+
+        return View::make('leaderboards.class-index', compact('data'));
     }
 
-    public function dataSoftcore($season, $class)
+    public function teamIndex(Request $request, $mode, $period, $players)
     {
-        return Leaderboard::season()
-            ->softcore()
-            ->period($season)
+        $data = new Collection;
+
+        foreach (['softcore', 'hardcore'] as $type) {
+            $data->put($type,
+                Leaderboard::$mode()
+                    ->$type()
+                    ->period($period)
+                    ->team($players)
+                    ->orderBy('rift_level', 'desc')
+                    ->orderBy('rift_time', 'asc')
+                    ->with(['hero', 'profile'])
+                    ->limit(25)
+                    ->get()
+            );
+        }
+        
+        $data->put('softcore_show_all', '/'.$request->path().'/softcore');
+        $data->put('hardcore_show_all', '/'.$request->path().'/hardcore');
+
+        return View::make('leaderboards.team-index', compact('data'));
+    }
+
+    public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
+    {
+        $data = Leaderboard::$mode()
+            ->$type()
+            ->period($period)
             ->solo()
             ->$class()
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
             ->with(['hero', 'profile'])
-            ->paginate(20);
+            ->paginate(20)
+            ->toJson();
+
+        return View::make('leaderboards.class-show', compact('data'));
     }
 
-    public function dataHardcore($season, $class)
+    public function teamShow(Request $request, $mode, $period, $players, $type) : \Illuminate\View\View
     {
-        return Leaderboard::season()
-            ->hardcore()
-            ->period($season)
-            ->solo()
-            ->$class()
+        $data = Leaderboard::$mode()
+            ->$type()
+            ->period($period)
+            ->team($players)
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
             ->with(['hero', 'profile'])
-            ->paginate(20);
-    }
+            ->paginate(20)
+            ->toJson();
 
-    public function search()
-    {
-//        if ($request->has('searchText')) {
-//            $query->join('profiles', function ($join) use ($request) {
-//                $join->on('profiles.id', '=', 'leaderboards.profile_id')
-//                    ->where('battle_tag', 'like', '%'.$request->get('searchText').'%');
-//            });
-//        }
+        return View::make('leaderboards.team-show', compact('data'));
     }
 }

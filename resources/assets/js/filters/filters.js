@@ -52,3 +52,7 @@ export function region (r) {
 			return '';
 	}
 }
+
+export function leaderboardClassLink (c) {
+    return '/leaderboards/season/' + CURRENT_SEASON + '/class/' + c.replace('-', '');
+}

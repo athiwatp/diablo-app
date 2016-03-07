@@ -3,7 +3,7 @@ import Vue from 'vue';
 import vueResource from 'vue-resource';
 
 import {fade, slide} from './transisions/transisions';
-import {region, battleTag, classPortrait, classText, number, classCrest, classBanner} from './filters/filters';
+import {region, battleTag, classPortrait, classText, number, classCrest, classBanner, leaderboardClassLink} from './filters/filters';
 
 Vue.use(vueResource);
 
@@ -14,6 +14,7 @@ Vue.filter('number', number);
 Vue.filter('classCrest', classCrest);
 Vue.filter('region', region);
 Vue.filter('classBanner', classBanner);
+Vue.filter('leaderboardClassLink', leaderboardClassLink);
 
 Vue.transition('fade', fade);
 Vue.transition('slide', slide);

@@ -2,8 +2,7 @@
 
 @section('content')
     <div id="app"
-         page="leaderboardsPage"
+         page="leaderboardsIndexPage"
          menu="leaderboardsPage"
-         data="{{ $data }}"
     ></div>
 @stop

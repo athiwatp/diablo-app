@@ -6,6 +6,14 @@
 	color: #fff;
 	text-align: center;
 
+    @include m('green') {
+        border-bottom: 2px solid #87a73d;
+    }
+
+    @include m('orange') {
+        border-bottom: 2px solid #c29337;
+    }
+
     @include m('gear') {
         display: flex;
         align-items: center;

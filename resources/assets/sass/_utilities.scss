@@ -63,6 +63,10 @@
     margin-top: 10px;
 }
 
+.flex {
+    display: flex;
+}
+
 @for $i from 1 through 10 {
   .flex-#{$i}0 {
     flex: 1 #{$i}0%;
@@ -93,4 +97,9 @@
   transition: $transition;
   font-size: 2rem;
   text-decoration: none !important;
+}
+
+.class-portrait {
+    border-radius: 50%;
+    border: 1px solid #7e7e7e;
 }

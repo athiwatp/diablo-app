@@ -18,3 +18,51 @@
 		color: #fff;
 	}
 }
+
+.leaderboard-classes {
+    display: flex;
+    padding: 0px 1rem;
+
+    @include e('class') {
+        background-color: lighten($primary-color, 10%) !important;
+        border-color: lighten($primary-color, 10%) !important;
+        margin-bottom: 0.5rem;
+        transition: $transition;
+        display: inherit;
+
+        img {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        &:hover {
+            background-color: rgba($secondary-color, .4) !important;
+            cursor: pointer;
+        }
+    }
+}
+
+.leaderboard-teams {
+    display: flex;
+    padding: 0px 1rem;
+
+    @include e('team') {
+        background-color: lighten($primary-color, 10%) !important;
+        border-color: lighten($primary-color, 10%) !important;
+        margin-bottom: 0.5rem;
+        transition: $transition;
+        display: inherit;
+        text-decoration: none !important;
+        padding: 2rem 5rem;
+        color: #fff;
+        font-size: 5rem;
+
+        &:hover {
+            background-color: rgba($secondary-color, .4) !important;
+            cursor: pointer;
+            color: #fff !important;
+        }
+    }
+}

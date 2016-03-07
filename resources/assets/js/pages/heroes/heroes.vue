@@ -104,7 +104,7 @@
                                      style="margin-bottom: .5rem"
                                 >
                                     <a href="#"
-                                       class="block block--gear"
+                                       class="block block--gear block--{{ item.display_color }}"
                                        data-d3tooltip="{{ item.pivot.tool_tip_params }}"
                                     >
                                         <div class="block__body">
@@ -134,7 +134,7 @@
                                             >
                                                 <span class="flex-70 text-xs-left">
                                                     <div>{{ skill.name }}</div>
-                                                    <small class="text--quinary">{{ skill.rune }}</small>
+                                                    <small class="text--secondary">{{ skill.rune }}</small>
                                                 </span>
                                                 <span class="flex-30 text-xs-right">
                                                     <img :src="skill.icon | skillIcon" alt="">
