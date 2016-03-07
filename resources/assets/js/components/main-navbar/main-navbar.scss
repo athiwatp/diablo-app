@@ -24,6 +24,7 @@
         }
 
         @include e('img') {
+            top: -2px;
             width: 35px;
             transition: $transition;
             position: relative;
@@ -36,12 +37,10 @@
             text-decoration: none !important;
             font-size: 1rem;
             letter-spacing: 5px;
-            margin-left: 3rem;
             position: absolute;
-            top: 4px;
+            top: 0px;
             left: 50px;
             transition: $transition;
-            opacity: 0;
             width: 250px;
         }
     }
@@ -111,6 +110,11 @@
 
     @include m('scroll') {
         background: rgba($primary-color, 0.94) !important;
+
+        .nav__logo__text {
+            margin-left: 3rem;
+            opacity: 0;
+        }
 
         .nav__item {
             .nav__link {
