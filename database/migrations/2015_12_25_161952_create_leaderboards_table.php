@@ -20,7 +20,7 @@ class CreateLeaderboardsTable extends Migration
             $table->foreign('profile_id')->references('id')->on('profiles');
             $table->integer('hero_id')->unsigned();
             $table->foreign('hero_id')->references('id')->on('heroes');
-            $table->enum('class', ['barbarian', 'crusader', 'demon hunter', 'monk', 'witch doctor', 'wizard']);
+            $table->enum('class', ['barbarian', 'crusader', 'demon-hunter', 'monk', 'witch-doctor', 'wizard']);
             $table->boolean('season');
             $table->integer('period');
             $table->integer('players');

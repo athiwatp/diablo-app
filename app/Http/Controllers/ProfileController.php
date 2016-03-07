@@ -11,6 +11,13 @@ use View;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        $data = '';
+
+        return View::make('profiles.index', compact('data'));
+    }
+
     /**
      * Display the specified resource.
      *

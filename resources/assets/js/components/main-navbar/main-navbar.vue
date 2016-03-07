@@ -15,9 +15,19 @@
             </a>
             <ul class="nav__items">
                 <li class="nav__item"
+                    :class="{ 'nav__item--active': active == 'homePage' }"
+                >
+                    <a href="/"
+                       class="nav__link"
+                    >
+                        Home
+                        <span class="nav__link__subtext">diablo</span>
+                    </a>
+                </li>
+                <li class="nav__item"
                     :class="{ 'nav__item--active': active == 'leaderboardsPage' }"
                 >
-                    <a href="/leaderboards" 
+                    <a href="/leaderboards"
                        class="nav__link"
                     >
                         Leaderboards

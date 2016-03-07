@@ -12,9 +12,9 @@ trait Queueable
     public function getAvailability()
     {
         if (is_null($this->queued_at)) {
-            $queuable = true;
+            $queueable = true;
         } else {
-            $queuable = $this->queued_at
+            $queueable = $this->queued_at
                 ->addHours(12)
                 ->lte(Carbon::now());
         
@@ -32,7 +32,7 @@ trait Queueable
                     ->diffForHumans();
         }
 
-        $this->queuable = $queuable;
+        $this->queueable = true;
         $this->available_in = $available_in;
     }
 }

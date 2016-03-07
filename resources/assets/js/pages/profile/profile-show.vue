@@ -1,5 +1,5 @@
 <style lang="scss">
-    @import './profile.scss';
+    @import './profile-show.scss';
 </style>
 
 <template>
@@ -37,7 +37,7 @@
                                     </p>
                                     <button class="btn btn--secondary btn-lg"
                                             @click="updateProfile"
-                                            :disabled="! state.queuable"
+                                            :disabled="! state.queueable"
                                     >
                                         Update
                                     </button>
@@ -195,7 +195,7 @@
             },
 
             updateProfile () {
-                this.state.queuable = false;
+                this.state.queueable = false;
                 this.$root.message('info', 'Profile is currently in queue.');
                 this.$http.patch('/api/profiles/' + this.state.id).then(function (response) {
                     this.state = response.data;

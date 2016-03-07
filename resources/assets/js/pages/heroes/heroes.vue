@@ -24,7 +24,7 @@
             <section class="hero-section">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3 col-sm-3 col-xs-12">
+                        <div class="col-md-3 col-sm-12 col-xs-12">
                             <div class="block">
                                 <div class="block__body">
                                     <img :src="state.class | classCrest"
@@ -41,7 +41,7 @@
                                     </p>
                                     <button class="btn btn--secondary btn-lg"
                                             @click="updateHero"
-                                            :disabled="! state.queuable"
+                                            :disabled="! state.queueable"
                                     >
                                         Update
                                     </button>
@@ -94,12 +94,12 @@
                             </h1>
                             <h6>To refresh this hero's profile, click update.</h6>
                         </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12 animated"
+                        <div class="col-md-6 col-sm-12 col-xs-12 animated"
                              v-if="state.items.length > 0"
                              transition="fade"
                         >
                             <div class="row" style="justify-content: center;">
-                                <div class="col-md-4 col-sm-4 col-xs-12"
+                                <div class="col-md-4 col-sm-12 col-xs-12"
                                      v-for="item in state.items"
                                      style="margin-bottom: .5rem"
                                 >
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-3 col-xs-12 animated"
+                        <div class="col-md-3 col-sm-12 col-xs-12 animated"
                              v-if="state.skills.length > 0 || state.powers.length > 0"
                              transition="fade"
                         >
@@ -261,7 +261,7 @@
             },
 
             updateHero () {
-                this.state.queuable = false;
+                this.state.queueable = false;
                 this.$root.message('info', 'Hero is currently in queue.');
                 this.$http.patch('/api/heroes/' + this.state.id).then(function (result) {
                     this.state = result.data;

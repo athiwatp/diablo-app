@@ -54,7 +54,7 @@ class LegendaryPowerUpdate
 
     /**
      * Add an item to the sync list
-     * @param App\Item $find
+     * @param \App\Item $find
      * @param stdClass $item
      */
     private function addToSync(Item $find)
@@ -77,12 +77,12 @@ class LegendaryPowerUpdate
      */
     private function queryApi()
     {
-        if (empty($this->query_items)) {
+        if (empty($this->query_powers)) {
             return [];
         }
 
         $request = $this->api
-            ->getItemData($this->query_powers);
+            ->items($this->query_powers);
 
         if (! is_array($request)) {
             $request = [$request];
@@ -96,7 +96,7 @@ class LegendaryPowerUpdate
     /**
      * Find an item in the Item list
      * @param  integer $battlenet_item_id
-     * @return App\Item|boolean
+     * @return \App\Item|boolean
      */
     private function findPower(stdClass $legendaryPower)
     {

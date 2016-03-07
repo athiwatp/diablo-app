@@ -12,6 +12,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', 'HomeController@index');
 
     Route::get('heroes/{hero}', 'HeroController@show');
+    Route::get('profiles', 'ProfileController@index');
     Route::get('profiles/{profile}', 'ProfileController@show');
 
     Route::group(['prefix' => 'leaderboards'], function () {

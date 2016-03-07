@@ -3,7 +3,7 @@
 @section('content')
 	<div id="app" 
 		 menu="profilePage"
-		 page="profilePage"
+		 page="profileShowPage"
 		 data="{{ $profile }}"
 	></div>
 @stop

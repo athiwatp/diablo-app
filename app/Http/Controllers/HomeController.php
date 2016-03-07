@@ -13,51 +13,43 @@ class HomeController extends Controller
     /**
      * Home Index
      *
-     * @return \Illuminate\View\View
+     * @return string
      */
-    public function index() : \Illuminate\View\View
+    public function index() : string
     {
-        $data = $this->data();
+        return Cache::remember('home-view', 60, function () {
+            $data = $this->data();
 
-        return View::make('home.index', compact('data'));
+            return View::make('home.index', compact('data'))->render();
+        });
     }
 
     /**
      * Home view data
      *
-     * @param Collection $ladders
+     * @param Collection $data
      * @return string
      */
     public function data() : string
     {
-        $ladders = new Collection;
-        $query = Leaderboard::season()
-            ->period(5)
-            ->solo()
-            ->orderBy('rift_level', 'desc')
-            ->orderBy('rift_time', 'asc')
-            ->with(['hero', 'profile'])
-            ->limit(20)
-            ->get();
+        $data = new Collection;
+        foreach (['softcore', 'hardcore'] as $type) {
+            $query = Leaderboard::season()
+                ->$type()
+                ->period(5)
+                ->solo()
+                ->orderBy('rift_level', 'desc')
+                ->orderBy('rift_time', 'asc')
+                ->with(['hero', 'profile'])
+                ->limit(20)
+                ->get();
 
-        $query->all()[0]['show'] = true;
+            $query->all()[0]['show'] = true;
 
-        $ladders->put('softcore', $query);
+            $data->put($type, $query);
 
-        $query = Leaderboard::season()
-            ->hardcore()
-            ->period(5)
-            ->solo()
-            ->orderBy('rift_level', 'desc')
-            ->orderBy('rift_time', 'asc')
-            ->with(['hero', 'profile'])
-            ->limit(20)
-            ->get();
+        }
 
-        $query->all()[0]['show'] = true;
-
-        $ladders->put('hardcore', $query);
-
-        return $ladders->toJson();
+        return $data->toJson();
     }
 }

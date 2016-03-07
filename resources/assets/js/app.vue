@@ -16,7 +16,8 @@
     import errorPage from './pages/error/error.vue';
     import heroesPage from './pages/heroes/heroes.vue';
     import homePage from './pages/home/home.vue';
-    import profilePage from './pages/profile/profile.vue';
+    import profileIndexPage from './pages/profile/profile-index.vue';
+    import profileShowPage from './pages/profile/profile-show.vue';
     import leaderboardsIndexPage from './pages/leaderboards/index.vue';
     import leaderboardsClassIndexPage from './pages/leaderboards/class-index.vue';
     import leaderboardsClassShowPage from './pages/leaderboards/class-show.vue';
@@ -32,7 +33,8 @@
             errorPage,
             heroesPage,
             homePage,
-            profilePage,
+            profileIndexPage,
+            profileShowPage,
             leaderboardsIndexPage,
             leaderboardsClassIndexPage,
             leaderboardsClassShowPage,

@@ -9,7 +9,7 @@
                  alt="portrait"
                  class="class-portrait"
             >
-            <span class="text--{{ ranking.class }}">
+            <span class="text--{{ ranking.hero.class }}">
                 {{ ranking.hero.class | capitalize }}
             </span>
         </span>
@@ -22,7 +22,7 @@
          v-show="ranking.show"
     >
         <div class="col-sm-5 col-md-4 text-xs-center hidden-xs-down">
-            <img :src="ranking.class | classCrest"
+            <img :src="ranking.hero.class | classCrest"
                  alt="portrait"
                  class="img-fluid"
             >

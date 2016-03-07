@@ -89,7 +89,7 @@ class Leaderboard extends Model
     public function scopeDemonHunter($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'demon hunter')
+            ->where('heroes.class', '=', 'demon-hunter')
             ->ladder();
     }
 
@@ -115,7 +115,7 @@ class Leaderboard extends Model
     public function scopeWitchDoctor($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'witch doctor')
+            ->where('heroes.class', '=', 'witch-doctor')
             ->ladder();
     }
 
