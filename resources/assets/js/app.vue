@@ -14,7 +14,8 @@
 
 <script>
     import errorPage from './pages/error/error.vue';
-    import heroesPage from './pages/heroes/heroes.vue';
+    import heroesIndexPage from './pages/heroes/heroes-index.vue';
+    import heroesShowPage from './pages/heroes/heroes-show.vue';
     import homePage from './pages/home/home.vue';
     import profileIndexPage from './pages/profile/profile-index.vue';
     import profileShowPage from './pages/profile/profile-show.vue';
@@ -31,7 +32,8 @@
 
         components: {
             errorPage,
-            heroesPage,
+            heroesIndexPage,
+            heroesShowPage,
             homePage,
             profileIndexPage,
             profileShowPage,

@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Jobs\UpdateProfile;
 use App\Profile;
 use App\Rankings\Services\Profile\ProfileService;
+use Illuminate\Http\Request;
 use Response;
 use View;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = '';
+        if ($request->has('search')) {
+            $data = $this->search($request);
+        } else {
+            $data = '';
+        }
 
         return View::make('profiles.index', compact('data'));
     }
@@ -60,5 +65,22 @@ class ProfileController extends Controller
             'riftRankings',
             'stats'
         ]);
+    }
+
+    /**
+     * TODO: This needs to be extracted
+     * @param Request $request
+     * @return mixed
+     */
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $profile_service = new ProfileService;
+
+        $profile_service->search($search);
+
+        return Profile::where('battle_tag', 'like', '%'.$search.'%')
+            ->get()
+            ->toJson();
     }
 }

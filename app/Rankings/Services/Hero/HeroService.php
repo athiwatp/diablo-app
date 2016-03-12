@@ -66,8 +66,6 @@ class HeroService extends Service
      */
     private $followers;
 
-    protected $update_method = 'getHeroData';
-
     /**
      * HeroService constructor
      *

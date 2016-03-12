@@ -47,17 +47,14 @@ class UpdateSkills extends Command
     /**
      * Create a new command instance.
      *
-     * @param \App\Diablo\API\DiabloAPI $api
      * @param SkillParser $parser
      * @param SkillService $service
      */
-    public function __construct(DiabloAPI $api, SkillParser $parser, SkillService $service)
+    public function __construct(SkillService $service)
     {
         parent::__construct();
 
-        $this->api = $api;
-        $this->parser = $parser;
-        $this->service = $service;
+        $this->service = new SkillService;
     }
 
     /**
@@ -70,21 +67,8 @@ class UpdateSkills extends Command
         $this->info('Updating skills...');
         $t = microtime(true);
 
-        $records = $this->parser->parse($this->api->skills());
+        $this->service->update();
 
-        $bar = $this->output->createProgressBar(count($records['skills']) + count($records['runes']));
-
-        foreach ($records['skills'] as $record) {
-            $this->service->saveSkill($record);
-            $bar->advance();
-        }
-
-        foreach ($records['runes'] as $record) {
-            $this->service->saveRune($record);
-            $bar->advance();
-        }
-
-        $bar->finish();
         $this->info(PHP_EOL . 'Skills updated in ' . (microtime(true) - $t) . ' seconds');
     }
 }

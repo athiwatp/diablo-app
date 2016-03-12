@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Leaderboard;
 use Cache;
+use DB;
 use Illuminate\Support\Collection;
 use View;
 
@@ -17,6 +18,7 @@ class HomeController extends Controller
      */
     public function index() : string
     {
+        Cache::forget('home-view');
         return Cache::remember('home-view', 60, function () {
             $data = $this->data();
 
@@ -42,6 +44,7 @@ class HomeController extends Controller
                 ->orderBy('rift_time', 'asc')
                 ->with(['hero', 'profile'])
                 ->limit(20)
+                ->select('leaderboards.*', DB::raw('FALSE as `show`'))
                 ->get();
 
             $query->all()[0]['show'] = true;

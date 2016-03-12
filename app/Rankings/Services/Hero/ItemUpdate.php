@@ -62,7 +62,7 @@ class ItemUpdate
 
 	/**
 	 * Add an item to the sync list
-	 * @param App\Item $find
+	 * @param \App\Item $find
 	 * @param stdClass $item
 	 */
 	private function addToSync(Item $find, stdClass $item)

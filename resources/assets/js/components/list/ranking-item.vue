@@ -1,6 +1,7 @@
 <template>
 	<li class="list__item list__item--link"
-        @click="toggle($event)"
+        :class="{ 'list__item--active': ranking['show'] }"
+        @click="toggle(ranking, $event)"
     >
         <span class="flex-10">{{ index }}</span>
         <span class="flex-20">{{ ranking.rift_level }}</span>
@@ -33,7 +34,12 @@
                    class="list__item list__item--link"
                 >
                     <span class="flex-50">Profile</span>
-                    <span class="flex-50">{{ ranking.profile.battle_tag }}</span>
+                    <span class="flex flex-50">
+                        {{ ranking.profile.battle_tag }}
+                        <span class="list__item--link__arrow">
+                            <i class="fa fa-chevron-right"></i>
+                        </span>
+                    </span>
                 </a>
                 <li class="list__item">
                     <span class="flex-50">Region</span>
@@ -45,12 +51,14 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-12 col-md-12 text-xs-right">
-            <a href="/heroes/{{ ranking.hero.id }}"
-               class="btn btn--secondary"
-            >
-                Go to Hero Page
-            </a>
+        <div class="col-sm-12 col-md-12">
+            <div class="list__item__footer">
+                <a href="/heroes/{{ ranking.hero.id }}"
+                   class="btn btn--secondary"
+                >
+                    Go to Hero Page
+                </a>
+            </div>
         </div>
     </div>
 </template>
@@ -60,14 +68,17 @@
 		props: ['ranking', 'index'],
 
 		methods: {
-            toggle (e) {
+            toggle (ranking, e) {
                 var $el = $(e.target);
 
-                if ($el.hasClass('list__item')) {
-                    return $el.next().slideToggle();
+
+                if (!$el.hasClass('list__item')) {
+                    $el = $el.closest('.list__item');
                 }
 
-                $el.closest('.list__item').next().slideToggle();
+                $el.toggleClass('list__item--active').next().slideToggle(function () {
+                    ranking.show = !ranking.show;
+                });
             }
         }
 	}

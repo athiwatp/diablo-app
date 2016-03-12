@@ -24,9 +24,9 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul class="list">
-                                <ranking-item v-for="ranking in state.data"
+                                <ranking-item v-for="(index, ranking) in state.data"
                                               :ranking="ranking"
-                                              :index="1"
+                                              :index="index | rank"
                                 ></ranking-item>
                             </ul>
                             <div class="flex">
@@ -64,11 +64,19 @@
     export default {
         data () {
             return {
-                state: {},
+                state: {
+                    current_page: 1
+                },
                 topBannerParameters: {
                     background: 'url("/img/footer-banner.jpg") no-repeat fixed',
                     backgroundPosition: '50% 0'
                 }
+            }
+        },
+
+        filters: {
+            rank (index) {
+                return index + 1 + ((this.state.current_page - 1) * 25);
             }
         },
 

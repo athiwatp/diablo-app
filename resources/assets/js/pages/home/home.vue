@@ -24,7 +24,7 @@
                             <ul class="list">
                                 <ranking-item v-for="(index, ranking) in state.softcore"
                                               :ranking="ranking"
-                                              :index="index"
+                                              :index="index + 1"
                                 ></ranking-item>
                             </ul>
                         </div>
@@ -33,7 +33,7 @@
                             <ul class="list">
                                 <ranking-item v-for="(index, ranking) in state.hardcore"
                                               :ranking="ranking"
-                                              :index="index"
+                                              :index="index + 1"
                                 ></ranking-item>
                             </ul>
                         </div>

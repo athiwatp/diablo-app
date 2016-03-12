@@ -1,5 +1,5 @@
 <style lang="scss">
-    @import './heroes';
+    @import './heroes-show';
 </style>
 
 <template>
@@ -265,7 +265,7 @@
                 this.$root.message('info', 'Hero is currently in queue.');
                 this.$http.patch('/api/heroes/' + this.state.id).then(function (result) {
                     this.state = result.data;
-                    this.$root.message('success', 'Hero updated', 2000);
+                    this.$root.message('success', 'Hero updated', 4000);
                 }.bind(this), function (response) {
                     this.$root.message('warning', response.data);
                 }.bind(this));

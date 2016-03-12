@@ -4,6 +4,9 @@ namespace App\Rankings\Services;
 
 abstract class Service
 {
+    /**
+     * @var mixed
+     */
     public $api;
 
     /**

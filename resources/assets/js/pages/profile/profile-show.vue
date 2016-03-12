@@ -199,7 +199,7 @@
                 this.$root.message('info', 'Profile is currently in queue.');
                 this.$http.patch('/api/profiles/' + this.state.id).then(function (response) {
                     this.state = response.data;
-                    this.$root.message('success', 'Profile updated', 2000);
+                    this.$root.message('success', 'Profile updated', 4000);
                 }.bind(this), function (response) {
                     this.$root.message('warning', response.data);
                 }.bind(this));

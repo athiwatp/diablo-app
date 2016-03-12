@@ -45,7 +45,7 @@
                 <li class="nav__item"
                     :class="{ 'nav__item--active': active == 'heroesPage' }"
                 >
-                    <a href="/profiles" class="nav__link">
+                    <a href="/heroes" class="nav__link">
                         Heroes
                         <span class="nav__link__subtext">sanctuary</span>
                     </a>

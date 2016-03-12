@@ -47,7 +47,7 @@ class Profile extends Model
      */
     public function api()
     {
-        return new ProfileService($this);
+        return (new ProfileService())->profile($this);
     }
 
     /**

@@ -32,7 +32,7 @@ trait Queueable
                     ->diffForHumans();
         }
 
-        $this->queueable = true;
+        $this->queueable = $queueable;
         $this->available_in = $available_in;
     }
 }

@@ -12,6 +12,14 @@ use View;
 class HeroController extends Controller
 {
     /**
+     * @return mixed
+     */
+    public function index()
+    {
+        return View::make('heroes.index');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param Hero $hero

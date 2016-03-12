@@ -2,7 +2,7 @@
 
 @section('content')
     <div id="app"
-         page="heroesPage"
+         page="heroesShowPage"
          menu="heroesPage"
          data="{{ $hero }}"
     ></div>

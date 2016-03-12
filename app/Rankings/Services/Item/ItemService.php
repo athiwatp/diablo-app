@@ -3,9 +3,17 @@
 namespace App\Rankings\Services\Item;
 
 use App\Item;
+use App\Rankings\Parsers\Item\ItemParser;
+use App\Rankings\Services\Service;
 
-class ItemService
+class ItemService extends Service
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->parser = new ItemParser;
+    }
+
     /**
      * Save the item record
      *

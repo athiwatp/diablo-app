@@ -7,7 +7,7 @@ use stdClass;
 
 class DiabloAPI
 {
-    private $api;
+    public $api;
 
     /**
      * Regions
