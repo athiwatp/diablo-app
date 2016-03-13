@@ -5,7 +5,3 @@
 		404 - Page not found
 	</div>
 @stop
-
-@section('js')
-	
-@stop

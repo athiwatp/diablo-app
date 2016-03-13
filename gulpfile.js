@@ -9,7 +9,8 @@ elixir(function(mix) {
     mix.sass('app.scss')
 
     // Misc
-    .copy('resources/assets/img', 'public/img')
+    .copy(resources + 'img', 'public/img')
+    .copy(modules + 'font-awesome/fonts', 'public/fonts')
 
     // Browserify
     .browserify('app.js', resources + 'build/js/app.js')

@@ -14,11 +14,9 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->has('search')) {
-            $data = $this->search($request);
-        } else {
-            $data = '';
-        }
+        $data = $request->has('search')
+            ? $this->search($request)
+            : '';
 
         return View::make('profiles.index', compact('data'));
     }
@@ -68,7 +66,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * TODO: This needs to be extracted
      * @param Request $request
      * @return mixed
      */

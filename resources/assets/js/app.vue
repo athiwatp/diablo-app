@@ -1,7 +1,3 @@
-<style lang="scss">
-    @import '../sass/app';
-</style>
-
 <template>
     <div id="app">
         <component :is="page" 

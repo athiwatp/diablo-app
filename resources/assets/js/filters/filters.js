@@ -1,4 +1,4 @@
-export function classPortrait (ranking) {
+var classPortrait = function (ranking) {
     var gender = ranking.gender == 1 ? 'male' : 'female';
     var c = ranking.class == 'crusader' ? 'x1_' + ranking.class : ranking.class;
     c = c.replace('-', '');
@@ -6,15 +6,15 @@ export function classPortrait (ranking) {
     return 'http://media.blizzard.com/d3/icons/portraits/21/' + c + '_' + gender + '.png';
 }
 
-export function battleTag (battle_tag) {
+var battleTag = function (battle_tag) {
     return battle_tag.split('#').shift();
 }
 
-export function classText (c) {
+var classText = function (c) {
     return 'text--' + c.split(' ').join('_');
 }
 
-export function number (n) {
+var number = function (n) {
 	if (isNaN(n) || n == null) {
 		return 0;
 	}
@@ -22,7 +22,7 @@ export function number (n) {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function classCrest (c) {
+var classCrest = function (c) {
     if (c == '') {
         return '';
     }
@@ -30,11 +30,19 @@ export function classCrest (c) {
 	return '/img/' + c + '/crest.png';
 }
 
-export function classBanner (c) {
+var teamCrest = function (c) {
+    if (c == '') {
+        return '';
+    }
+
+	return '/img/team/' + c + '.jpg';
+}
+
+var classBanner = function (c) {
     return '/img/' + c + '/banner.jpg';
 }
 
-export function region (r) {
+var region = function (r) {
 	switch (r) {
 		case 'US':
 			return 'Americas';
@@ -53,6 +61,18 @@ export function region (r) {
 	}
 }
 
-export function leaderboardClassLink (c) {
+var leaderboardClassLink = function (c) {
     return '/leaderboards/season/' + CURRENT_SEASON + '/class/' + c.replace('-', '');
+}
+
+export default {
+	'battleTag': battleTag,
+	'classBanner': classBanner,
+	'classCrest': classCrest,
+	'classPortrait': classPortrait,
+	'classText': classText,
+	'number': number,
+	'leaderboardClassLink': leaderboardClassLink,
+	'region': region,
+	'teamCrest': teamCrest
 }

@@ -41,8 +41,14 @@
                                     >
                                         Update
                                     </button>
+                                    <bounce v-if="loadingAnimation"
+                                            transition="fade"
+                                            class="animated"
+                                    ></bounce>
                                 </div>
-                                <div class="block__body block__body--flush">
+                                <div class="block__body block__body--flush"
+                                     v-if="state.rift_rankings.length > 0"
+                                >
                                     <div class="block__row">
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
@@ -55,7 +61,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="block__body animated"
+                                <div class="block__body"
                                      v-if="state.stats"
                                      transition="fade"
                                 >
@@ -161,25 +167,20 @@
 </template>
 
 <script>
-    import banner from '../../components/banner/banner.vue';
-    import mainHeader from '../../components/main-header/main-header.vue';
-    import mainContent from '../../components/main-content/main-content.vue';
-    import profileStub from '../../stubs/profile'
+    import profileStub from '../../stubs/profile';
 
     export default {
         data: function () {
             return {
                 state: profileStub,
                 topBannerParameters: {
-                    background: 'url("/img/profile-banner.jpg") no-repeat fixed',
-                    backgroundPosition: '50% 0'
-                }
+                    background: 'url("/img/profile-banner.jpg") no-repeat fixed 50% 0'
+                },
+                loadingAnimation: false
             }
         },
 
         props: ['data'],
-
-        components: {banner, mainHeader, mainContent},
 
         ready () {
             this.init();
@@ -195,12 +196,15 @@
             },
 
             updateProfile () {
+                this.loadingAnimation = true;
                 this.state.queueable = false;
                 this.$root.message('info', 'Profile is currently in queue.');
                 this.$http.patch('/api/profiles/' + this.state.id).then(function (response) {
                     this.state = response.data;
+                    this.loadingAnimation = false;
                     this.$root.message('success', 'Profile updated', 4000);
                 }.bind(this), function (response) {
+                    this.loadingAnimation = false;
                     this.$root.message('warning', response.data);
                 }.bind(this));
             }

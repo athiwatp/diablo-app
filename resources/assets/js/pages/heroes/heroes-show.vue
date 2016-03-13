@@ -45,6 +45,10 @@
                                     >
                                         Update
                                     </button>
+                                    <bounce v-if="loadingAnimation"
+                                            transition="fade"
+                                            class="animated"
+                                    ></bounce>
                                 </div>
                                 <div class="block__body block__body--flush"
                                      v-if="state.season_rankings.length > 0"
@@ -129,8 +133,8 @@
                                         <h5 class="block__header">Active</h5>
                                         <ul class="list">
                                             <a class="list__item list__item--link list__item--link--power"
-                                               v-for="skill in state.skills | active"
-                                               href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/active/{{ skill.slug }}?runeType={{ skill.rune_type }}"
+                                               v-for="skill in state.skills | skillType 'active'"
+                                               :href="skill | activeSkillLink"
                                             >
                                                 <span class="flex-70 text-xs-left">
                                                     <div>{{ skill.name }}</div>
@@ -148,8 +152,8 @@
                                         <h5 class="block__header">Passive</h5>
                                         <ul class="list">
                                             <a class="list__item list__item--link list__item--link--power"
-                                               v-for="skill in state.skills | passive"
-                                               href="http://us.battle.net/d3/en/class/{{ state.class.split(' ').join('-') }}/passive/{{ skill.slug }}"
+                                               v-for="skill in state.skills | skillType 'passive'"
+                                               :href="skill | passiveSkillLink"
                                             >
                                                 <span class="flex-70 text-xs-left">
                                                     <div>{{ skill.name }}</div>
@@ -189,28 +193,20 @@
 </template>
 
 <script>
-    import banner from '../../components/banner/banner.vue';
-    import mainHeader from '../../components/main-header/main-header.vue';
-    import mainContent from '../../components/main-content/main-content.vue';
     import heroStub from '../../stubs/hero';
 
     export default {
         data () {
             return {
-                state: heroStub
+                state: heroStub,
+                loadingAnimation: false
             }
         },
 
         props: ['data'],
 
-        components: {banner, mainHeader, mainContent},
-
         computed: {
             topBannerParameters () {
-                if (this.state.class == '') {
-                    return;
-                }
-
                 return {
                     background: 'url("/img/' + this.state.class + '/banner.jpg") no-repeat fixed 50% 0',
                 }
@@ -218,20 +214,18 @@
         },
 
         filters: {
-            active (obj) {
-                if (typeof obj != 'undefined') {
-                    return obj.filter(function ($i) {
-                        if ($i.type == 'active') {
-                            return $i;
-                        }
-                    });
-                }
+            activeSkillLink (skill) {
+                return 'http://us.battle.net/d3/en/class/' + this.state.class + '/active/' + skill.slug + '?runeType=' + skill.rune_type;
             },
 
-            passive (obj) {
+            passiveSkillLink (skill) {
+                return 'http://us.battle.net/d3/en/class/' + this.state.class + '/passive/' + skill.slug;
+            },
+
+            skillType (obj, type) {
                 if (typeof obj != 'undefined') {
                     return obj.filter(function ($i) {
-                        if ($i.type == 'passive') {
+                        if ($i.type == type) {
                             return $i;
                         }
                     });
@@ -261,12 +255,17 @@
             },
 
             updateHero () {
+                this.loadingAnimation = true;
                 this.state.queueable = false;
+
                 this.$root.message('info', 'Hero is currently in queue.');
+
                 this.$http.patch('/api/heroes/' + this.state.id).then(function (result) {
                     this.state = result.data;
+                    this.loadingAnimation = false;
                     this.$root.message('success', 'Hero updated', 4000);
                 }.bind(this), function (response) {
+                    this.loadingAnimation = false;
                     this.$root.message('warning', response.data);
                 }.bind(this));
             }

@@ -3,9 +3,7 @@
 /node_modules
 
 # Public files
-/public/css
-/public/img
-/public/js
+/public
 
 # Build Files
 resources/assets/build

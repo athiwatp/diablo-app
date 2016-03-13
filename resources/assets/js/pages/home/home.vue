@@ -40,31 +40,16 @@
                     </div>
                 </div>
             </section>
-            <h2 class="section-header">Classes</h2>
-            <section class="leaderboard-classes">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-2 col-sm-6 col-xs-12"
-                             v-for="class in classes"
-                        >
-                            <a :href="class | leaderboardClassLink"
-                               class="leaderboard-classes__class"
-                            >
-                                <img :src="class | classCrest">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <class-section></class-section>
+            <team-section></team-section>
         </main-content>
     </div>
 </template>
 
 <script>
-    import mainHeader from '../../components/main-header/main-header.vue';
-    import banner from '../../components/banner/banner.vue';
-    import mainContent from '../../components/main-content/main-content.vue';
     import rankingItem from '../../components/list/ranking-item.vue';
+    import classSection from '../../components/class-section/class-section.vue';
+    import teamSection from '../../components/team-section/team-section.vue';
     import homeStub from '../../stubs/home';
 
     export default {
@@ -75,10 +60,9 @@
         props: ['data'],
 
         components: {
-            mainHeader, 
-            banner, 
-            mainContent, 
-            rankingItem
+            rankingItem,
+            classSection,
+            teamSection
         },
 
         ready () {

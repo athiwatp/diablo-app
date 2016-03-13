@@ -1,14 +1,46 @@
 var fade = {
-    enterClass: 'fadeIn',
-    leaveClass: 'fadeOut'
+    css: false,
+
+    enter (el, done) {
+    	$(el).hide()
+    		.fadeIn(done);
+    },
+
+    enterCancelled (el) {
+    	$(el).stop();
+    },
+
+    leave (el, done) {
+    	$(el).fadeOut(done);
+    },
+
+    leaveCancelled (el) {
+    	$(el).stop();
+    }
 }
 
 var slide = {
-	enterClass: 'fadeInDown',
-	leaveClass: 'fadeOutUp'
+	css: false,
+
+	enter (el, done) {
+		$(el).hide()
+			.slideDown(done);
+	},
+
+	enterCancelled (el) {
+		$(el).stop();
+	},
+
+	leave (el, done) {
+		$(el).slideUp(done);
+	},
+
+	leaveCancelled (el) {
+		$(el).stop();
+	}
 }
 
-export {
-    fade,
-    slide
+export default {
+    'fade': fade,
+    'slide': slide
 };

@@ -2,6 +2,7 @@
 
 Route::group(['middleware' => 'api', 'prefix' => 'api'], function () {
     Route::patch('profiles/{profile}', 'ProfileController@update');
+    Route::get('profiles/search', 'ProfileController@search');
     Route::patch('heroes/{hero}', 'HeroController@update');
 });
 

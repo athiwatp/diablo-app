@@ -48,9 +48,6 @@
 </template>
 
 <script>
-    import mainHeader from '../../components/main-header/main-header.vue';
-    import mainContent from '../../components/main-content/main-content.vue';
-    import banner from '../../components/banner/banner.vue';
     import rankingItem from '../../components/list/ranking-item.vue';
 
     export default {
@@ -58,8 +55,7 @@
             return {
                 state: {},
                 topBannerParameters: {
-                    background: 'url("/img/footer-banner.jpg") no-repeat fixed',
-                    backgroundPosition: '50% 0'
+                    background: 'url("/img/footer-banner.jpg") no-repeat fixed 50% 0',
                 }
             }
         },
@@ -70,7 +66,9 @@
 
         props: ['data'],
 
-        components: {mainHeader, mainContent, banner, rankingItem},
+        components: {
+            rankingItem
+        },
 
         methods: {
             init () {

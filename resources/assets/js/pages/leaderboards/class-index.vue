@@ -21,9 +21,9 @@
                                            :index="index + 1"
                                 ></ranking-item>
                             </ul>
-                            <div>
+                            <div class="text-xs-center">
                                 <a :href="state.softcore_show_all"
-                                   class="btn btn--secondary pull-xs-right"
+                                   class="btn btn--secondary"
                                 >
                                     Show All
                                 </a>
@@ -37,9 +37,9 @@
                                            :index="index + 1"
                                 ></ranking-item>
                             </ul>
-                            <div>
+                            <div class="text-xs-center">
                                 <a :href="state.hardcore_show_all"
-                                   class="btn btn--secondary pull-xs-right"
+                                   class="btn btn--secondary"
                                 >
                                     Show All
                                 </a>
@@ -53,9 +53,6 @@
 </template>
 
 <script>
-    import mainHeader from '../../components/main-header/main-header.vue';
-    import mainContent from '../../components/main-content/main-content.vue';
-    import banner from '../../components/banner/banner.vue';
     import rankingItem from '../../components/list/ranking-item.vue'
     import classIndexStub from '../../stubs/class-index.js';
 
@@ -71,9 +68,6 @@
         props: ['data'],
 
         components: {
-            mainHeader,
-            mainContent, 
-            banner, 
             rankingItem
         },
 
