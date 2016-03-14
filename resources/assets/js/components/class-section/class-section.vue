@@ -10,6 +10,9 @@
                        class="leaderboard-classes__class"
                     >
                         <img :src="class | classCrest">
+                        <span class="leaderboard-classes__class__sub-text">
+                            {{ class }}
+                        </span>
                     </a>
                 </div>
             </div>

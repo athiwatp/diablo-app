@@ -10,7 +10,7 @@
                        class="leaderboard-teams__team"
                     >
                         <img :src="team | teamCrest">
-                        <small>{{ team }} Players</small>
+                        <span class="leaderboard-teams__team__sub-text">{{ team }} Players</span>
                     </a>
                 </div>
             </div>
