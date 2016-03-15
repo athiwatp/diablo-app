@@ -50,8 +50,10 @@ class HomeController extends Controller
             $query->all()[0]['show'] = true;
 
             $data->put($type, $query);
-
         }
+
+        $data->put('softcore_show_all', '/leaderboards/season/' . env('CURRENT_SEASON') . '/softcore');
+        $data->put('hardcore_show_all', '/leaderboards/season/' . env('CURRENT_SEASON') . '/hardcore');
 
         return $data->toJson();
     }
