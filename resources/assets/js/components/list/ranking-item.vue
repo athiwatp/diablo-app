@@ -16,7 +16,7 @@
         </span>
         <span class="flex-40">
             {{ ranking.profile.battle_tag | battleTag }} {{ ranking.hero.clan_tag ? '&lt;' + ranking.hero.clan_tag + '&gt;' : '' }}
-            <i class="caret pull-xs-right"></i>
+            <i class="fa fa-caret-left pull-xs-right"></i>
         </span>
     </li>
     <div class="row"
@@ -37,7 +37,7 @@
                     <span class="flex flex-50">
                         {{ ranking.profile.battle_tag }}
                         <span class="list__item--link__arrow">
-                            <i class="fa fa-chevron-right"></i>
+                            <i class="fa fa-angle-right"></i>
                         </span>
                     </span>
                 </a>
@@ -56,7 +56,7 @@
                 <a href="/heroes/{{ ranking.hero.id }}"
                    class="btn btn--secondary"
                 >
-                    Go to Hero Page
+                    Go to Hero Page <i class="fa fa-angle-double-right"></i>
                 </a>
             </div>
         </div>
@@ -76,7 +76,7 @@
                     $el = $el.closest('.list__item');
                 }
 
-                $el.toggleClass('list__item--active').next().slideToggle(function () {
+                $el.toggleClass('list__item--active').next().slideToggle(300, function () {
                     ranking.show = !ranking.show;
                 });
             }
