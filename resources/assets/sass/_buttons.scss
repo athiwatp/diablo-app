@@ -4,6 +4,16 @@
 .btn {
     border-radius: 0 !important;
 
+    @include m('icon') {
+        i {
+            transition: $transition;
+        }
+
+        &:hover i {
+            transform: translateX(1rem);
+        }
+    }
+
     @include m('secondary') {
         background-color: transparent;
         border: 2px solid #fff;
