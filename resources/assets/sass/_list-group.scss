@@ -26,7 +26,7 @@
         }
 
         @include m('active') {
-        	.caret {
+            .fa.fa-caret-left {
         		transform: rotate(-90deg);
         	}
         }
@@ -34,8 +34,11 @@
 		@include m('link') {
             text-decoration: none;
 			
-			.caret {
+			.fa.fa-caret-left {
 				transition: $transition;
+                font-size: 1rem;
+
+                margin-top: 5px;
 			}
 
 			&:hover {
