@@ -54,7 +54,7 @@
         <div class="col-sm-12 col-md-12">
             <div class="list__item__footer">
                 <a href="/heroes/{{ ranking.hero.id }}"
-                   class="btn btn--secondary"
+                   class="btn btn--secondary btn--icon"
                 >
                     Go to Hero Page <i class="fa fa-angle-double-right"></i>
                 </a>

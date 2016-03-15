@@ -45,7 +45,7 @@
                 text-decoration: none;
 				color: #fff !important;
 				border-color: transparent;
-				background-color: rgba($secondary-color, .4) !important;
+				background-color: lighten($primary-color, 20%) !important;
 				cursor: pointer;
 
                 .list__item--link__arrow {
@@ -58,9 +58,9 @@
                 align-self: center;
                 margin-left: auto;
                 transition: $transition;
-                transform: translateX(-2rem);
+                transform: translateX(-1rem);
                 color: #fff;
-                opacity: 0;
+                opacity: .1;
                 top: 4px;
             }
 
