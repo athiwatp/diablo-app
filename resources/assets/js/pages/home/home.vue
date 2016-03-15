@@ -29,7 +29,7 @@
                             </ul>
                             <div class="text-xs-center">
                                 <a :href="state.softcore_show_all"
-                                   class="btn btn--secondary"
+                                   class="btn btn--secondary btn--icon"
                                 >
                                     Show All <i class="fa fa-angle-double-right"></i>
                                 </a>
@@ -45,7 +45,7 @@
                             </ul>
                             <div class="text-xs-center">
                                 <a :href="state.hardcore_show_all"
-                                   class="btn btn--secondary"
+                                   class="btn btn--secondary btn--icon"
                                 >
                                     Show All <i class="fa fa-angle-double-right"></i>
                                 </a>
