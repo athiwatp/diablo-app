@@ -30,6 +30,14 @@ var classCrest = function (c) {
 	return '/img/' + c + '/crest.png';
 }
 
+var classPreview = function (c) {
+    if (c == '') {
+        return '';
+    }
+
+    return '/img/' + c + '/preview.jpg';
+}
+
 var teamCrest = function (c) {
     if (c == '') {
         return '';
@@ -70,6 +78,7 @@ export default {
 	'classBanner': classBanner,
 	'classCrest': classCrest,
 	'classPortrait': classPortrait,
+	'classPreview': classPreview,
 	'classText': classText,
 	'number': number,
 	'leaderboardClassLink': leaderboardClassLink,
