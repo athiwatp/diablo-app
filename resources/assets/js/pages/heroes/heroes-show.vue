@@ -39,12 +39,16 @@
                                     <p>
                                         <small>Update Available: {{ state.available_in || 'Now' }}</small>
                                     </p>
-                                    <button class="btn btn--secondary btn-lg"
+                                    <button class="btn btn--secondary btn--icon btn-lg"
                                             @click="updateHero"
                                             :disabled="! state.queueable"
                                     >
                                         Update <i class="fa fa-refresh"></i>
                                     </button>
+                                    <bounce v-if="loadingAnimation"
+                                            transition="fade"
+                                            class="animated"
+                                    ></bounce>
                                     <div class="back-to-profile">
                                         <a href="/profiles/{{ this.state.profile_id }}"
                                            class="text--tertiary"
@@ -52,10 +56,6 @@
                                             <i class="fa fa-angle-double-left"></i> Back to Profile
                                         </a>
                                     </div>
-                                    <bounce v-if="loadingAnimation"
-                                            transition="fade"
-                                            class="animated"
-                                    ></bounce>
                                 </div>
                                 <div class="block__body block__body--flush"
                                      v-if="state.season_rankings.length > 0"
