@@ -9,7 +9,7 @@
                     <a :href="class | leaderboardClassLink"
                        class="leaderboard-classes__class"
                     >
-                        <img :src="class | classCrest">
+                        <img :src="class | classPreview">
                         <span class="leaderboard-classes__class__sub-text">
                             {{ class }}
                         </span>
