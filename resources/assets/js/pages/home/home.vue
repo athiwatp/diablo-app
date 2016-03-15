@@ -27,6 +27,13 @@
                                               :index="index + 1"
                                 ></ranking-item>
                             </ul>
+                            <div class="text-xs-center">
+                                <a :href="state.hardcore_show_all"
+                                   class="btn btn--secondary"
+                                >
+                                    Show All <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--right">Hardcore</h2>
@@ -36,6 +43,13 @@
                                               :index="index + 1"
                                 ></ranking-item>
                             </ul>
+                            <div class="text-xs-center">
+                                <a :href="state.hardcore_show_all"
+                                   class="btn btn--secondary"
+                                >
+                                    Show All <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
