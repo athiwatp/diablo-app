@@ -13,11 +13,43 @@ use Illuminate\Http\Request;
 
 class LeaderboardsController extends Controller
 {
+    /**
+     * @return mixed
+     */
     public function index()
     {
         return View::make('leaderboards.index');
     }
 
+    /**
+     * @param Request $request
+     * @param $mode
+     * @param $period
+     * @param $type
+     * @return mixed
+     */
+    public function seasonShow(Request $request, $mode, $period, $type)
+    {
+        $data = Leaderboard::$mode()
+            ->$type()
+            ->period($period)
+            ->solo()
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_time', 'asc')
+            ->with(['hero', 'profile'])
+            ->paginate(25)
+            ->toJson();
+
+        return View::make('leaderboards.season-show', compact('data'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $mode
+     * @param $period
+     * @param $class
+     * @return mixed
+     */
     public function classIndex(Request $request, $mode, $period, $class)
     {
         $data = new Collection;
@@ -42,6 +74,13 @@ class LeaderboardsController extends Controller
         return View::make('leaderboards.class-index', compact('data'));
     }
 
+    /**
+     * @param Request $request
+     * @param $mode
+     * @param $period
+     * @param $players
+     * @return mixed
+     */
     public function teamIndex(Request $request, $mode, $period, $players)
     {
         $data = new Collection;
@@ -66,6 +105,14 @@ class LeaderboardsController extends Controller
         return View::make('leaderboards.team-index', compact('data'));
     }
 
+    /**
+     * @param Request $request
+     * @param $mode
+     * @param $period
+     * @param $class
+     * @param $type
+     * @return \Illuminate\View\View
+     */
     public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
     {
         $data = Leaderboard::$mode()
@@ -82,6 +129,14 @@ class LeaderboardsController extends Controller
         return View::make('leaderboards.class-show', compact('data'));
     }
 
+    /**
+     * @param Request $request
+     * @param $mode
+     * @param $period
+     * @param $players
+     * @param $type
+     * @return \Illuminate\View\View
+     */
     public function teamShow(Request $request, $mode, $period, $players, $type) : \Illuminate\View\View
     {
         $data = Leaderboard::$mode()
