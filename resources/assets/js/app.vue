@@ -16,6 +16,7 @@
     import profileIndexPage from './pages/profile/profile-index.vue';
     import profileShowPage from './pages/profile/profile-show.vue';
     import leaderboardsIndexPage from './pages/leaderboards/index.vue';
+    import leaderboardsSeasonShowPage from './pages/leaderboards/season-show.vue';
     import leaderboardsClassIndexPage from './pages/leaderboards/class-index.vue';
     import leaderboardsClassShowPage from './pages/leaderboards/class-show.vue';
     import leaderboardsTeamIndexPage from './pages/leaderboards/team-index.vue';
@@ -37,7 +38,8 @@
             leaderboardsClassIndexPage,
             leaderboardsClassShowPage,
             leaderboardsTeamIndexPage,
-            leaderboardsTeamShowPage
+            leaderboardsTeamShowPage,
+            leaderboardsSeasonShowPage
         },
 
         ready () {
