@@ -8,7 +8,7 @@
             <a href="/"
                class="nav__logo"
             >
-                <img :src="logo"
+                <img src="/img/diablorankings.png"
                  alt="logo"
                  class="nav__logo__img">
                  <span class="nav__logo__text"><span class="text--secondary">Diablo</span> Rankings</span>
