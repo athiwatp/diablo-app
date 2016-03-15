@@ -25,7 +25,7 @@
                                 <a :href="state.softcore_show_all"
                                    class="btn btn--secondary"
                                 >
-                                    Show All
+                                    Show All <i class="fa fa-angle-double-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 <a :href="state.hardcore_show_all"
                                    class="btn btn--secondary"
                                 >
-                                    Show All
+                                    Show All <i class="fa fa-angle-double-right"></i>
                                 </a>
                             </div>
                         </div>

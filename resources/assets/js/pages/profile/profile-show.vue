@@ -39,7 +39,7 @@
                                             @click="updateProfile"
                                             :disabled="! state.queueable"
                                     >
-                                        Update
+                                        Update <i class="fa fa-refresh"></i>
                                     </button>
                                     <bounce v-if="loadingAnimation"
                                             transition="fade"
