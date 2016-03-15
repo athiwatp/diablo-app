@@ -1,0 +1,22 @@
+@import "../../../sass/variables";
+
+.back-to-profile {
+    padding-top: .5rem;
+
+    a {
+        text-decoration: none !important;
+        transition: $transition;
+
+        i {
+            transition: $transition;
+        }
+
+        &:hover {
+            color: lighten($tertiary-color, 20%) !important;
+
+            i {
+                transform: translateX(-.5rem);
+            }
+        }
+    }
+}

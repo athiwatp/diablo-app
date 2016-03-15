@@ -43,8 +43,15 @@
                                             @click="updateHero"
                                             :disabled="! state.queueable"
                                     >
-                                        Update
+                                        Update <i class="fa fa-refresh"></i>
                                     </button>
+                                    <div class="back-to-profile">
+                                        <a href="/profiles/{{ this.state.profile_id }}"
+                                           class="text--tertiary"
+                                        >
+                                            <i class="fa fa-angle-double-left"></i> Back to Profile
+                                        </a>
+                                    </div>
                                     <bounce v-if="loadingAnimation"
                                             transition="fade"
                                             class="animated"
@@ -79,13 +86,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="block__body">
-                                    <a href="/profiles/{{ this.state.profile_id }}"
-                                       class="btn btn--secondary"
-                                    >
-                                        Back to Profile
-                                    </a>
                                 </div>
                             </div>
                         </div>
