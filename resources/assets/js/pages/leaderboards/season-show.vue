@@ -29,7 +29,7 @@
                                        class="btn btn--secondary"
                                        v-if="state.prev_page_url"
                                     >
-                                        Prev
+                                        Prev <i class="fa fa-angle-left"></i>
                                     </a>
                                 </div>
                                 <div class="flex-50 text-xs-right">
@@ -37,7 +37,7 @@
                                        class="btn btn--secondary"
                                        v-if="state.next_page_url"
                                     >
-                                        Next
+                                        Next <i class="fa fa-angle-right"></i>
                                     </a>
                                 </div>
                             </div>
