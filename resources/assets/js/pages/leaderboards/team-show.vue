@@ -16,23 +16,23 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul class="list">
-                                <ranking-item v-for="(index, ranking) in state.data"
+                                <team-ranking-item v-for="(index, ranking) in state.parsed"
                                           :ranking="ranking"
                                           :index="index"
-                                ></ranking-item>
+                                ></team-ranking-item>
                             </ul>
                             <div class="flex">
                                 <div class="flex-50">
                                     <a :href="state.prev_page_url"
-                                       class="btn btn--secondary"
+                                       class="btn btn--secondary btn--icon-left"
                                        v-if="state.prev_page_url"
                                     >
-                                        Prev <i class="fa fa-angle-left"></i>
+                                        <i class="fa fa-angle-left"></i> Prev
                                     </a>
                                 </div>
                                 <div class="flex-50 text-xs-right">
                                     <a :href="state.next_page_url"
-                                       class="btn btn--secondary"
+                                       class="btn btn--secondary btn--icon"
                                        v-if="state.next_page_url"
                                     >
                                         Next <i class="fa fa-angle-right"></i>
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import rankingItem from '../../components/list/ranking-item.vue';
+    import teamRankingItem from '../../components/list/team-ranking-item.vue';
 
     export default {
         data () {
@@ -67,7 +67,7 @@
         props: ['data'],
 
         components: {
-            rankingItem
+            teamRankingItem
         },
 
         methods: {

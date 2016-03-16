@@ -16,10 +16,10 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--left">Softcore</h2>
                             <ul class="list">
-                                <ranking-item v-for="(index, ranking) in state.softcore"
+                                <team-ranking-item v-for="(index, ranking) in state.softcore"
                                           :ranking="ranking"
                                           :index="index"
-                                ></ranking-item>
+                                ></team-ranking-item>
                             </ul>
                             <div class="text-xs-center">
                                 <a :href="state.softcore_show_all"
@@ -32,10 +32,10 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--right">Hardcore</h2>
                             <ul class="list">
-                                <ranking-item v-for="(index, ranking) in state.hardcore"
-                                          :ranking="ranking"
-                                          :index="index"
-                                ></ranking-item>
+                                <team-ranking-item v-for="(index, ranking) in state.hardcore"
+                                                   :ranking="ranking"
+                                                   :index="index"
+                                ></team-ranking-item>
                             </ul>
                             <div class="text-xs-center">
                                 <a :href="state.hardcore_show_all"
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-    import rankingItem from '../../components/list/ranking-item.vue';
+    import teamRankingItem from '../../components/list/team-ranking-item.vue';
 
     export default {
         data () {
@@ -75,7 +75,7 @@
         props: ['data'],
 
         components: {
-            rankingItem
+            teamRankingItem
         },
 
         methods: {

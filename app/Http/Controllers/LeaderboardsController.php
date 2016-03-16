@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Leaderboard;
+use App\Rankings\Parsers\Leaderboards\LeaderboardParser;
 use Cache;
 use Diablo;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +12,14 @@ use Illuminate\Support\Facades\View;
 use Response;
 use Illuminate\Http\Request;
 
+/**
+ * This controller is redundant for a reason
+ * if the need to have different functionality within each specific
+ * section changes, it will be nice to have the abstraction now
+ *
+ * Class LeaderboardsController
+ * @package App\Http\Controllers
+ */
 class LeaderboardsController extends Controller
 {
     /**
@@ -84,19 +93,22 @@ class LeaderboardsController extends Controller
     public function teamIndex(Request $request, $mode, $period, $players)
     {
         $data = new Collection;
+        $leaderboard_parser = new LeaderboardParser;
 
+        // Abstract this
         foreach (['softcore', 'hardcore'] as $type) {
-            $data->put($type,
-                Leaderboard::$mode()
-                    ->$type()
-                    ->period($period)
-                    ->team($players)
-                    ->orderBy('rift_level', 'desc')
-                    ->orderBy('rift_time', 'asc')
-                    ->with(['hero', 'profile'])
-                    ->limit(25)
-                    ->get()
-            );
+            $query = Leaderboard::$mode()
+                ->$type()
+                ->period($period)
+                ->team($players)
+                ->orderBy('rift_level', 'desc')
+                ->orderBy('rift_time', 'asc')
+                ->orderBy('class', 'asc')
+                ->with('hero')
+                ->limit(25 * $players)
+                ->get();
+
+            $data->put($type, $leaderboard_parser->groupTeams($query, $players));
         }
         
         $data->put('softcore_show_all', '/'.$request->path().'/softcore');
@@ -115,7 +127,7 @@ class LeaderboardsController extends Controller
      */
     public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
     {
-        $data = Leaderboard::$mode()
+        $query = Leaderboard::$mode()
             ->$type()
             ->period($period)
             ->solo()
@@ -139,15 +151,28 @@ class LeaderboardsController extends Controller
      */
     public function teamShow(Request $request, $mode, $period, $players, $type) : \Illuminate\View\View
     {
+        $leaderboard_parser = new LeaderboardParser;
+
         $data = Leaderboard::$mode()
             ->$type()
             ->period($period)
             ->team($players)
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
-            ->with(['hero', 'profile'])
-            ->paginate(20)
-            ->toJson();
+            ->orderBy('class', 'asc')
+            ->with('hero')
+            ->paginate(25 * $players);
+
+        $page = $request->get('page') ?? 1;
+        $parsed = $leaderboard_parser->groupTeams(
+            $data,
+            $players,
+            1 + (($page - 1) * 25)
+        );
+
+        $data = $data->toArray();
+        $data['parsed'] = $parsed;
+        $data = json_encode($data);
 
         return View::make('leaderboards.team-show', compact('data'));
     }
