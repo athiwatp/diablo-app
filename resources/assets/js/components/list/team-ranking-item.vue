@@ -21,9 +21,9 @@
         <div class="col-sm-12 col-md-12 text-xs-center hidden-xs-down flex">
             <div v-for="hero in ranking.heroes"
                  :class="{
-                    'flex-30': ranking.heroes.length == 2,
-                    'flex-20': ranking.heroes.length == 3,
-                    'flex-15': ranking.heroes.length == 4,
+                    'flex-30': ranking.players == 2,
+                    'flex-20': ranking.players == 3,
+                    'flex-15': ranking.players == 4,
                  }"
             >
                 <img :src="hero.class | classCrest"
@@ -39,21 +39,9 @@
                         {{ hero.hero.clan_tag ? '&lt;' + hero.hero.clan_tag + '&gt;' : '&nbsp' }}
                     </div>
                 </div>
-                <div class="block m-t-1">
-                    <div class="block__body">
-                        <div class="block__row">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12 block__col">
-                                    <h3 class="text--tertiary block__col__header">{{ hero.hero.paragon_level }}</h3>
-                                    <small>paragon</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12">
+        <div class="col-sm-12 col-md-12 m-t-2">
             <div class="list__item__footer">
                 <a href=""
                    class="btn btn--secondary btn--icon"
