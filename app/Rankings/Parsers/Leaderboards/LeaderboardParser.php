@@ -2,6 +2,8 @@
 
 namespace App\Rankings\Parsers\Leaderboards;
 
+use App\Leaderboard;
+use Illuminate\Database\Eloquent\Collection;
 use stdClass;
 
 class LeaderboardParser
@@ -167,5 +169,35 @@ class LeaderboardParser
         }
 
         return $ladder_data;
+    }
+
+    /**
+     * Group team records
+     *
+     * @param Leaderboard $leaderboard
+     * @param $players
+     * @return Collection
+     */
+    public function groupTeams($leaderboard, $players, $i = 1)
+    {
+        $col = new Collection;
+
+        foreach ($leaderboard->chunk($players) as $chunk) {
+            $chunk->values();
+
+            $values = [
+                'rank' => $i,
+                'region' => $chunk->first()->region,
+                'rift_level' => $chunk->first()->rift_level,
+                'heroes' => $chunk,
+                'players' => $players,
+                'show' => false
+            ];
+
+            $col->push($values);
+            $i++;
+        }
+
+        return $col;
     }
 }
