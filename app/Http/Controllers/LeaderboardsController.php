@@ -104,7 +104,7 @@ class LeaderboardsController extends Controller
                 ->orderBy('rift_level', 'desc')
                 ->orderBy('rift_time', 'asc')
                 ->orderBy('class', 'asc')
-                ->with('hero')
+                ->with(['hero', 'profile'])
                 ->limit(25 * $players)
                 ->get();
 
@@ -160,7 +160,7 @@ class LeaderboardsController extends Controller
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
             ->orderBy('class', 'asc')
-            ->with('hero')
+            ->with(['hero', 'profile'])
             ->paginate(25 * $players);
 
         $page = $request->get('page') ?? 1;

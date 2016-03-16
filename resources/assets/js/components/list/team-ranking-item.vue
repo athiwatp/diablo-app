@@ -29,18 +29,16 @@
                 <img :src="hero.class | classCrest"
                      alt="portrait"
                      class="img-fluid"
-                     style="margin: 0 auto;"
+                     style="margin: 0 auto; opacity: .6"
                 >
-                <span class="flex-30"
-                      v-if="hero.name"
-                >
-                    {{ hero.name }}
-                </span>
-                <span class="flex-30"
-                      v-else
-                >
-                    <i class="fa fa-warning"></i> New Hero Record
-                </span>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {{ hero.profile.battle_tag | battleTag }}
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {{ hero.hero.clan_tag ? '&lt;' + hero.hero.clan_tag + '&gt;' : '&nbsp' }}
+                    </div>
+                </div>
                 <div class="block m-t-1">
                     <div class="block__body">
                         <div class="block__row">
