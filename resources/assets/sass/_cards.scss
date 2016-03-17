@@ -22,6 +22,8 @@
 .leaderboard-classes {
     display: flex;
     padding: 0px 1rem;
+    text-decoration: none !important;
+    color: #fff !important;
 
     @include e('class') {
         background-color: lighten($primary-color, 10%) !important;
@@ -33,6 +35,7 @@
         overflow: hidden;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
         text-decoration: none !important;
+        color: #fff !important;
 
         @include e('sub-text') {
             width: 100%;
@@ -41,7 +44,7 @@
             height: 48px;
             text-align: center;
             display: block;
-            color: #fff;
+            color: #fff !important;
             text-transform: capitalize;
             display: flex;
             justify-content: center;
@@ -51,6 +54,7 @@
             bottom: 0;
             left: 0;
             transform: translateY(3rem);
+            text-decoration: none !important;
         }
 
         img {
@@ -60,6 +64,7 @@
             display: block;
             transition: $transition;
             opacity: 0.6;
+            -webkit-backface-visibility: hidden;
         }
 
         &:hover {
@@ -91,6 +96,7 @@
             display: block;
             transition: $transition;
             opacity: 0.6;
+            -webkit-backface-visibility: hidden;
         }
 
         @include e('sub-text') {
