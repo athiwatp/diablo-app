@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Leaderboard;
 use App\Rankings\Parsers\Leaderboards\LeaderboardParser;
 use Cache;
+use DB;
 use Diablo;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\View;
@@ -28,6 +29,14 @@ class LeaderboardsController extends Controller
     public function index()
     {
         return View::make('leaderboards.index');
+    }
+
+    public function show($leaderboard_ids)
+    {
+        $data = Leaderboard::whereIn('id', explode(',', $leaderboard_ids))
+            ->get();
+        dd($data->toArray());
+        return View::make('leaderboards.show');
     }
 
     /**
@@ -103,12 +112,15 @@ class LeaderboardsController extends Controller
                 ->team($players)
                 ->orderBy('rift_level', 'desc')
                 ->orderBy('rift_time', 'asc')
-                ->orderBy('class', 'asc')
-                ->with(['hero', 'profile'])
-                ->limit(25 * $players)
+                ->groupBy('rift_level')
+                ->groupBy('rift_time')
+                ->groupBy('rank')
+                ->groupBy('region')
+                ->limit(25)
+                ->select(DB::raw('leaderboards.rank, leaderboards.players, leaderboards.rift_level, leaderboards.rift_time, leaderboards.region, leaderboards.players, GROUP_CONCAT(leaderboards.id) as leaderboard_ids, GROUP_CONCAT(leaderboards.class) as classes, GROUP_CONCAT(leaderboards.class, "_", IF(heroes.gender = 0, "male", "female")) AS class_portraits'))
                 ->get();
 
-            $data->put($type, $leaderboard_parser->groupTeams($query, $players));
+            $data->put($type, $query);
         }
         
         $data->put('softcore_show_all', '/'.$request->path().'/softcore');
