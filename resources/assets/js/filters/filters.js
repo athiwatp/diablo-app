@@ -1,6 +1,14 @@
 var classPortrait = function (ranking) {
-    var gender = ranking.gender == 1 ? 'male' : 'female';
-    var c = ranking.class == 'crusader' ? 'x1_' + ranking.class : ranking.class;
+    if (typeof ranking == 'string') {
+        var split = ranking.split('_');
+        var gender = split[1];
+        var c = split[0];
+    } else {
+        var gender = ranking.gender == 1 ? 'male' : 'female';
+        var c = ranking.class;
+    }
+
+    c = c == 'crusader' ? 'x1_' + c : c;
     c = c.replace('-', '');
     
     return 'http://media.blizzard.com/d3/icons/portraits/21/' + c + '_' + gender + '.png';
@@ -73,6 +81,14 @@ var leaderboardClassLink = function (c) {
     return '/leaderboards/season/' + CURRENT_SEASON + '/class/' + c.replace('-', '');
 }
 
+var time = function (ms) {
+    var min = (ms/1000/60) << 0;
+    var sec = parseInt((ms/1000) % 60).toString();
+    sec = sec.length == 1 ? sec + '0' : sec;
+
+    return min + ':' + sec;
+}
+
 export default {
 	'battleTag': battleTag,
 	'classBanner': classBanner,
@@ -83,5 +99,6 @@ export default {
 	'number': number,
 	'leaderboardClassLink': leaderboardClassLink,
 	'region': region,
-	'teamCrest': teamCrest
+	'teamCrest': teamCrest,
+	'time': time
 }
