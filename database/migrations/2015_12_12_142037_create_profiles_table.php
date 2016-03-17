@@ -19,6 +19,7 @@ class CreateProfilesTable extends Migration
             $table->boolean('queued')->default(false);
             $table->dateTime('queued_at')->nullable();
             $table->timestamps();
+            $table->unique(['battle_tag', 'region']);
         });
     }
 

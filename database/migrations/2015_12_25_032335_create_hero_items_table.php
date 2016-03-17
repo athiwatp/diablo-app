@@ -18,6 +18,7 @@ class CreateHeroItemsTable extends Migration
             $table->integer('item_id')->unsigned();
             $table->foreign('item_id')->references('id')->on('items');
             $table->text('tool_tip_params');
+            $table->unique(['hero_id', 'item_id']);
         });
     }
 
