@@ -15,7 +15,8 @@
     import homePage from './pages/home/home.vue';
     import profileIndexPage from './pages/profile/profile-index.vue';
     import profileShowPage from './pages/profile/profile-show.vue';
-    import leaderboardsIndexPage from './pages/leaderboards/index.vue';
+    import leaderboardsIndexPage from './pages/leaderboards/leaderboards-index.vue';
+    import leaderboardsShowPage from './pages/leaderboards/leaderboards-show.vue';
     import leaderboardsSeasonShowPage from './pages/leaderboards/season-show.vue';
     import leaderboardsClassIndexPage from './pages/leaderboards/class-index.vue';
     import leaderboardsClassShowPage from './pages/leaderboards/class-show.vue';
@@ -35,6 +36,7 @@
             profileIndexPage,
             profileShowPage,
             leaderboardsIndexPage,
+            leaderboardsShowPage,
             leaderboardsClassIndexPage,
             leaderboardsClassShowPage,
             leaderboardsTeamIndexPage,
