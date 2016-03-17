@@ -18,6 +18,10 @@ footer {
     .banner {
         height: 350px !important;
 
+        .banner__image {
+            -webkit-backface-visibility: hidden;
+        }
+
         .banner__content {
             padding-top: 0;
         }
