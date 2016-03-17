@@ -22,13 +22,13 @@
     <div class="row"
          v-show="ranking.show"
     >
-        <div class="col-sm-5 col-md-4 text-xs-center hidden-xs-down">
+        <div class="col-sm-5 col-md-5 text-xs-center hidden-xs-down">
             <img :src="ranking.hero.class | classCrest"
                  alt="portrait"
-                 class="img-fluid"
+                 class="img-fluid img-fluid--fix"
             >
         </div>
-        <div class="col-sm-7 col-md-8">
+        <div class="col-sm-7 col-md-7">
             <ul class="list">
                 <a href="/profiles/{{ ranking.profile.id }}"
                    class="list__item list__item--link"
