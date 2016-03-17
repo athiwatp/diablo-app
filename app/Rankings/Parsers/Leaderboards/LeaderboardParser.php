@@ -61,11 +61,24 @@ class LeaderboardParser
         $this->getSelf($leaderboard);
 
         $i = 0;
-        foreach ($leaderboard->row as $player) {
-            $this->getPlayerData(
-                $player->player[0],
-                $this->getLadderData($player)
-            );
+        foreach ($leaderboard->row as $player_data) {
+            if (count($player_data->player) == 1) {
+                $this->getPlayerData(
+                    $player_data->player[0],
+                    $this->getLadderData($player_data)
+                );
+            } else {
+                foreach ($player_data->player as $player) {
+                    if (count($player_data->data) != 5) {
+                        continue;
+                    }
+
+                    $this->getPlayerData(
+                        $player,
+                        $this->getLadderData($player_data)
+                    );
+                }
+            }
 
             $i++;
 
@@ -157,47 +170,9 @@ class LeaderboardParser
 
             $key = snake_case($player_data->$attr1);
 
-            if ($key === 'rank') {
-                self::$rank_saved = $player_data->$attr2;
-            }
-
             $ladder_data->$key = $player_data->$attr2;
         }
 
-        if (!isset($ladder_data->rank)) {
-            $ladder_data->rank = self::$rank_saved;
-        }
-
         return $ladder_data;
-    }
-
-    /**
-     * Group team records
-     *
-     * @param Leaderboard $leaderboard
-     * @param $players
-     * @return Collection
-     */
-    public function groupTeams($leaderboard, $players, $i = 1)
-    {
-        $col = new Collection;
-
-        foreach ($leaderboard->chunk($players) as $chunk) {
-            $chunk->values();
-
-            $values = [
-                'rank' => $i,
-                'region' => $chunk->first()->region,
-                'rift_level' => $chunk->first()->rift_level,
-                'heroes' => $chunk,
-                'players' => $players,
-                'show' => false
-            ];
-
-            $col->push($values);
-            $i++;
-        }
-
-        return $col;
     }
 }
