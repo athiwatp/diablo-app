@@ -5,13 +5,17 @@
         <span class="flex-10">{{ ranking.rank }}</span>
         <span class="flex-20">{{ ranking.rift_level }}</span>
         <span class="flex-10">{{ ranking.region }}</span>
-        <span class="flex-60 text-xs-center">
-            <template v-for="hero in ranking.heroes">
-                <img :src="hero.hero | classPortrait"
+        <span class="flex-30 text-xs-center">
+            <template v-for="class in ranking.class_portraits.split(',')">
+                <img :src="class | classPortrait"
                      alt="portrait"
                      class="class-portrait"
                 >
             </template>
+        </span>
+        <span class="flex-30 text-xs-center">
+            <i class="fa fa-clock-o"></i>
+            {{ ranking.rift_time | time }}
             <i class="fa fa-caret-left pull-xs-right"></i>
         </span>
     </li>
@@ -19,31 +23,23 @@
          v-show="ranking.show"
     >
         <div class="col-sm-12 col-md-12 text-xs-center hidden-xs-down flex">
-            <div v-for="hero in ranking.heroes"
+            <div v-for="class in ranking.classes.split(',')"
                  :class="{
                     'flex-30': ranking.players == 2,
                     'flex-20': ranking.players == 3,
                     'flex-15': ranking.players == 4,
                  }"
             >
-                <img :src="hero.class | classCrest"
+                <img :src="class | classCrest"
                      alt="portrait"
-                     class="img-fluid"
+                     class="img-fluid img-fluid--fix"
                      style="margin: 0 auto; opacity: .6"
                 >
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        {{ hero.profile.battle_tag | battleTag }}
-                    </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        {{ hero.hero.clan_tag ? '&lt;' + hero.hero.clan_tag + '&gt;' : '&nbsp' }}
-                    </div>
-                </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-12 m-t-2">
             <div class="list__item__footer">
-                <a href=""
+                <a href="/leaderboards/{{ ranking.leaderboard_ids }}"
                    class="btn btn--secondary btn--icon"
                 >
                     Go to Leaderboard Page <i class="fa fa-angle-double-right"></i>
