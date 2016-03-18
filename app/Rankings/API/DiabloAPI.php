@@ -26,11 +26,11 @@ class DiabloAPI
      */
     public function __construct()
     {
-//        $this->api = new Diablo(
-//            env('BATTLENET_API_KEY'),
-//            env('BATTLENET_API_SECRET'),
-//            env('BATTLENET_API_TOKEN')
-//        );
+        $this->api = new Diablo(
+            'u2zmxrgs8fve2vxxpdqufttyhufjvyvn',
+            'xZkQw2MqADNTVY8Us2GsY2EEcJNudJ89',
+            'b32pj4ynvv4t8tph8hw9jajz'
+        );
     }
 
     /**
