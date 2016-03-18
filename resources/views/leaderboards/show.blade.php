@@ -4,6 +4,6 @@
     <div id="app"
          page="leaderboardsShowPage"
          menu="leaderboardsPage"
-         data=""
+         data="{{ $data }}"
     ></div>
 @stop

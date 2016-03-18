@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('leaderboard:update season 5 1000')
-            ->twiceDaily(0, 12);
+//        $schedule->command('leaderboard:update season 5 1000')
+//            ->twiceDaily(0, 12);
     }
 }

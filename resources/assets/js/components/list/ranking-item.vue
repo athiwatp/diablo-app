@@ -6,16 +6,16 @@
         <span class="flex-10">{{ index }}</span>
         <span class="flex-20">{{ ranking.rift_level }}</span>
         <span class="flex-30 hidden-sm-down">
-            <img :src="ranking.hero | classPortrait"
+            <img :src="ranking.heroes[0] | classPortrait"
                  alt="portrait"
                  class="class-portrait"
             >
-            <span class="text--{{ ranking.hero.class }}">
-                {{ ranking.hero.class | capitalize }}
+            <span class="text--{{ ranking.heroes[0].class }}">
+                {{ ranking.heroes[0].class | capitalize }}
             </span>
         </span>
         <span class="flex-40">
-            {{ ranking.profile.battle_tag | battleTag }} {{ ranking.hero.clan_tag ? '&lt;' + ranking.hero.clan_tag + '&gt;' : '' }}
+            {{ ranking.profiles[0].battle_tag | battleTag }} {{ ranking.heroes[0].clan_tag ? '&lt;' + ranking.heroes[0].clan_tag + '&gt;' : '' }}
             <i class="fa fa-caret-left pull-xs-right"></i>
         </span>
     </li>
@@ -23,19 +23,19 @@
          v-show="ranking.show"
     >
         <div class="col-sm-5 col-md-5 text-xs-center hidden-xs-down">
-            <img :src="ranking.hero.class | classCrest"
+            <img :src="ranking.heroes[0].class | classCrest"
                  alt="portrait"
                  class="img-fluid img-fluid--fix"
             >
         </div>
         <div class="col-sm-7 col-md-7">
             <ul class="list">
-                <a href="/profiles/{{ ranking.profile.id }}"
+                <a href="/profiles/{{ ranking.profiles[0].id }}"
                    class="list__item list__item--link"
                 >
                     <span class="flex-50">Profile</span>
                     <span class="flex flex-50">
-                        {{ ranking.profile.battle_tag }}
+                        {{ ranking.profiles[0].battle_tag }}
                         <span class="list__item--link__arrow">
                             <i class="fa fa-angle-right"></i>
                         </span>
@@ -47,13 +47,13 @@
                 </li>
                 <li class="list__item">
                     <span class="flex-50">Clan</span>
-                    <span class="flex-50">{{ ranking.hero.clan_name }}</span>
+                    <span class="flex-50">{{ ranking.heroes[0].clan_name }}</span>
                 </li>
             </ul>
         </div>
         <div class="col-sm-12 col-md-12">
             <div class="list__item__footer">
-                <a href="/heroes/{{ ranking.hero.id }}"
+                <a href="/heroes/{{ ranking.heroes[0].id }}"
                    class="btn btn--secondary btn--icon"
                 >
                     Go to Hero Page <i class="fa fa-angle-double-right"></i>

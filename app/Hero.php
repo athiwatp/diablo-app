@@ -90,25 +90,12 @@ class Hero extends Model
     }
 
     /**
-     * A Hero has many solo season records
-     *
-     * @return mixed
-     */
-    public function soloSeason()
-    {
-        return $this->hasMany(Leaderboard::class)
-            ->where('season', '=', true)
-            ->groupBy('period')
-            ->orderBy('rift_level', 'desc');
-    }
-
-    /**
      * A Profile has many Rift Rankings
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function seasonRankings()
     {
-        return $this->hasMany(Leaderboard::class)
+        return $this->belongsToMany(Leaderboard::class)
             ->where('season', '=', true)
             ->where('period', '=', 5)
             ->groupBy('players')

@@ -56,7 +56,7 @@ class Profile extends Model
      */
     public function riftRankings()
     {
-        return $this->hasMany(Leaderboard::class)
+        return $this->belongsToMany(Leaderboard::class, 'hero_leaderboard')
             ->where('season', '=', true)
             ->groupBy('players')
             ->groupBy('period')

@@ -8,6 +8,7 @@ use App\Rankings\Parsers\Leaderboards\LeaderboardParser;
 use App\Rankings\Services\Leaderboards\LeaderboardService;
 use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Facades\Cache;
 
 class UpdateLeaderboards extends Command
 {
@@ -18,7 +19,7 @@ class UpdateLeaderboards extends Command
      *
      * @var string
      */
-    protected $signature = 'leaderboard:update {mode} {period} {limit}';
+    protected $signature = 'leaderboard:update {mode} {period}';
     /**
      * The console command description
      *
@@ -79,13 +80,12 @@ class UpdateLeaderboards extends Command
         );
 
         $rankings = $this->parser->parse(
-            $request,
-            $this->argument('limit')
+            $request
         );
 
         $bar = $this->output->createProgressBar(count($rankings));
         foreach ($rankings as $record) {
-            if (is_null($record->battle_tag)) {
+            if (is_null($record['data']['battle_tag'])) {
                 continue;
             }
 

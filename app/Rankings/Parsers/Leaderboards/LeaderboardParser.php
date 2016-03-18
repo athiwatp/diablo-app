@@ -28,6 +28,8 @@ class LeaderboardParser
      * @var
      */
     public $leaderboard = [];
+    private $needs_record;
+    private $test = [];
 
     public function __construct()
     {
@@ -41,10 +43,10 @@ class LeaderboardParser
      * @param int|null $limit
      * @return array
      */
-    public function parse(array $data, int $limit = null) : array
+    public function parse(array $data) : array
     {
         foreach ($data as $array) {
-            $this->getRankings($array, $limit);
+            $this->getRankings($array);
         }
 
         return $this->leaderboard;
@@ -56,35 +58,42 @@ class LeaderboardParser
      * @param array $leaderboard
      * @param int $limit
      */
-    public function getRankings(stdClass $leaderboard, int $limit)
+    public function getRankings(stdClass $leaderboard)
     {
         $this->getSelf($leaderboard);
 
         $i = 0;
-        foreach ($leaderboard->row as $player_data) {
-            if (count($player_data->player) == 1) {
-                $this->getPlayerData(
-                    $player_data->player[0],
-                    $this->getLadderData($player_data)
-                );
-            } else {
-                foreach ($player_data->player as $player) {
-                    if (count($player_data->data) != 5) {
-                        continue;
-                    }
-
-                    $this->getPlayerData(
-                        $player,
-                        $this->getLadderData($player_data)
-                    );
-                }
-            }
+        foreach ($leaderboard->row as $record) {
+            $this->getLeaderboardData($record);
 
             $i++;
 
-            if ($i === $limit) {
+            switch($this->self->players) {
+                case 1:
+                    if ($i == 100) {
+                        break 2;
+                    }
                 break;
             }
+        }
+
+        $this->findOrphans();
+    }
+
+    /**
+     * I'm going to fix this don't worry
+     */
+    private function findOrphans()
+    {
+        $this->count = 0;
+        foreach ($this->leaderboard as $record) {
+            $record['players'] = array_map(function ($i) {
+                if (!isset($i->battlenet_hero_id)) {
+                    if (array_key_exists($i->battle_tag, $this->purgatory)) {
+                        $i->battlenet_hero_id = $this->purgatory[$i->battle_tag]->battlenet_hero_id;
+                    }
+                }
+            }, $record['players']);
         }
     }
 
@@ -115,29 +124,53 @@ class LeaderboardParser
         $this->self->region = strtoupper(substr($explode[2], 0, 2));
     }
 
+    public function getLeaderboardData($record)
+    {
+        $players = $this->getPlayersData($record->player);
+        $data = array_merge(
+            (array) $this->parseJson($record->data),
+            (array) $this->self
+        );
+
+
+        if (!isset($data['rank'])) {
+            $this->purgatory[$data['battle_tag']] = $players[0];
+        } else {
+            $this->leaderboard[] = compact('players', 'data');
+        }
+    }
+
+    /**
+     * @param $players
+     */
+    public function getPlayersData(array $players) : array
+    {
+        $bnet_players = [];
+
+        foreach ($players as $player) {
+            $data = $this->getPlayerData($player->data);
+
+            if (!isset($data->battlenet_hero_id)) {
+                if (isset($this->test[$data->battle_tag])) {
+                    unset($this->test[$data->battle_tag]);
+                } else {
+                    $this->test[$data->battle_tag] = '';
+                }
+            }
+            $bnet_players[] = $data;
+        }
+
+        return $bnet_players;
+    }
+
     /**
      * Retrieve player data from response
      *
-     * @param $player
-     * @param $ladder_data
+     * @param array $players
      */
-    public function getPlayerData(stdClass $player, stdClass $ladder_data)
+    public function getPlayerData(array $player) : stdClass
     {
-        $profile = new stdClass;
-
-        foreach ($player->data as $data) {
-            list($attr1, $attr2) = array_keys((array)($data));
-
-            $key = snake_case($data->$attr1);
-
-            if (substr($key, 0, 5) == 'hero_') {
-                $key = $key !== 'hero_id'
-                    ? str_replace('hero_', '', $key)
-                    : 'battlenet_hero_id';
-            }
-
-            $profile->{$key} = $data->$attr2;
-        }
+        $profile = $this->parseJson($player);
 
         $profile->battle_tag = $profile->battle_tag ?? $profile->hero_battle_tag;
         unset($profile->hero_battle_tag);
@@ -148,29 +181,34 @@ class LeaderboardParser
             ? 1
             : 0;
 
-        $this->leaderboard[] = (object)array_merge(
-            (array)$profile,
-            (array)$ladder_data,
-            (array)$this->self
+        $profile = array_merge(
+            (array) $profile,
+            (array) $this->self
         );
+
+        return (object) $profile;
     }
 
     /**
-     * Retrieve ladder data from response
-     *
-     * @param $player
+     * @param $json
      * @return stdClass
      */
-    public function getLadderData($player) : stdClass
+    public function parseJson($json) : stdClass
     {
         $ladder_data = new stdClass;
 
-        foreach ($player->data as $player_data) {
-            list($attr1, $attr2) = array_keys((array)$player_data);
+        foreach ($json as $data) {
+            list($attr1, $attr2) = array_keys((array)$data);
 
-            $key = snake_case($player_data->$attr1);
+            $key = snake_case($data->$attr1);
 
-            $ladder_data->$key = $player_data->$attr2;
+            if (substr($key, 0, 5) == 'hero_') {
+                $key = $key !== 'hero_id'
+                    ? str_replace('hero_', '', $key)
+                    : 'battlenet_hero_id';
+            }
+
+            $ladder_data->$key = $data->$attr2;
         }
 
         return $ladder_data;

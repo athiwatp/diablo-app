@@ -7,6 +7,10 @@
 	margin: 0;
 	width: 100%;
 
+    &:last-child {
+        margin-bottom: .5rem;
+    }
+
 	@include e('item') {
 		transition: $transition;
 		color: #fff;
@@ -16,10 +20,6 @@
 		display: flex;
 		margin-bottom: .5rem;
 		text-decoration: none !important;
-
-        &:last-child {
-            margin-bottom: 0;
-        }
 
         &:focus {
             color: #fff !important;

@@ -31,12 +31,13 @@ class LeaderboardsController extends Controller
         return View::make('leaderboards.index');
     }
 
-    public function show($leaderboard_ids)
+    public function show(Leaderboard $leaderboard)
     {
-        $data = Leaderboard::whereIn('id', explode(',', $leaderboard_ids))
-            ->get();
-        dd($data->toArray());
-        return View::make('leaderboards.show');
+        $leaderboard->load(['heroes', 'profiles']);
+
+        $data = $leaderboard;
+
+        return View::make('leaderboards.show', compact('data'));
     }
 
     /**
@@ -112,12 +113,8 @@ class LeaderboardsController extends Controller
                 ->team($players)
                 ->orderBy('rift_level', 'desc')
                 ->orderBy('rift_time', 'asc')
-                ->groupBy('rift_level')
-                ->groupBy('rift_time')
-                ->groupBy('rank')
-                ->groupBy('region')
+                ->with('heroes')
                 ->limit(25)
-                ->select(DB::raw('leaderboards.rank, leaderboards.players, leaderboards.rift_level, leaderboards.rift_time, leaderboards.region, leaderboards.players, GROUP_CONCAT(leaderboards.id) as leaderboard_ids, GROUP_CONCAT(leaderboards.class) as classes, GROUP_CONCAT(leaderboards.class, "_", IF(heroes.gender = 0, "male", "female")) AS class_portraits'))
                 ->get();
 
             $data->put($type, $query);

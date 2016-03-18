@@ -16,7 +16,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['prefix' => 'leaderboards'], function () {
         Route::get('/', 'LeaderboardsController@index');
-        Route::get('{leaderboard_ids}', 'LeaderboardsController@show');
+        Route::get('{leaderboard}', 'LeaderboardsController@show');
         Route::group(['prefix' => '{mode}/{period}'], function () {
             Route::get('{type}', 'LeaderboardsController@seasonShow');
 

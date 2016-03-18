@@ -12,16 +12,14 @@ class Leaderboard extends Model
      * @var array
      */
     protected $fillable = [
-        'profile_id',
-        'hero_id',
         'season',
         'period',
         'players',
         'rift_level',
         'rift_time',
+        'rift_timestamp',
         'hardcore',
         'rank',
-        'class',
         'region'
     ];
 
@@ -31,7 +29,8 @@ class Leaderboard extends Model
      * @var array
      */
     protected $casts = [
-        'season' => 'boolean'
+        'season' => 'boolean',
+        'hardcore' => 'boolean'
     ];
 
     /**
@@ -39,9 +38,9 @@ class Leaderboard extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function hero()
+    public function heroes()
     {
-        return $this->belongsTo(Hero::class, 'hero_id');
+        return $this->belongsToMany(Hero::class);
     }
 
     /**
@@ -49,9 +48,9 @@ class Leaderboard extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function profile()
+    public function profiles()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsToMany(Profile::class, 'hero_leaderboard');
     }
 
     /**
@@ -173,8 +172,7 @@ class Leaderboard extends Model
      */
     public function scopeTeam($q, $players)
     {
-        return $q->where('leaderboards.players', $players)
-            ->ladder();
+        return $q->where('leaderboards.players', $players);
     }
 
     /**
