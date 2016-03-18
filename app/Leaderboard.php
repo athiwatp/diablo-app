@@ -62,7 +62,7 @@ class Leaderboard extends Model
     public function scopeBarbarian($q)
     {
         return $q->solo()
-            ->where('leaderboards.class', '=', 'barbarian')
+            ->where('heroes.class', '=', 'barbarian')
             ->ladder();
     }
 
@@ -75,8 +75,8 @@ class Leaderboard extends Model
     public function scopeCrusader($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'crusader')
-            ->ladder();
+            ->ladder()
+            ->where('heroes.class', '=', 'crusader');
     }
 
     /**
@@ -184,7 +184,8 @@ class Leaderboard extends Model
     public function scopeLadder($q)
     {
         return $q->select('leaderboards.*')
-            ->join('heroes', 'heroes.id', '=', 'leaderboards.hero_id');
+            ->join('hero_leaderboard', 'leaderboards.id', '=', 'hero_leaderboard.leaderboard_id')
+            ->join('heroes', 'hero_leaderboard.hero_id', '=', 'heroes.id');
     }
 
     /**

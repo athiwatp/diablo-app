@@ -136,7 +136,7 @@ class LeaderboardsController extends Controller
      */
     public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
     {
-        $query = Leaderboard::$mode()
+        $data = Leaderboard::$mode()
             ->$type()
             ->period($period)
             ->solo()
