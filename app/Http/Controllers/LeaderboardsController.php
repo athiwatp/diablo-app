@@ -55,7 +55,7 @@ class LeaderboardsController extends Controller
             ->solo()
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
-            ->with(['hero', 'profile'])
+            ->with(['heroes', 'profiles'])
             ->paginate(25)
             ->toJson();
 
@@ -81,7 +81,7 @@ class LeaderboardsController extends Controller
                     ->$class()
                     ->orderBy('rift_level', 'desc')
                     ->orderBy('rift_time', 'asc')
-                    ->with(['hero', 'profile'])
+                    ->with(['heroes', 'profiles'])
                     ->limit(25)
                     ->get()
             );
@@ -143,7 +143,7 @@ class LeaderboardsController extends Controller
             ->$class()
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
-            ->with(['hero', 'profile'])
+            ->with(['heroes', 'profiles'])
             ->paginate(20)
             ->toJson();
 
@@ -169,7 +169,7 @@ class LeaderboardsController extends Controller
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
             ->orderBy('class', 'asc')
-            ->with(['hero', 'profile'])
+            ->with(['heroes', 'profiles'])
             ->paginate(25 * $players);
 
         $page = $request->get('page') ?? 1;
