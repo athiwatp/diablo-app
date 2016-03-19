@@ -42,6 +42,7 @@ class HomeController extends Controller
                 ->solo()
                 ->orderBy('rift_level', 'desc')
                 ->orderBy('rift_time', 'asc')
+                ->ladder()
                 ->with(['heroes', 'profiles'])
                 ->limit(20)
                 ->select('leaderboards.*', DB::raw('FALSE as `show`'))
