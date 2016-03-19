@@ -2,5 +2,6 @@ export default {
     heroes: [],
     stats: false,
     rift_rankings: [],
-    queuable: true
+    queuable: true,
+    battle_tag: ''
 }
