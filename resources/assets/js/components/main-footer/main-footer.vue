@@ -9,10 +9,12 @@
                 <h4 class="text-xs-center">Connect with <strong>Diablo Rankings</strong></h4>
                 <div class="icons">
                     <div>
-                        <a href="#">
+                        <a href="mailto:admin@diablorankings.net"
+                           target="_blank"
+                        >
                             <i class="fa fa-envelope"></i>
                         </a>
-                        <p>Contact me</p>
+                        <p>Email</p>
                     </div>
                     <div>
                         <a href="#">
