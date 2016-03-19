@@ -24,10 +24,10 @@
 
     @if (env('APP_ENV') == 'production')
         <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            !function(d,i,a,b,l,o){d.GoogleAnalyticsObject=a;d[a]||(d[a]=function(){
+                (d[a].q=d[a].q||[]).push(arguments)});d[a].l=+new Date;l=i.createElement(b);
+                o=i.getElementsByTagName(b)[0];l.src='//www.google-analytics.com/analytics.js';
+                o.parentNode.insertBefore(l,o)}(window,document,'ga','script');
             ga('create', 'UA-75262397-1', 'auto');
             ga('send', 'pageview');
         </script>
