@@ -6,7 +6,7 @@
     <footer>
         <banner :parameters="footerBannerParameters">
             <div class="container">
-                <h4>Connect with <strong>Diablo Rankings</strong></h4>
+                <h4 class="text-xs-center">Connect with <strong>Diablo Rankings</strong></h4>
                 <div class="icons">
                     <div>
                         <a href="#">
