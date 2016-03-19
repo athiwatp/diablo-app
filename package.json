@@ -16,6 +16,6 @@
     "tether": "^1.1.1"
   },
   "scripts": {
-    "postinstall": "gulp"
+    "postinstall": "gulp --production"
   }
 }
