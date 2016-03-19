@@ -55,6 +55,7 @@ class LeaderboardsController extends Controller
             ->solo()
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
+            ->ladder()
             ->with(['heroes', 'profiles'])
             ->paginate(25)
             ->toJson();
