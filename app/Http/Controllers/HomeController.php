@@ -48,8 +48,6 @@ class HomeController extends Controller
                 ->select('leaderboards.*', DB::raw('FALSE as `show`'))
                 ->get();
 
-            $query->all()[0]['show'] = true;
-
             $data->put($type, $query);
         }
 
