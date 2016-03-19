@@ -5,6 +5,9 @@ export default {
         toughness: 0,
         healing: 0
     },
+    profile: {
+        battle_tag: ''
+    },
     skills: [],
     powers: [],
     season_rankings: [],
