@@ -19,7 +19,7 @@ class UpdateLeaderboards extends Command
      *
      * @var string
      */
-    protected $signature = 'leaderboard:update {mode} {period}';
+    protected $signature = 'leaderboard:update {mode} {period} {type}';
     /**
      * The console command description
      *
@@ -76,7 +76,8 @@ class UpdateLeaderboards extends Command
 
         $request = $this->api->leaderboards(
             $this->argument('mode'),
-            $this->argument('period')
+            $this->argument('period'),
+            $this->argument('type')
         );
 
         $rankings = $this->parser->parse(

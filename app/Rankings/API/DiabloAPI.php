@@ -102,23 +102,12 @@ class DiabloAPI
      * @param int $period
      * @return array
      */
-    public function leaderboards(string $mode, int $period) : array
+    public function leaderboards(string $mode, int $period, string $type) : array
     {
         foreach ($this->regions as $region) {
             $this->api->setRegion($region)
                 ->{$mode}($period)
-                ->softcore()
-                ->barbarian()
-                ->crusader()
-                ->demonhunter()
-                ->monk()
-                ->witchdoctor()
-                ->wizard()
-                ->team(2)
-                ->team(3)
-                ->team(4)
-                ->{$mode}($period)
-                ->hardcore()
+                ->$type()
                 ->barbarian()
                 ->crusader()
                 ->demonhunter()

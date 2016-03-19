@@ -2,6 +2,8 @@
 
 namespace App\Rankings\Services;
 
+use App\Rankings\API\DiabloAPI;
+
 abstract class Service
 {
     /**
@@ -14,7 +16,7 @@ abstract class Service
      */
     public function __construct()
     {
-        $this->api = app()->make('DiabloAPI');
+        $this->api = new DiabloAPI;
     }
 
     /**
