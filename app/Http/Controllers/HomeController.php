@@ -44,7 +44,7 @@ class HomeController extends Controller
                 ->orderBy('rift_time', 'asc')
                 ->ladder()
                 ->with(['heroes', 'profiles'])
-                ->limit(20)
+                ->limit(25)
                 ->select('leaderboards.*', DB::raw('FALSE as `show`'))
                 ->get();
 
