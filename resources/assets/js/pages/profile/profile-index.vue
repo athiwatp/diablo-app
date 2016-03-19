@@ -8,6 +8,11 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            text-align: center;
+        }
+
+        input {
+            padding: .7rem .65rem;
         }
     }
 </style>
@@ -29,7 +34,7 @@
             <section class="profile-section">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
+                        <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12">
                             <form method="GET" 
                                   action="/profiles"
                                   @submit.prevent="submit($event)"
@@ -44,22 +49,35 @@
                                     >
                                     <span class="input-group-btn">
                                         <button class="btn btn--secondary m-b-0" type="submit">
-                                            <i class="fa fa-search"></i> Search
+                                            <i class="fa fa-search"></i> <span class="hidden-xs-down">Search</span>
                                         </button>
                                     </span>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-6 col-md-offset-3 profile-section__info"
+                        <div class="col-md-6 col-md-offset-3 col-sm-12 col-xs-12 profile-section__info"
                              v-if="state.length > 0 && !loading"
                              stagger="100"
                         >
                             <ul class="list">
-                                <a class="list__item list__item--link"
+                                <li class="list__item list__item--header text-xs-center">
+                                    <span class="flex-50">
+                                        Region
+                                    </span>
+                                    <span class="flex-50">
+                                        Battletag
+                                    </span>
+                                </li>
+                                <a class="list__item list__item--link text-xs-center"
                                    v-for="profile in state"
                                    href="/profiles/{{ profile.id }}"
                                 >
-                                    {{ profile.battle_tag }}
+                                    <span class="flex-50">
+                                        {{ profile.region | capitalize }}
+                                    </span>
+                                    <span class="flex-50">
+                                        {{ profile.battle_tag }}
+                                    </span>
                                 </a>
                             </ul>
                         </div>
