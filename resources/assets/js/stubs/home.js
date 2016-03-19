@@ -6,7 +6,7 @@ export default {
 
 	topBannerParameters: {
         background: 'url("/img/home-banner.jpg") no-repeat fixed',
-        backgroundPosition: '50% 0'
+        backgroundPosition: '50% -50px'
     },
     
     classes: [
