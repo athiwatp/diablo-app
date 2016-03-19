@@ -139,7 +139,7 @@ class Leaderboard extends Model
      */
     public function scope2Player($q)
     {
-        return $q->teams(2);
+        return $q->team(2);
     }
 
     /**
@@ -149,7 +149,7 @@ class Leaderboard extends Model
      */
     public function scope3Player($q)
     {
-        return $q->teams(3);
+        return $q->team(3);
     }
 
     /**
@@ -160,7 +160,7 @@ class Leaderboard extends Model
      */
     public function scope4Player($q)
     {
-        return $q->teams(4);
+        return $q->team(4);
     }
 
     /**
@@ -172,7 +172,8 @@ class Leaderboard extends Model
      */
     public function scopeTeam($q, $players)
     {
-        return $q->where('leaderboards.players', $players);
+        return $q->where('leaderboards.players', $players)
+            ->ladder();
     }
 
     /**
