@@ -136,10 +136,11 @@
         background: transparent;
         opacity: 0;
         transition: $transition;
+        transform: translateY(-17rem);
         
         .nav__container {
             transition: $transition;
-            transform: translateY(-7rem);
+            transform: translateY(-17rem);
             opacity: 0;
             background: rgba($primary-color, 0.94);
             max-width: none;
@@ -162,6 +163,7 @@
 
         @include m('active') {
             opacity: 1;
+            transform: translateY(0);
 
             .nav__container {
                 transform: translateY(0);
