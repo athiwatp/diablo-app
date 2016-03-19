@@ -18,7 +18,6 @@ class Kernel extends ConsoleKernel
         Commands\Crud::class,
         Commands\UpdateLeaderboards::class,
         Commands\UpdateSkills::class,
-        Commands\TopHundred::class,
     ];
 
     /**

@@ -70,22 +70,22 @@
                 </div>
             </section>
             <section class="leaderboard-heroes m-t-3">
-
-                <div class="col-md-8 col-sm-12 col-xs-12"
-                     v-if="state.heroes.length > 0"
-                >
-                    <ul class="list">
-                        <li class="list__item list__item--header">
-                            <span class="flex-30">Name</span>
-                            <span class="flex-30">Class</span>
-                            <span class="flex-20">Paragon Level</span>
-                            <span class="flex flex-20 text-xs-center">Mode</span>
-                        </li>
-                        <a class="list__item list__item--link list__item--link--{{ hero.hardcore ? 'hardcore' : 'softcore' }}"
-                           v-for="hero in state.heroes"
-                           stagger="100"
-                           href="/heroes/{{ hero.id }}"
-                        >
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12"
+                         v-if="state.heroes.length > 0"
+                    >
+                        <ul class="list">
+                            <li class="list__item list__item--header">
+                                <span class="flex-30">Name</span>
+                                <span class="flex-30">Class</span>
+                                <span class="flex-20">Paragon Level</span>
+                                <span class="flex flex-20 text-xs-center">Mode</span>
+                            </li>
+                            <a class="list__item list__item--link list__item--link--{{ hero.hardcore ? 'hardcore' : 'softcore' }}"
+                               v-for="hero in state.heroes"
+                               stagger="100"
+                               href="/heroes/{{ hero.id }}"
+                            >
 
                             <span class="flex-30"
                                   v-if="hero.name"
@@ -106,15 +106,16 @@
                                     {{ hero.class | capitalize }}
                                 </span>
                             </span>
-                            <span class="flex-20">{{ hero.paragon_level }}</span>
+                                <span class="flex-20">{{ hero.paragon_level }}</span>
                             <span class="flex flex-20 text-xs-center">
                                 {{ hero.season ? 'Season' : 'Era'}}
                                 <span class="list__item--link__arrow">
                                     <i class="fa fa-angle-right"></i>
                                 </span>
                             </span>
-                        </a>
-                    </ul>
+                            </a>
+                        </ul>
+                    </div>
                 </div>
             </section>
 		</main-content>

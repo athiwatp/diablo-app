@@ -50,11 +50,9 @@ class UpdateSkills extends Command
      * @param SkillParser $parser
      * @param SkillService $service
      */
-    public function __construct(SkillService $service)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->service = new SkillService;
     }
 
     /**
@@ -64,6 +62,7 @@ class UpdateSkills extends Command
      */
     public function handle()
     {
+        $this->service = new SkillService;
         $this->info('Updating skills...');
         $t = microtime(true);
 
