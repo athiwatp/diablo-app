@@ -28,7 +28,7 @@
                  class="img-fluid img-fluid--fix"
             >
         </div>
-        <div class="col-sm-7 col-md-7">
+        <div class="col-sm-7 col-md-7 col-xs-12">
             <ul class="list">
                 <a href="/profiles/{{ ranking.profiles[0].id }}"
                    class="list__item list__item--link"
@@ -51,7 +51,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-12 col-md-12">
+        <div class="col-sm-12 col-md-12 col-xs-12">
             <div class="list__item__footer">
                 <a href="/heroes/{{ ranking.heroes[0].id }}"
                    class="btn btn--secondary btn--icon"
