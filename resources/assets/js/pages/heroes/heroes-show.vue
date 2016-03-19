@@ -31,8 +31,9 @@
                                          alt="portrait"
                                          class="img-fluid img-center"
                                     >
-                                    <a href="#"
+                                    <a :href="state | battlenet"
                                        class="battlenet-link"
+                                       target="_blank"
                                     >
                                         Battle.net
                                     </a>
@@ -89,7 +90,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-9 col-sm-9 col-xs-12 text-xs-center p-t-3"
+                        <div class="col-md-9 col-sm-12 col-xs-12 text-xs-center p-t-3 p-b-3"
                              v-if="!state.queued_at"
                         >
                             <h1>
@@ -238,6 +239,10 @@
 
             powerIcon (icon) {
                 return 'http://media.blizzard.com/d3/icons/items/small/' + icon + '.png';
+            },
+
+            battlenet (state) {
+                return 'https://' + state.region + '.battle.net/d3/profile/' + state.profile.battle_tag.replace('#', '-') + '/hero/' + state.battlenet_hero_id;
             }
         },
 
