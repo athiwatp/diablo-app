@@ -30,9 +30,4 @@ for (var key in animations) {
 window.$ = $;
 window.Vue = Vue;
 
-$(window).scroll(function(){
-    $("#top-banner .banner__content").css("opacity", 1 - $(window).scrollTop() / 450);
-    $("#top-banner .banner__content").css("margin-top", $(window).scrollTop() / 2);
-});
-
 new Vue(require('./app.vue'));
