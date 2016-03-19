@@ -16,6 +16,7 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--left">Softcore</h2>
                             <ul class="list">
+                                <ranking-item-header></ranking-item-header>
                                 <ranking-item v-for="(index, ranking) in state.softcore"
                                            :ranking="ranking"
                                            :index="index + 1"
@@ -32,6 +33,7 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--right">Hardcore</h2>
                             <ul class="list">
+                                <ranking-item-header></ranking-item-header>
                                 <ranking-item v-for="(index, ranking) in state.hardcore"
                                            :ranking="ranking"
                                            :index="index + 1"
@@ -53,7 +55,8 @@
 </template>
 
 <script>
-    import rankingItem from '../../components/list/ranking-item.vue'
+    import rankingItem from '../../components/list/ranking-item.vue';
+    import rankingItemHeader from '../../components/list/ranking-item-header.vue';
     import classIndexStub from '../../stubs/class-index.js';
 
     export default {
@@ -68,7 +71,8 @@
         props: ['data'],
 
         components: {
-            rankingItem
+            rankingItem,
+            rankingItemHeader
         },
 
         methods: {

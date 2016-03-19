@@ -75,45 +75,12 @@
                          v-if="state.heroes.length > 0"
                     >
                         <ul class="list">
-                            <li class="list__item list__item--header">
-                                <span class="flex-30">Name</span>
-                                <span class="flex-30">Class</span>
-                                <span class="flex-20">Paragon Level</span>
-                                <span class="flex flex-20 text-xs-center">Mode</span>
-                            </li>
-                            <a class="list__item list__item--link list__item--link--{{ hero.hardcore ? 'hardcore' : 'softcore' }}"
-                               v-for="hero in state.heroes"
-                               stagger="100"
-                               href="/heroes/{{ hero.id }}"
-                            >
-
-                            <span class="flex-30"
-                                  v-if="hero.name"
-                            >
-                                {{ hero.name }}
-                            </span>
-                            <span class="flex-30"
-                                  v-else
-                            >
-                                <i class="fa fa-warning"></i> New Hero Record
-                            </span>
-                            <span class="flex-30">
-                                <img :src="hero | classPortrait"
-                                     alt="portrait"
-                                     class="class-portrait"
-                                >
-                                <span class="text--{{ hero.class }}">
-                                    {{ hero.class | capitalize }}
-                                </span>
-                            </span>
-                                <span class="flex-20">{{ hero.paragon_level }}</span>
-                            <span class="flex flex-20 text-xs-center">
-                                {{ hero.season ? 'Season' : 'Era'}}
-                                <span class="list__item--link__arrow">
-                                    <i class="fa fa-angle-right"></i>
-                                </span>
-                            </span>
-                            </a>
+                            <list-item-header></list-item-header>
+                            <list-item v-for="hero in state.heroes"
+                                       :hero="hero"
+                                       v-for="hero in state.heroes"
+                                       stagger="100"
+                            ></list-item>
                         </ul>
                     </div>
                 </div>
@@ -123,6 +90,9 @@
 </template>
 
 <script>
+    import listItem from '../../components/list/list-item.vue';
+    import listItemHeader from '../../components/list/list-item-header.vue';
+    
 	export default {
         data () {
             return {
@@ -142,6 +112,10 @@
 
         props: ['data'],
 
+        components: {
+            listItem,
+            listItemHeader
+        },
         methods: {
             init () {
                 this.state = JSON.parse(this.data);

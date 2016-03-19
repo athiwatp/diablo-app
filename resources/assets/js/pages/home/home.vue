@@ -22,6 +22,7 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--left">Softcore</h2>
                             <ul class="list">
+                                <ranking-item-header></ranking-item-header>
                                 <ranking-item v-for="(index, ranking) in state.softcore"
                                               :ranking="ranking"
                                               :index="index + 1"
@@ -38,6 +39,7 @@
                         <div class="col-md-6 col-sm-12 col-xs-12">
                             <h2 class="section-header section-header--right">Hardcore</h2>
                             <ul class="list">
+                                <ranking-item-header></ranking-item-header>
                                 <ranking-item v-for="(index, ranking) in state.hardcore"
                                               :ranking="ranking"
                                               :index="index + 1"
@@ -62,6 +64,7 @@
 
 <script>
     import rankingItem from '../../components/list/ranking-item.vue';
+    import rankingItemHeader from '../../components/list/ranking-item-header.vue';
     import classSection from '../../components/class-section/class-section.vue';
     import teamSection from '../../components/team-section/team-section.vue';
     import homeStub from '../../stubs/home';
@@ -75,6 +78,7 @@
 
         components: {
             rankingItem,
+            rankingItemHeader,
             classSection,
             teamSection
         },

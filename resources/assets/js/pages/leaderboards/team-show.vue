@@ -16,7 +16,8 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <ul class="list">
-                                <team-ranking-item v-for="(index, ranking) in state.parsed"
+                                <team-ranking-item-header></team-ranking-item-header>
+                                <team-ranking-item v-for="(index, ranking) in state.data"
                                           :ranking="ranking"
                                           :index="index"
                                 ></team-ranking-item>
@@ -49,6 +50,7 @@
 
 <script>
     import teamRankingItem from '../../components/list/team-ranking-item.vue';
+    import teamRankingItemHeader from '../../components/list/team-ranking-item-header.vue';
 
     export default {
         data () {
@@ -67,7 +69,8 @@
         props: ['data'],
 
         components: {
-            teamRankingItem
+            teamRankingItem,
+            teamRankingItemHeader
         },
 
         methods: {

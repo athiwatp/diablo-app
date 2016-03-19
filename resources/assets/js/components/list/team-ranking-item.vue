@@ -4,8 +4,8 @@
     >
         <span class="flex-10">{{ ranking.rank }}</span>
         <span class="flex-20">{{ ranking.rift_level }}</span>
-        <span class="flex-10">{{ ranking.region }}</span>
-        <span class="flex-30 text-xs-center">
+        <span class="flex-10 hidden-sm-down">{{ ranking.region }}</span>
+        <span class="flex-30 hidden-sm-down text-xs-center">
             <template v-for="hero in ranking.heroes">
                 <img :src="hero | classPortrait"
                      alt="portrait"
@@ -22,7 +22,7 @@
     <div class="row"
          v-show="ranking.show"
     >
-        <div class="col-sm-12 col-md-12 text-xs-center hidden-xs-down flex">
+        <div class="col-sm-12 col-md-12 col-xs-12 text-xs-center hidden-xs-down flex">
             <div v-for="hero in ranking.heroes"
                  :class="{
                     'flex-30': ranking.players == 2,
@@ -37,7 +37,7 @@
                 >
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 m-t-2">
+        <div class="col-sm-12 col-md-12 col-xs-12 m-t-2">
             <div class="list__item__footer">
                 <a href="/leaderboards/{{ ranking.id }}"
                    class="btn btn--secondary btn--icon"
