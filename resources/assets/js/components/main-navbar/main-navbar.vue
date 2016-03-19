@@ -11,9 +11,10 @@
         ></a>
         <nav class="nav"
              :class="{
-            'nav--mobile': mobile,
-            'nav--mobile--active': showMobileList
-         }"
+                'nav--mobile': mobile,
+                'nav--mobile--active': showMobileList
+             }"
+             v-el:nav-bar
         >
             <div class="nav__container container">
                 <a href="/"
@@ -99,15 +100,14 @@
 
         ready () {
             if ($(window).width() <= 768) {
-                this.mobile = true;
+                this.showMobileNav();
             }
 
             $(window).resize(function () {
                 if ($(window).width() <= 768) {
-                    this.mobile = true;
+                    this.showMobileNav();
                 } else {
-                    this.showMobileList = false;
-                    this.mobile = false;
+                    this.hideMobileNav();
                 }
             }.bind(this));
         },
@@ -115,6 +115,19 @@
         methods: {
             toggleMobileNav () {
                 this.showMobileList = !this.showMobileList;
+            },
+
+            showMobileNav () {
+                $(this.$els.navBar).hide();
+                this.mobile = true;
+                setTimeout(() => {
+                        $(this.$els.navBar).show();
+                }, 300);
+            },
+
+            hideMobileNav () {
+                this.showMobileList = false;
+                this.mobile = false;
             }
         }
     }
