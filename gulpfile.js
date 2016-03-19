@@ -29,5 +29,7 @@ elixir(function(mix) {
     ], 'public/js/libs.js')
 
     // Browsersync
-    .browserSync({open: false, proxy: 'hs.diablo.dev'});
+    .browserSync({open: false, proxy: 'hs.diablo.dev'})
+
+    .version(['css/app.css', 'js/app.js']);
 });

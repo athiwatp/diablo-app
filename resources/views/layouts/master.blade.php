@@ -7,7 +7,7 @@
     <meta name="description" content="Diablo Rankings">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
     <link rel="icon" type="image/png" href="/img/diablorankings-fav.png">
 </head>
 
@@ -19,7 +19,7 @@
         var CURRENT_SEASON = '{{ env('CURRENT_SEASON', 5) }}'
     </script>
 
-    <script src="/js/app.js"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
     @yield('js')
 
     @if (env('APP_ENV') == 'production')
