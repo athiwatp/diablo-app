@@ -81,6 +81,7 @@
 
         ready () {
             this.init();
+            this.$root.message('info', 'The site is currently in beta.  Thank you for your feedback and patience.')
         },
 
         methods: {
