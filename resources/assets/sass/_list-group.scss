@@ -61,7 +61,7 @@
                 transform: translateX(-1rem);
                 color: #fff;
                 opacity: .1;
-                top: 4px;
+                top: 5px;
             }
 
             @include m('power') {
@@ -100,7 +100,7 @@
 
         @include e('footer') {
             text-align: right;
-            padding-top: .5rem;
+            padding: 2rem 0;
         }
 	}
 }
