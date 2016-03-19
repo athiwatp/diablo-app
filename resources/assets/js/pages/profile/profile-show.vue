@@ -27,8 +27,9 @@
                         <div class="col-md-4 col-sm-12 col-xs-12">
                             <div class="block">
                                 <div class="block__body">
-                                    <a href="#"
+                                    <a :href="state | battlenet"
                                        class="battlenet-link"
+                                       target="_blank"
                                     >
                                         Battle.net
                                     </a>
@@ -164,6 +165,15 @@
                                 </a>
                             </ul>
                         </div>
+                        <div class="col-md-8 col-sm-12 col-xs-12 text-xs-center p-t-3 p-b-3"
+                             v-else
+                        >
+                            <h1>
+                                <i class="fa fa-exclamation-triangle"></i>
+                                New Profile Record
+                            </h1>
+                            <h6>To refresh this profile, click update.</h6>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -187,6 +197,12 @@
 
         props: ['data'],
 
+        filters: {
+            battlenet (state) {
+                return 'https://' + state.region + '.battle.net/d3/en/profile/' + state.battle_tag.replace('#', '-') + '/';
+            }
+        },
+
         ready () {
             this.init();
         },
@@ -196,7 +212,7 @@
                 this.state = JSON.parse(this.data);
 
                 if (this.state.stats == null) {
-                    this.$root.message('warning', 'New Profile.');
+                    this.$root.message('warning', 'New Profile Record');
                 }
             },
 
