@@ -12,7 +12,7 @@
         }
 
         input {
-            padding: .7rem .65rem;
+            padding: .75rem .65rem;
         }
     }
 </style>
