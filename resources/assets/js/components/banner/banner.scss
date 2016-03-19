@@ -4,7 +4,7 @@
 .banner {
 	position: relative;
 	display: flex;
-	height: 550px;
+	height: 350px;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
@@ -31,6 +31,6 @@
 	}
 
     @include m('slim') {
-        height: 450px;
+        height: 350px;
     }
 }
