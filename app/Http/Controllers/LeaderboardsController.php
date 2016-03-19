@@ -161,28 +161,15 @@ class LeaderboardsController extends Controller
      */
     public function teamShow(Request $request, $mode, $period, $players, $type) : \Illuminate\View\View
     {
-        $leaderboard_parser = new LeaderboardParser;
-
         $data = Leaderboard::$mode()
             ->$type()
             ->period($period)
             ->team($players)
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc')
-            ->orderBy('class', 'asc')
-            ->with(['heroes', 'profiles'])
-            ->paginate(25 * $players);
-
-        $page = $request->get('page') ?? 1;
-        $parsed = $leaderboard_parser->groupTeams(
-            $data,
-            $players,
-            1 + (($page - 1) * 25)
-        );
-
-        $data = $data->toArray();
-        $data['parsed'] = $parsed;
-        $data = json_encode($data);
+            ->with('heroes')
+            ->paginate(25)
+            ->toJson();
 
         return View::make('leaderboards.team-show', compact('data'));
     }
