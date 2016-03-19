@@ -26,15 +26,15 @@
                             <div class="flex">
                                 <div class="flex-50">
                                     <a :href="state.prev_page_url"
-                                       class="btn btn--secondary"
+                                       class="btn btn--secondary btn--icon-left"
                                        v-if="state.prev_page_url"
                                     >
-                                        Prev <i class="fa fa-angle-left"></i>
+                                        <i class="fa fa-angle-left"></i> Prev
                                     </a>
                                 </div>
                                 <div class="flex-50 text-xs-right">
                                     <a :href="state.next_page_url"
-                                       class="btn btn--secondary"
+                                       class="btn btn--secondary btn--icon"
                                        v-if="state.next_page_url"
                                     >
                                         Next <i class="fa fa-angle-right"></i>
