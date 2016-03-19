@@ -185,7 +185,10 @@ class Leaderboard extends Model
     {
         return $q->select('leaderboards.*')
             ->join('hero_leaderboard', 'leaderboards.id', '=', 'hero_leaderboard.leaderboard_id')
-            ->join('heroes', 'hero_leaderboard.hero_id', '=', 'heroes.id');
+            ->join('heroes', 'hero_leaderboard.hero_id', '=', 'heroes.id')
+            ->groupBy('leaderboards.rift_level')
+            ->groupBy('leaderboards.rift_time')
+            ->groupBy('leaderboards.rift_timestamp');
     }
 
     /**
