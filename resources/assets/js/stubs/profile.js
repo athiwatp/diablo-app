@@ -1,7 +1,7 @@
 export default {
     heroes: [],
     stats: false,
-    rift_rankings: [],
+    season_rankings: [],
     queuable: true,
     battle_tag: ''
 }

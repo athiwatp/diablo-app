@@ -54,14 +54,14 @@ class Profile extends Model
      * A Profile has many Rift Rankings
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function riftRankings()
+    public function seasonRankings()
     {
         return $this->belongsToMany(Leaderboard::class, 'hero_leaderboard')
             ->where('season', '=', true)
-            ->groupBy('players')
-            ->groupBy('period')
+            ->where('period', '=', 5)
             ->orderBy('players', 'asc')
-            ->orderBy('rift_level', 'desc');
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_timestamp', 'desc');
     }
 
     /**

@@ -31,7 +31,7 @@ class ProfileController extends Controller
     {
         $profile->load([
             'heroes', 
-            'riftRankings', 
+            'seasonRankings',
             'stats'
         ]);
 
@@ -60,7 +60,7 @@ class ProfileController extends Controller
 
         return $profile->load([
             'heroes',
-            'riftRankings',
+            'seasonRankings',
             'stats'
         ]);
     }

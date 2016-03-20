@@ -48,13 +48,13 @@
                                     ></bounce>
                                 </div>
                                 <div class="block__body block__body--flush"
-                                     v-if="state.rift_rankings.length > 0"
+                                     v-if="state.season_rankings.length > 0"
                                 >
                                     <div class="block__row">
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
                                             <li class="list__item"
-                                                v-for="ranking in state.rift_rankings"
+                                                v-for="ranking in state.season_rankings | rankings"
                                             >
                                                 <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
                                                 <span class="flex-50">{{ ranking.rift_level }}</span>
@@ -174,6 +174,18 @@
         filters: {
             battlenet (state) {
                 return 'https://' + state.region + '.battle.net/d3/en/profile/' + state.battle_tag.replace('#', '-') + '/';
+            },
+
+            rankings (rankings) {
+                var players = [];
+
+                return rankings.filter(function (i) {
+                    if (players.indexOf(i.players) == -1) {
+                        players.push(i.players);
+
+                        return i;
+                    }
+                });
             }
         },
 
