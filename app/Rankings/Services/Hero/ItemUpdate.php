@@ -99,6 +99,10 @@ class ItemUpdate
 		}
 
         foreach ($request as $response) {
+            if (isset($response->code)) {
+                continue;
+            }
+
             $this->pending_items[] = $this->item_service->saveItem($response);
         }
 	}
@@ -106,7 +110,7 @@ class ItemUpdate
 	/**
 	 * Find an item in the Item list
 	 * @param  integer $battlenet_item_id
-	 * @return App\Item|boolean
+	 * @return \App\Item|boolean
 	 */
 	private function findItem(stdClass $item)
 	{
