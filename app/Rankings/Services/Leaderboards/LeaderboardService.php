@@ -47,10 +47,13 @@ class LeaderboardService
             'period' => $data['data']['period'],
             'players' => $data['data']['players'],
             'rift_level' => $data['data']['rift_level'],
-            'region' => $data['data']['region'],
             'rift_timestamp' => $data['data']['completed_time'],
             'rift_time' => $data['data']['rift_time']
         ]);
+
+        if ($leaderboard->exists) {
+            $data['data'] = array_except($data['data'], ['region']);
+        }
 
         $leaderboard->fill($data['data']);
         $leaderboard->save();
