@@ -62,8 +62,7 @@ class Leaderboard extends Model
     public function scopeBarbarian($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'barbarian')
-            ->ladder();
+            ->where('heroes.class', '=', 'barbarian');
     }
 
     /**
@@ -75,7 +74,6 @@ class Leaderboard extends Model
     public function scopeCrusader($q)
     {
         return $q->solo()
-            ->ladder()
             ->where('heroes.class', '=', 'crusader');
     }
 
@@ -88,8 +86,7 @@ class Leaderboard extends Model
     public function scopeDemonHunter($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'demon-hunter')
-            ->ladder();
+            ->where('heroes.class', '=', 'demon-hunter');
     }
 
     /**
@@ -101,8 +98,7 @@ class Leaderboard extends Model
     public function scopeMonk($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'monk')
-            ->ladder();
+            ->where('heroes.class', '=', 'monk');
     }
 
     /**
@@ -114,8 +110,7 @@ class Leaderboard extends Model
     public function scopeWitchDoctor($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'witch-doctor')
-            ->ladder();
+            ->where('heroes.class', '=', 'witch-doctor');
     }
 
     /**
@@ -127,40 +122,7 @@ class Leaderboard extends Model
     public function scopeWizard($q)
     {
         return $q->solo()
-            ->where('heroes.class', '=', 'wizard')
-            ->ladder();
-    }
-
-    /**
-     * Shorthand for 2 player teams
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scope2Player($q)
-    {
-        return $q->team(2);
-    }
-
-    /**
-     * Shorthand for 3 player teams
-     * @param $q
-     * @return mixed
-     */
-    public function scope3Player($q)
-    {
-        return $q->team(3);
-    }
-
-    /**
-     * Shorthand for 4 player teams
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scope4Player($q)
-    {
-        return $q->team(4);
+            ->where('heroes.class', '=', 'wizard');
     }
 
     /**
@@ -172,8 +134,7 @@ class Leaderboard extends Model
      */
     public function scopeTeam($q, $players)
     {
-        return $q->where('leaderboards.players', $players)
-            ->ladder();
+        return $q->where('leaderboards.players', $players);
     }
 
     /**
@@ -187,9 +148,8 @@ class Leaderboard extends Model
         return $q->select('leaderboards.*')
             ->join('hero_leaderboard', 'leaderboards.id', '=', 'hero_leaderboard.leaderboard_id')
             ->join('heroes', 'hero_leaderboard.hero_id', '=', 'heroes.id')
-            ->groupBy('leaderboards.rift_level')
-            ->groupBy('leaderboards.rift_time')
-            ->groupBy('leaderboards.rift_timestamp');
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_time', 'asc');
     }
 
     /**
@@ -257,6 +217,7 @@ class Leaderboard extends Model
      */
     public function scopeSolo($q)
     {
-        return $q->where('leaderboards.players', 1);
+        return $q->where('leaderboards.players', 1)
+            ->ladder();
     }
 }

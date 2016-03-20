@@ -40,12 +40,8 @@ class HomeController extends Controller
                 ->$type()
                 ->period(5)
                 ->solo()
-                ->orderBy('rift_level', 'desc')
-                ->orderBy('rift_time', 'asc')
-                ->ladder()
                 ->with(['heroes', 'profiles'])
                 ->limit(25)
-                ->select('leaderboards.*', DB::raw('FALSE as `show`'))
                 ->get();
 
             $data->put($type, $query);

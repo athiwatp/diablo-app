@@ -53,9 +53,6 @@ class LeaderboardsController extends Controller
             ->$type()
             ->period($period)
             ->solo()
-            ->orderBy('rift_level', 'desc')
-            ->orderBy('rift_time', 'asc')
-            ->ladder()
             ->with(['heroes', 'profiles'])
             ->paginate(25)
             ->toJson();
@@ -80,8 +77,6 @@ class LeaderboardsController extends Controller
                     ->$type()
                     ->period($period)
                     ->$class()
-                    ->orderBy('rift_level', 'desc')
-                    ->orderBy('rift_time', 'asc')
                     ->with(['heroes', 'profiles'])
                     ->limit(25)
                     ->get()
@@ -92,6 +87,27 @@ class LeaderboardsController extends Controller
         $data->put('hardcore_show_all', '/'.$request->path().'/hardcore');
 
         return View::make('leaderboards.class-index', compact('data'));
+    }
+
+    /**
+     * @param Request $request
+     * @param $mode
+     * @param $period
+     * @param $class
+     * @param $type
+     * @return \Illuminate\View\View
+     */
+    public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
+    {
+        $data = Leaderboard::$mode()
+            ->$type()
+            ->period($period)
+            ->$class()
+            ->with(['heroes', 'profiles'])
+            ->paginate(20)
+            ->toJson();
+
+        return View::make('leaderboards.class-show', compact('data'));
     }
 
     /**
@@ -112,8 +128,6 @@ class LeaderboardsController extends Controller
                 ->$type()
                 ->period($period)
                 ->team($players)
-                ->orderBy('rift_level', 'desc')
-                ->orderBy('rift_time', 'asc')
                 ->with('heroes')
                 ->limit(25)
                 ->get();
@@ -131,30 +145,6 @@ class LeaderboardsController extends Controller
      * @param Request $request
      * @param $mode
      * @param $period
-     * @param $class
-     * @param $type
-     * @return \Illuminate\View\View
-     */
-    public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
-    {
-        $data = Leaderboard::$mode()
-            ->$type()
-            ->period($period)
-            ->solo()
-            ->$class()
-            ->orderBy('rift_level', 'desc')
-            ->orderBy('rift_time', 'asc')
-            ->with(['heroes', 'profiles'])
-            ->paginate(20)
-            ->toJson();
-
-        return View::make('leaderboards.class-show', compact('data'));
-    }
-
-    /**
-     * @param Request $request
-     * @param $mode
-     * @param $period
      * @param $players
      * @param $type
      * @return \Illuminate\View\View
@@ -165,8 +155,6 @@ class LeaderboardsController extends Controller
             ->$type()
             ->period($period)
             ->team($players)
-            ->orderBy('rift_level', 'desc')
-            ->orderBy('rift_time', 'asc')
             ->with('heroes')
             ->paginate(25)
             ->toJson();
