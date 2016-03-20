@@ -101,7 +101,7 @@
                 },
 
                 topBannerParameters: {
-                    background: 'url("/img/footer-banner.jpg") no-repeat fixed 50% 0'
+                    background: 'url("/img/leaderboards-banner.jpg") no-repeat fixed 50% 0'
                 }
             }
         },

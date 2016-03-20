@@ -44,7 +44,7 @@
         data () {
             return {
                 footerBannerParameters: {
-                    background: 'url("/img/city-banner.jpg") no-repeat fixed',
+                    background: 'url("/img/footer-banner.jpg") no-repeat fixed',
                     backgroundPosition: '50% 100%'
                 }
             }
