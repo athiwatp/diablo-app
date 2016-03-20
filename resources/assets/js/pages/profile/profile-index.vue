@@ -73,7 +73,7 @@
                                    href="/profiles/{{ profile.id }}"
                                 >
                                     <span class="flex-50">
-                                        {{ profile.region | capitalize }}
+                                        {{ profile.region | uppercase }}
                                     </span>
                                     <span class="flex-50">
                                         {{ profile.battle_tag }}
