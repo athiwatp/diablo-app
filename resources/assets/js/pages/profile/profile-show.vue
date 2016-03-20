@@ -200,7 +200,7 @@
                     this.$root.message('success', 'Profile updated', 4000);
                 }.bind(this), function (response) {
                     this.loadingAnimation = false;
-                    this.$root.message('warning', response.data);
+                    this.$root.message('warning', 'There was an error processing your request, please try again later');
                 }.bind(this));
             }
         }
