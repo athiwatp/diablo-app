@@ -36,7 +36,7 @@
                                     <p>
                                         <small>Update Available: {{ state.available_in || 'Now' }}</small>
                                     </p>
-                                    <button class="btn btn--secondary btn-lg"
+                                    <button class="btn btn--secondary btn-lg btn--icon"
                                             @click="updateProfile"
                                             :disabled="! state.queueable"
                                     >
