@@ -60,6 +60,14 @@ class Hero extends Model
     ];
 
     /**
+     * @var array
+     */
+    protected $appends = [
+        'queueable',
+        'available_in'
+    ];
+
+    /**
      * Access Hero API
      *
      * @return Heroes
