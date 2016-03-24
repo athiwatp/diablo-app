@@ -35,8 +35,6 @@ class ProfileController extends Controller
             'stats'
         ]);
 
-        $profile->getAvailability();
-
         return View::make('profiles.show', compact('profile')); 
     }
 
@@ -55,8 +53,6 @@ class ProfileController extends Controller
         }
 
         $profile->fresh();
-
-        $profile->getAvailability();
 
         return $profile->load([
             'heroes',

@@ -32,6 +32,14 @@ class Profile extends Model
     ];
 
     /**
+     * @var array
+     */
+    protected $appends = [
+        'queueable',
+        'available_in'
+    ];
+
+    /**
      * @param $value
      * @return string
      */
