@@ -36,8 +36,6 @@ class HeroController extends Controller
             'skills',
         ]);
 
-        $hero->getAvailability();
-
         return View::make('heroes.show', compact('hero'));
     }
 
@@ -56,8 +54,6 @@ class HeroController extends Controller
         }
 
         $hero->fresh();
-
-        $hero->getAvailability();
 
         return $hero->load([
             'seasonRankings',
