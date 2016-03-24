@@ -20,24 +20,6 @@ section.content {
 
 .leaderboard-rankings {
 	padding: 0 1rem;
-
-	.section-header {
-		@include m('left') {
-			margin-left: -31px;
-
-			@media (max-width: 767px) {
-				margin-right: -31px;
-			}
-		}
-
-		@include m('right') {
-			margin-right: -31px;
-
-			@media (max-width: 767px) {
-				margin-left: -31px;
-			}
-		}
-	}
 }
 
 .banner {
