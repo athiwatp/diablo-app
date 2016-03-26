@@ -17,11 +17,7 @@
     import profileShowPage from './pages/profile/profile-show.vue';
     import leaderboardsIndexPage from './pages/leaderboards/leaderboards-index.vue';
     import leaderboardsShowPage from './pages/leaderboards/leaderboards-show.vue';
-    import leaderboardsSeasonShowPage from './pages/leaderboards/season-show.vue';
-    import leaderboardsClassIndexPage from './pages/leaderboards/class-index.vue';
-    import leaderboardsClassShowPage from './pages/leaderboards/class-show.vue';
-    import leaderboardsTeamIndexPage from './pages/leaderboards/team-index.vue';
-    import leaderboardsTeamShowPage from './pages/leaderboards/team-show.vue';
+    import leaderboardsFilterPage from './pages/leaderboards/leaderboards-filter.vue';
 
     export default {
         el: '#app',
@@ -37,11 +33,7 @@
             profileShowPage,
             leaderboardsIndexPage,
             leaderboardsShowPage,
-            leaderboardsClassIndexPage,
-            leaderboardsClassShowPage,
-            leaderboardsTeamIndexPage,
-            leaderboardsTeamShowPage,
-            leaderboardsSeasonShowPage
+            leaderboardsFilterPage
         },
 
         ready () {

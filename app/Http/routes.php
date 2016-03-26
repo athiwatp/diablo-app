@@ -16,15 +16,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['prefix' => 'leaderboards'], function () {
         Route::get('/', 'LeaderboardsController@index');
-        Route::get('{leaderboard}', 'LeaderboardsController@show');
-        Route::group(['prefix' => '{mode}/{period}'], function () {
-            Route::get('{type}', 'LeaderboardsController@seasonShow');
-
-            Route::get('class/{class}', 'LeaderboardsController@classIndex');
-            Route::get('class/{class}/{type}', 'LeaderboardsController@classShow');
-
-            Route::get('team/{players}', 'LeaderboardsController@teamIndex');
-            Route::get('team/{players}/{type}', 'LeaderboardsController@teamShow');
-        });
+        Route::get('{leaderboard}/show', 'LeaderboardsController@show');
+        Route::get('filter', 'LeaderboardsController@filter');
     });
 });

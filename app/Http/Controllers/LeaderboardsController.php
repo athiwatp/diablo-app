@@ -31,6 +31,10 @@ class LeaderboardsController extends Controller
         return View::make('leaderboards.index');
     }
 
+    /**
+     * @param Leaderboard $leaderboard
+     * @return mixed
+     */
     public function show(Leaderboard $leaderboard)
     {
         $leaderboard->load(['heroes', 'profiles']);
@@ -42,123 +46,76 @@ class LeaderboardsController extends Controller
 
     /**
      * @param Request $request
-     * @param $mode
-     * @param $period
-     * @param $type
-     * @return mixed
+     * @return Collection
      */
-    public function seasonShow(Request $request, $mode, $period, $type)
+    public function filter(Request $request)
     {
-        $data = Leaderboard::$mode()
-            ->$type()
-            ->period($period)
-            ->solo()
-            ->with(['heroes', 'profiles'])
-            ->paginate(25)
-            ->toJson();
+        $leaderboard = new Leaderboard;
 
-        return View::make('leaderboards.season-show', compact('data'));
+        if ($request->has('players')) {
+            $leaderboard = $leaderboard->where('players', '=', $request->get('players'));
+        } else {
+            $leaderboard = $leaderboard->where('players', '=', 1);
+        }
+
+        if ($request->has('class')) {
+            $leaderboard = $leaderboard->whereIn('heroes.class', $request->get('class'));
+        }
+
+        if ($request->has('region')) {
+            $leaderboard = $leaderboard->whereIn('leaderboards.region', $request->get('region'));
+        }
+
+        $leaderboard = $leaderboard->where('leaderboards.season', '=', $request->get('season'))
+            ->where('period', '=', $request->get('period'))
+            ->ladder()
+            ->highestRift()
+            ->with(['heroes', 'profiles']);
+
+        $data = $request->has('hardcore')
+            ? $this->filterPaginate($leaderboard, $request->get('hardcore'), $request->getQueryString())
+            : $this->filterPreview($leaderboard, $request->getQueryString());
+
+        return View::make('leaderboards.filter', compact('data'));
     }
 
     /**
-     * @param Request $request
-     * @param $mode
-     * @param $period
-     * @param $class
-     * @return mixed
+     * @param Leaderboard $leaderboard
+     * @return Collection
      */
-    public function classIndex(Request $request, $mode, $period, $class)
+    public function filterPreview($leaderboard, $query_string)
     {
         $data = new Collection;
 
         foreach (['softcore', 'hardcore'] as $type) {
+            $query = clone $leaderboard;
+
             $data->put($type,
-                Leaderboard::$mode()
-                    ->$type()
-                    ->period($period)
-                    ->$class()
-                    ->with(['heroes', 'profiles'])
+                $query->$type()
                     ->limit(25)
                     ->get()
             );
         }
-        
-        $data->put('softcore_show_all', '/'.$request->path().'/softcore');
-        $data->put('hardcore_show_all', '/'.$request->path().'/hardcore');
 
-        return View::make('leaderboards.class-index', compact('data'));
+        $data->put('softcore_show_all', "/leaderboards/filter?hardcore=0&{$query_string}");
+        $data->put('hardcore_show_all', "/leaderboards/filter?hardcore=1&{$query_string}");
+
+        return $data;
     }
 
     /**
-     * @param Request $request
-     * @param $mode
-     * @param $period
-     * @param $class
-     * @param $type
-     * @return \Illuminate\View\View
-     */
-    public function classShow(Request $request, $mode, $period, $class, $type) : \Illuminate\View\View
-    {
-        $data = Leaderboard::$mode()
-            ->$type()
-            ->period($period)
-            ->$class()
-            ->with(['heroes', 'profiles'])
-            ->paginate(20)
-            ->toJson();
-
-        return View::make('leaderboards.class-show', compact('data'));
-    }
-
-    /**
-     * @param Request $request
-     * @param $mode
-     * @param $period
-     * @param $players
+     * @param Leaderboard $leaderboard
      * @return mixed
      */
-    public function teamIndex(Request $request, $mode, $period, $players)
+    public function filterPaginate($leaderboard, $type, $query_string)
     {
-        $data = new Collection;
-        $leaderboard_parser = new LeaderboardParser;
+        $data = $leaderboard->where('leaderboards.hardcore', '=', $type)
+            ->paginate(25);
 
-        // Abstract this
-        foreach (['softcore', 'hardcore'] as $type) {
-            $query = Leaderboard::$mode()
-                ->$type()
-                ->period($period)
-                ->team($players)
-                ->with('heroes')
-                ->limit(25)
-                ->get();
+        parse_str($query_string, $appends);
 
-            $data->put($type, $query);
-        }
-        
-        $data->put('softcore_show_all', '/'.$request->path().'/softcore');
-        $data->put('hardcore_show_all', '/'.$request->path().'/hardcore');
+        $data->appends($appends);
 
-        return View::make('leaderboards.team-index', compact('data'));
-    }
-
-    /**
-     * @param Request $request
-     * @param $mode
-     * @param $period
-     * @param $players
-     * @param $type
-     * @return \Illuminate\View\View
-     */
-    public function teamShow(Request $request, $mode, $period, $players, $type) : \Illuminate\View\View
-    {
-        $data = Leaderboard::$mode()
-            ->$type()
-            ->period($period)
-            ->team($players)
-            ->with('heroes')
-            ->paginate(25)
-            ->toJson();
-
-        return View::make('leaderboards.team-show', compact('data'));
+        return $data->toJson();
     }
 }

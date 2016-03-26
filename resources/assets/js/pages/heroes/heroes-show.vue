@@ -64,11 +64,15 @@
                                     <div class="block__row">
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
-                                            <li class="list__item"
-                                                v-for="ranking in state.season_rankings"
+                                            <li class="list__item list__item--link"
+                                                v-for="ranking in state.season_rankings | rankings"
+                                                href="/leaderboards/{{ ranking.id }}/show"
                                             >
                                                 <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
                                                 <span class="flex-50">{{ ranking.rift_level }}</span>
+                                                <span class="list__item--link__arrow">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
                                             </li>
                                         </ul>
                                     </div>
@@ -243,6 +247,18 @@
 
             battlenet (state) {
                 return 'https://' + state.region + '.battle.net/d3/profile/' + state.profile.battle_tag.replace('#', '-') + '/hero/' + state.battlenet_hero_id;
+            },
+
+            rankings (rankings) {
+                var players = [];
+
+                return rankings.filter(function (i) {
+                    if (players.indexOf(i.players) == -1) {
+                        players.push(i.players);
+
+                        return i;
+                    }
+                });
             }
         },
 

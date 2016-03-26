@@ -1,10 +1,11 @@
 <template>
-	<li class="list__item list__item--link"
-       @click="toggle(ranking, $event)"
-    >
-        <span class="flex-10">{{ ranking.rank }}</span>
-        <span class="flex-20">{{ ranking.rift_level }}</span>
-        <span class="flex-10 hidden-sm-down">{{ ranking.region }}</span>
+	<div>
+        <li class="list__item list__item--link"
+            @click="toggle(ranking, $event)"
+        >
+            <span class="flex-10">{{ ranking.rank }}</span>
+            <span class="flex-20">{{ ranking.rift_level }}</span>
+            <span class="flex-10 hidden-sm-down">{{ ranking.region }}</span>
         <span class="flex-30 hidden-sm-down text-xs-center">
             <template v-for="hero in ranking.heroes">
                 <img :src="hero | classPortrait"
@@ -18,32 +19,33 @@
             {{ ranking.rift_time | time }}
             <i class="fa fa-caret-left pull-xs-right"></i>
         </span>
-    </li>
-    <div class="row"
-         v-show="ranking.show"
-    >
-        <div class="col-sm-12 col-md-12 col-xs-12 text-xs-center hidden-xs-down flex">
-            <div v-for="hero in ranking.heroes"
-                 :class="{
+        </li>
+        <div class="row"
+             v-show="ranking.show"
+        >
+            <div class="col-sm-12 col-md-12 col-xs-12 text-xs-center hidden-xs-down flex">
+                <div v-for="hero in ranking.heroes"
+                     :class="{
                     'flex-30': ranking.players == 2,
                     'flex-20': ranking.players == 3,
                     'flex-15': ranking.players == 4,
                  }"
-            >
-                <img :src="hero.class | classCrest"
-                     alt="portrait"
-                     class="img-fluid img-fluid--fix"
-                     style="margin: 0 auto; opacity: .6"
                 >
+                    <img :src="hero.class | classCrest"
+                         alt="portrait"
+                         class="img-fluid img-fluid--fix"
+                         style="margin: 0 auto; opacity: .6"
+                    >
+                </div>
             </div>
-        </div>
-        <div class="col-sm-12 col-md-12 col-xs-12 m-t-2">
-            <div class="list__item__footer">
-                <a href="/leaderboards/{{ ranking.id }}"
-                   class="btn btn--secondary btn--icon"
-                >
-                    Go to Leaderboard Page <i class="fa fa-angle-double-right"></i>
-                </a>
+            <div class="col-sm-12 col-md-12 col-xs-12 m-t-2">
+                <div class="list__item__footer">
+                    <a href="/leaderboards/{{ ranking.id }}/show"
+                       class="btn btn--secondary btn--icon"
+                    >
+                        Go to Leaderboard Page <i class="fa fa-angle-double-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

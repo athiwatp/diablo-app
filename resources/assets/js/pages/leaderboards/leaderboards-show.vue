@@ -92,18 +92,11 @@
 <script>
     import listItem from '../../components/list/list-item.vue';
     import listItemHeader from '../../components/list/list-item-header.vue';
+    import leaderboardsShowStub from '../../stubs/leaderboards-show.js'
     
 	export default {
         data () {
-            return {
-                state: {
-                    heroes: []
-                },
-
-                topBannerParameters: {
-                    background: 'url("/img/leaderboards-banner.jpg") no-repeat fixed 50% 0'
-                }
-            }
+            return leaderboardsShowStub
         },
 
         ready () {
@@ -116,6 +109,7 @@
             listItem,
             listItemHeader
         },
+
         methods: {
             init () {
                 this.state = JSON.parse(this.data);

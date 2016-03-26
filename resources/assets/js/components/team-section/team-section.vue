@@ -30,7 +30,7 @@
 
 		filters: {
             leaderboardTeamLink (c) {
-                return '/leaderboards/season/' + CURRENT_SEASON + '/team/' + c;
+                return '/leaderboards/filter?season=1&period=' + CURRENT_SEASON + '&players=' + c;
             }
 		}
 	}

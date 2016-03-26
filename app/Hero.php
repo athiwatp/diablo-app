@@ -105,11 +105,11 @@ class Hero extends Model
     {
         return $this->belongsToMany(Leaderboard::class)
             ->where('season', '=', true)
-            ->where('period', '=', 5)
-            ->groupBy('players')
-            ->groupBy('period')
+            ->where('period', '=', env('CURRENT_SEASON'))
+            ->where('players', '!=', 0)
             ->orderBy('players', 'asc')
-            ->orderBy('rift_level', 'desc');
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_timestamp', 'desc');
     }
 
     /**

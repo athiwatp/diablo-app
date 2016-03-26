@@ -40,6 +40,7 @@ class HomeController extends Controller
                 ->$type()
                 ->period(5)
                 ->solo()
+                ->highestRift()
                 ->with(['heroes', 'profiles'])
                 ->limit(25)
                 ->get();
@@ -47,8 +48,8 @@ class HomeController extends Controller
             $data->put($type, $query);
         }
 
-        $data->put('softcore_show_all', '/leaderboards/season/' . env('CURRENT_SEASON') . '/softcore');
-        $data->put('hardcore_show_all', '/leaderboards/season/' . env('CURRENT_SEASON') . '/hardcore');
+        $data->put('softcore_show_all', '/leaderboards/filter/?season=1&period=5&hardcore=0');
+        $data->put('hardcore_show_all', '/leaderboards/filter?season=1&period=5&hardcore=1');
 
         return $data->toJson();
     }

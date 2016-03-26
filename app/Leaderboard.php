@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Leaderboard extends Model
 {
@@ -51,6 +52,12 @@ class Leaderboard extends Model
     public function profiles()
     {
         return $this->belongsToMany(Profile::class, 'hero_leaderboard');
+    }
+
+    public function scopeHighestRift($q)
+    {
+        return $q->groupBy('hero_leaderboard.hero_id')
+            ->select(DB::raw('leaderboards.*, max(leaderboards.rift_level) as rift_level'));
     }
 
     /**

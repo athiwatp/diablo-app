@@ -53,12 +53,16 @@
                                     <div class="block__row">
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
-                                            <li class="list__item"
-                                                v-for="ranking in state.season_rankings | rankings"
+                                            <a class="list__item list__item--link"
+                                               v-for="ranking in state.season_rankings | rankings"
+                                               href="/leaderboards/{{ ranking.id }}/show"
                                             >
                                                 <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
                                                 <span class="flex-50">{{ ranking.rift_level }}</span>
-                                            </li>
+                                                <span class="list__item--link__arrow">
+                                                    <i class="fa fa-angle-right"></i>
+                                                </span>
+                                            </a>
                                         </ul>
                                     </div>
                                 </div>

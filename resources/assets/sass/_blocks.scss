@@ -63,10 +63,6 @@
         &:not(:last-child) {
             margin-bottom: .5rem;
         }
-
-        &:hover {
-            background-color: rgba($primary-color, .9) !important;
-        }
 	}
 
     @include e('col') {

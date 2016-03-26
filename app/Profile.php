@@ -66,7 +66,8 @@ class Profile extends Model
     {
         return $this->belongsToMany(Leaderboard::class, 'hero_leaderboard')
             ->where('season', '=', true)
-            ->where('period', '=', 5)
+            ->where('period', '=', env('CURRENT_SEASON'))
+            ->where('players', '!=', 0)
             ->orderBy('players', 'asc')
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_timestamp', 'desc');

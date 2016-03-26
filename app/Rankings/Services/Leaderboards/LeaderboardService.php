@@ -32,10 +32,18 @@ class LeaderboardService
                 continue;
             }
 
-            $hero = Hero::updateOrCreate([
+            $hero = Hero::firstOrNew([
                 'battlenet_hero_id' => $hero->battlenet_hero_id,
                 'profile_id' => $profile->id
-            ], (array)$hero);
+            ]);
+
+            if (!empty($hero->class)) {
+                $hero = array_except((array)$hero, ['class']);
+            }
+            
+            $hero->fill($hero);
+            $hero->save()
+                ->fresh();
 
             $hero_array[$hero->id] = [
                 'profile_id' => $profile->id
@@ -51,7 +59,8 @@ class LeaderboardService
             'rift_time' => $data['data']['rift_time']
         ]);
 
-        if ($leaderboard->exists) {
+
+        if (!empty($leaderboard->region)) {
             $data['data'] = array_except($data['data'], ['region']);
         }
 

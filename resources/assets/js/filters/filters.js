@@ -77,10 +77,6 @@ var region = function (r) {
 	}
 }
 
-var leaderboardClassLink = function (c) {
-    return '/leaderboards/season/' + CURRENT_SEASON + '/class/' + c.replace('-', '');
-}
-
 var time = function (ms) {
     var min = (ms/1000/60) << 0;
     var sec = parseInt((ms/1000) % 60).toString();
@@ -97,7 +93,6 @@ export default {
 	'classPreview': classPreview,
 	'classText': classText,
 	'number': number,
-	'leaderboardClassLink': leaderboardClassLink,
 	'region': region,
 	'teamCrest': teamCrest,
 	'time': time
