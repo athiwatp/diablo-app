@@ -53,9 +53,11 @@ class LeaderboardsController extends Controller
         $leaderboard = new Leaderboard;
 
         if ($request->has('players')) {
-            $leaderboard = $leaderboard->where('players', '=', $request->get('players'));
+            $leaderboard = $leaderboard->where('players', '=', $request->get('players'))
+                ->highestRiftTeam();
         } else {
-            $leaderboard = $leaderboard->where('players', '=', 1);
+            $leaderboard = $leaderboard->where('players', '=', 1)
+                ->highestRiftSolo();
         }
 
         if ($request->has('class')) {
@@ -68,7 +70,6 @@ class LeaderboardsController extends Controller
 
         $leaderboard = $leaderboard->where('leaderboards.season', '=', $request->get('season'))
             ->where('period', '=', $request->get('period'))
-            ->highestRift()
             ->with(['heroes', 'profiles']);
 
         $data = $request->has('hardcore')

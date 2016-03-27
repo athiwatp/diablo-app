@@ -40,7 +40,7 @@ class HomeController extends Controller
                 ->hardcore($type)
                 ->period([env('CURRENT_SEASON')])
                 ->solo()
-                ->highestRift()
+                ->highestRiftSolo()
                 ->with(['heroes', 'profiles'])
                 ->limit(25)
                 ->get();
