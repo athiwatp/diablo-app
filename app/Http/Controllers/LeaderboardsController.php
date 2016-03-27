@@ -68,7 +68,6 @@ class LeaderboardsController extends Controller
 
         $leaderboard = $leaderboard->where('leaderboards.season', '=', $request->get('season'))
             ->where('period', '=', $request->get('period'))
-            ->ladder()
             ->highestRift()
             ->with(['heroes', 'profiles']);
 
@@ -91,7 +90,7 @@ class LeaderboardsController extends Controller
             $query = clone $leaderboard;
 
             $data->put($type,
-                $query->$type()
+                $query->hardcore($type)
                     ->limit(25)
                     ->get()
             );

@@ -36,9 +36,9 @@ class HomeController extends Controller
     {
         $data = new Collection;
         foreach (['softcore', 'hardcore'] as $type) {
-            $query = Leaderboard::season()
-                ->$type()
-                ->period(5)
+            $query = Leaderboard::season(true)
+                ->hardcore($type)
+                ->period([env('CURRENT_SEASON')])
                 ->solo()
                 ->highestRift()
                 ->with(['heroes', 'profiles'])

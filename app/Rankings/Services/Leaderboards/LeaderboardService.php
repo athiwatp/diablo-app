@@ -32,7 +32,7 @@ class LeaderboardService
                 continue;
             }
 
-            $hero = Hero::firstOrNew([
+            $hero_record = Hero::firstOrNew([
                 'battlenet_hero_id' => $hero->battlenet_hero_id,
                 'profile_id' => $profile->id
             ]);
@@ -40,12 +40,11 @@ class LeaderboardService
             if (!empty($hero->class)) {
                 $hero = array_except((array)$hero, ['class']);
             }
-            
-            $hero->fill($hero);
-            $hero->save()
-                ->fresh();
 
-            $hero_array[$hero->id] = [
+            $hero_record->fill((array) $hero);
+            $hero_record->save();
+
+            $hero_array[$hero_record->id] = [
                 'profile_id' => $profile->id
             ];
         }

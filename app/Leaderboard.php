@@ -56,80 +56,22 @@ class Leaderboard extends Model
 
     public function scopeHighestRift($q)
     {
-        return $q->groupBy('hero_leaderboard.hero_id')
-            ->select(DB::raw('leaderboards.*, max(leaderboards.rift_level) as rift_level'));
-    }
-
-    /**
-     * Solo barbarian scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeBarbarian($q)
-    {
-        return $q->solo()
-            ->where('heroes.class', '=', 'barbarian');
-    }
-
-    /**
-     * Solo crusader scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeCrusader($q)
-    {
-        return $q->solo()
-            ->where('heroes.class', '=', 'crusader');
-    }
-
-    /**
-     * Solo demonhunters scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeDemonHunter($q)
-    {
-        return $q->solo()
-            ->where('heroes.class', '=', 'demon-hunter');
-    }
-
-    /**
-     * Solo monks scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeMonk($q)
-    {
-        return $q->solo()
-            ->where('heroes.class', '=', 'monk');
-    }
-
-    /**
-     * Solo witchdoctors scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeWitchDoctor($q)
-    {
-        return $q->solo()
-            ->where('heroes.class', '=', 'witch-doctor');
-    }
-
-    /**
-     * Solo wizards scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeWizard($q)
-    {
-        return $q->solo()
-            ->where('heroes.class', '=', 'wizard');
+        return $q->select('leaderboards.*')
+            ->join(
+                DB::raw('(select id, max(rift_level) max_rift from leaderboards group by id) l2'), function ($join) {
+                $join->on('l2.max_rift', '=', 'leaderboards.rift_level')
+                    ->on('l2.id', '=', 'leaderboards.id');
+            }
+            )
+            ->join(
+                DB::raw('(select max(leaderboard_id) as leaderboard_id, hero_id from hero_leaderboard group by hero_id) hl'), function ($join) {
+                $join->on('hl.leaderboard_id', '=', 'l2.id');
+            }
+            )
+            ->join('heroes', 'heroes.id', '=', 'hl.hero_id')
+            ->groupBy('leaderboards.id')
+            ->orderBy('rift_level', 'desc')
+            ->orderBy('rift_time', 'asc');
     }
 
     /**
@@ -145,40 +87,30 @@ class Leaderboard extends Model
     }
 
     /**
-     * Ladder scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeLadder($q)
-    {
-        return $q->select('leaderboards.*')
-            ->join('hero_leaderboard', 'leaderboards.id', '=', 'hero_leaderboard.leaderboard_id')
-            ->join('heroes', 'hero_leaderboard.hero_id', '=', 'heroes.id')
-            ->orderBy('rift_level', 'desc')
-            ->orderBy('rift_time', 'asc');
-    }
-
-    /**
      * Season scope
      *
      * @param $q
      * @return mixed
      */
-    public function scopeSeason($q)
+    public function scopeSeason($q, $season)
     {
-        return $q->where('leaderboards.season', true);
+        return $q->where('leaderboards.season', $season);
     }
 
     /**
-     * Era scope
-     *
      * @param $q
+     * @param $hardcore
      * @return mixed
      */
-    public function scopeEra($q)
+    public function scopeHardcore($q, $hardcore)
     {
-        return $q->where('leaderboards.season', false);
+        if (is_string($hardcore)) {
+            $hardcore = $hardcore == 'softcore'
+                ? 0
+                : 1;
+        }
+
+        return $q->where('leaderboards.hardcore', $hardcore);
     }
 
     /**
@@ -189,31 +121,9 @@ class Leaderboard extends Model
      * @param $period
      * @return mixed
      */
-    public function scopePeriod($q, $period)
+    public function scopePeriod($q, $periods)
     {
-        return $q->where('leaderboards.period', $period);
-    }
-
-    /**
-     * Hardcore scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeHardcore($q)
-    {
-        return $q->where('leaderboards.hardcore', true);
-    }
-
-    /**
-     * Softcore scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeSoftcore($q)
-    {
-        return $q->where('leaderboards.hardcore', false);
+        return $q->whereIn('leaderboards.period', $periods);
     }
 
     /**
@@ -224,7 +134,6 @@ class Leaderboard extends Model
      */
     public function scopeSolo($q)
     {
-        return $q->where('leaderboards.players', 1)
-            ->ladder();
+        return $q->where('leaderboards.players', 1);
     }
 }
