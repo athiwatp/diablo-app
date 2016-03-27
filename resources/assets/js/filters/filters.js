@@ -77,12 +77,15 @@ var region = function (r) {
 	}
 }
 
-var time = function (ms) {
-    var min = (ms/1000/60) << 0;
-    var sec = parseInt((ms/1000) % 60).toString();
-    sec = sec.length == 1 ? sec + '0' : sec;
+var time = function (duration) {
+    var milliseconds = parseInt((duration%1000)/100)
+        , seconds = parseInt((duration/1000)%60)
+        , minutes = parseInt((duration/(1000*60))%60);
 
-    return min + ':' + sec;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return minutes + ':' + seconds;
 }
 
 export default {
