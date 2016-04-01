@@ -148,6 +148,10 @@ class LeaderboardParser
         $bnet_players = [];
 
         foreach ($players as $player) {
+            if (empty($player->battle_tag) && empty($player->hero_battle_tag)) {
+                continue;
+            }
+
             $data = $this->getPlayerData($player->data);
 
             if (!isset($data->battlenet_hero_id)) {
