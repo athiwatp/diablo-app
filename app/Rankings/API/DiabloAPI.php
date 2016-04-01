@@ -16,9 +16,9 @@ class DiabloAPI
      */
     private $regions = [
         'us',
-        'eu',
-        'kr',
-        'tw'
+        // 'eu',
+        // 'kr',
+        // 'tw'
     ];
 
     /**
@@ -27,9 +27,9 @@ class DiabloAPI
     public function __construct()
     {
         $this->api = new Diablo(
-            'u2zmxrgs8fve2vxxpdqufttyhufjvyvn',
-            'xZkQw2MqADNTVY8Us2GsY2EEcJNudJ89',
-            'b32pj4ynvv4t8tph8hw9jajz'
+            env('BATTLENET_API_KEY'),
+            env('BATTLENET_API_SECRET'),
+            env('BATTLENET_API_TOKEN')
         );
     }
 
@@ -108,15 +108,7 @@ class DiabloAPI
             $this->api->setRegion($region)
                 ->{$mode}($period)
                 ->$type()
-                ->barbarian()
-                ->crusader()
-                ->demonhunter()
-                ->monk()
-                ->witchdoctor()
-                ->wizard()
-                ->team(2)
-                ->team(3)
-                ->team(4);
+                ->barbarian();
         }
 
         $response = $this->api->get();
