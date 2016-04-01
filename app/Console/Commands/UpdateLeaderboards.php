@@ -84,7 +84,7 @@ class UpdateLeaderboards extends Command
 
         $bar = $this->output->createProgressBar(count($rankings));
         foreach ($rankings as $record) {
-            if (is_null($record['data']['battle_tag'])) {
+            if (empty($record['data']['battle_tag'])) {
                 continue;
             }
 

@@ -134,6 +134,9 @@ class LeaderboardParser
 
 
         if (!isset($data['rank'])) {
+            if (empty($players[0])) {
+                return;
+            }
             $this->purgatory[$data['battle_tag']] = $players[0];
         } else {
             $this->leaderboard[] = compact('players', 'data');
