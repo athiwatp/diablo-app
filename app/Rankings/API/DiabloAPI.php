@@ -16,9 +16,9 @@ class DiabloAPI
      */
     private $regions = [
         'us',
-        // 'eu',
-        // 'kr',
-        // 'tw'
+        'eu',
+        'kr',
+        'tw'
     ];
 
     /**
@@ -108,7 +108,15 @@ class DiabloAPI
             $this->api->setRegion($region)
                 ->{$mode}($period)
                 ->$type()
-                ->barbarian();
+                ->barbarian()
+                ->crusader()
+                ->demonhunter()
+                ->monk()
+                ->witchdoctor()
+                ->wizard()
+                ->team(2)
+                ->team(3)
+                ->team(4);
         }
 
         $response = $this->api->get();
