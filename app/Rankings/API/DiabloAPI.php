@@ -102,41 +102,33 @@ class DiabloAPI
      * @param int $period
      * @return array
      */
-    public function classes(string $mode, int $period, string $type) : array
+    public function leaderboards(int $period) : array
     {
         foreach ($this->regions as $region) {
-            $this->api->setRegion($region)
-                ->{$mode}($period)
-                ->$type()
-                ->barbarian()
-                ->crusader()
-                ->demonhunter()
-                ->monk()
-                ->witchdoctor()
-                ->wizard();
-        }
-
-        $response = $this->api->get();
-
-        return is_array($response)
-            ? $response
-            : [$response];
-    }
-
-    /**
-     * @param string $mode
-     * @param int $period
-     * @return array
-     */
-    public function teams(string $mode, int $period, string $type) : array
-    {
-        foreach ($this->regions as $region) {
-            $this->api->setRegion($region)
-                ->{$mode}($period)
-                ->$type()
-                ->team(2)
-                ->team(3)
-                ->team(4);
+            foreach(['season', 'era'] as $mode) {
+                $this->api->setRegion($region)
+                    ->{$mode}($period)
+                    ->softcore()
+                    ->barbarian()
+                    ->crusader()
+                    ->demonhunter()
+                    ->monk()
+                    ->witchdoctor()
+                    ->wizard()
+                    ->team(2)
+                    ->team(3)
+                    ->team(4)
+                    ->hardcore()
+                    ->barbarian()
+                    ->crusader()
+                    ->demonhunter()
+                    ->monk()
+                    ->witchdoctor()
+                    ->wizard()
+                    ->team(2)
+                    ->team(3)
+                    ->team(4);
+            }
         }
 
         $response = $this->api->get();

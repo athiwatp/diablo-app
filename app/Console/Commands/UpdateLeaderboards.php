@@ -19,7 +19,7 @@ class UpdateLeaderboards extends Command
      *
      * @var string
      */
-    protected $signature = 'leaderboard:update {team_class} {mode} {period} {type}';
+    protected $signature = 'leaderboard:update {period}';
     /**
      * The console command description
      *
@@ -72,10 +72,8 @@ class UpdateLeaderboards extends Command
         $this->info('Updating leaderboards...');
         $t = microtime(true);
 
-        $request = $this->api->{$this->argument('team_class')}(
-            $this->argument('mode'),
-            $this->argument('period'),
-            $this->argument('type')
+        $request = $this->api->leaderboards(
+            $this->argument('period')
         );
 
         $rankings = $this->parser->parse(
@@ -97,5 +95,6 @@ class UpdateLeaderboards extends Command
         $bar->finish();
 
         $this->info(PHP_EOL . 'Leaderboard updated in ' . (microtime(true) - $t) . ' seconds');
+        $this->info(PHP_EOL . ceil((memory_get_usage() / 1024) / 1024));
     }
 }

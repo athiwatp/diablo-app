@@ -48,7 +48,9 @@ class LeaderboardParser
     public function parse(array $data) : array
     {
         foreach ($data as $array) {
-            $this->getRankings($array);
+            $this->getRankings(
+                json_decode($array->getBody()->getContents())
+            );
         }
 
         return $this->leaderboard;
@@ -83,7 +85,7 @@ class LeaderboardParser
             }
         }
 
-        $this->findOrphans();
+//        $this->findOrphans();
     }
 
     /**

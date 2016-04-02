@@ -28,24 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('leaderboard:update classes season 5 softcore')
-            ->daily(0);
-        $schedule->command('leaderboard:update classes season 5 hardcore')
-            ->daily(1);
-
-        $schedule->command('leaderboard:update teams season 5 softcore')
-            ->daily(2);
-        $schedule->command('leaderboard:update teams season 5 hardcore')
-            ->daily(3);
-
-        $schedule->command('leaderboard:update classes era 5 softcore')
-            ->daily(4);
-        $schedule->command('leaderboard:update classes era 5 hardcore')
-            ->daily(5);
-        
-        $schedule->command('leaderboard:update teams era 5 softcore')
-            ->daily(6);
-        $schedule->command('leaderboard:update teams era 5 hardcore')
-            ->daily(7);
+        $schedule->command('leaderboard:update '.env('CURRENT_SEASON'))
+            ->daily();
     }
 }
