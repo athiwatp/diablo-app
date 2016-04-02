@@ -74,6 +74,10 @@ class LeaderboardParser
                         break 2;
                     }
                 break;
+                default:
+                    if ($i == 500) {
+                        break 2;
+                    }
             }
         }
 
@@ -85,13 +89,16 @@ class LeaderboardParser
      */
     private function findOrphans()
     {
-        $this->count = 0;
         foreach ($this->leaderboard as $record) {
             $record['players'] = array_map(function ($i) {
                 if (!isset($i->battlenet_hero_id)) {
                     if (array_key_exists($i->battle_tag, $this->purgatory)) {
                         $i->battlenet_hero_id = $this->purgatory[$i->battle_tag]->battlenet_hero_id;
+
+                        return $i;
                     }
+                } else {
+                    return $i;
                 }
             }, $record['players']);
         }
@@ -124,6 +131,11 @@ class LeaderboardParser
         $this->self->region = strtoupper(substr($explode[2], 0, 2));
     }
 
+    /**
+     * 
+     * @param  [type] $record [description]
+     * @return [type]         [description]
+     */
     public function getLeaderboardData($record)
     {
         $players = $this->getPlayersData($record->player);
@@ -137,7 +149,16 @@ class LeaderboardParser
             if (empty($players[0])) {
                 return;
             }
-            $this->purgatory[$data['battle_tag']] = $players[0];
+
+            foreach ($players as $player) {
+                if (!isset($player->battle_tag)
+                    || !isset($player->battlenet_hero_id)
+                ) {
+                    continue;
+                }
+
+                $this->purgatory[$player->battle_tag] = $player;
+            }
         } else {
             $this->leaderboard[] = compact('players', 'data');
         }
@@ -151,19 +172,8 @@ class LeaderboardParser
         $bnet_players = [];
 
         foreach ($players as $player) {
-            if (empty($player->battle_tag) && empty($player->hero_battle_tag)) {
-                continue;
-            }
-
             $data = $this->getPlayerData($player->data);
 
-            if (!isset($data->battlenet_hero_id)) {
-                if (isset($this->test[$data->battle_tag])) {
-                    unset($this->test[$data->battle_tag]);
-                } else {
-                    $this->test[$data->battle_tag] = '';
-                }
-            }
             $bnet_players[] = $data;
         }
 
@@ -179,8 +189,14 @@ class LeaderboardParser
     {
         $profile = $this->parseJson($player);
 
-        $profile->battle_tag = $profile->battle_tag ?? $profile->hero_battle_tag;
-        unset($profile->hero_battle_tag);
+        if (empty($profile->battle_tag)
+            && empty($profile->hero_battle_tag)
+        ) {
+            $profile->battle_tag = '';
+        } else {
+            $profile->battle_tag = $profile->battle_tag ?? $profile->hero_battle_tag;
+            unset($profile->hero_battle_tag);
+        }
 
         $profile->class = str_replace(' ', '-', $profile->class);
 

@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" rel="stylesheet/scss">
     @import './main-navbar';
 </style>
 
@@ -42,6 +42,9 @@
                         <a href="/leaderboards"
                            class="nav__link"
                         >
+                            <span class="nav__updated">
+                                <i class="fa fa-exclamation"></i>
+                            </span>
                             Leaderboards
                             <span class="nav__link__subtext">rankings</span>
                         </a>

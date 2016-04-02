@@ -37,7 +37,7 @@ class LeaderboardService
                 'profile_id' => $profile->id
             ]);
 
-            if (!empty($hero->class)) {
+            if (!empty($hero_record->class)) {
                 $hero = array_except((array)$hero, ['class']);
             }
 
@@ -47,6 +47,10 @@ class LeaderboardService
             $hero_array[$hero_record->id] = [
                 'profile_id' => $profile->id
             ];
+        }
+        
+        if (empty($hero_array)) {
+            return;
         }
 
         $leaderboard = Leaderboard::firstOrCreate([

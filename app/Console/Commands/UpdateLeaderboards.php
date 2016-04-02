@@ -19,7 +19,7 @@ class UpdateLeaderboards extends Command
      *
      * @var string
      */
-    protected $signature = 'leaderboard:update {mode} {period} {type}';
+    protected $signature = 'leaderboard:update {team_class} {mode} {period} {type}';
     /**
      * The console command description
      *
@@ -72,7 +72,7 @@ class UpdateLeaderboards extends Command
         $this->info('Updating leaderboards...');
         $t = microtime(true);
 
-        $request = $this->api->leaderboards(
+        $request = $this->api->{$this->argument('team_class')}(
             $this->argument('mode'),
             $this->argument('period'),
             $this->argument('type')
