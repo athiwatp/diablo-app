@@ -24,6 +24,8 @@ class SkillParser
 	public function parse($request) : array
 	{
         foreach ($request as $response) {
+            $response = json_decode($response->getBody()->getContents());
+
             $this->activeSkillsAndRunes($response);
             $this->passiveSkills($response);
         }

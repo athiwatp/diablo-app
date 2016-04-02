@@ -99,6 +99,8 @@ class ItemUpdate
 		}
 
         foreach ($request as $response) {
+            $response = json_decode($response->getBody()->getContents());
+
             if (isset($response->code)) {
                 continue;
             }
