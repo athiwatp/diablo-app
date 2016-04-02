@@ -21,6 +21,8 @@ class LeaderboardParser
      * @var
      */
     public $self;
+    
+    public $purgatory;
 
     /**
      * Parsed leaderboard
