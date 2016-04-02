@@ -22,7 +22,7 @@ class LeaderboardParser
      */
     public $self;
     
-    public $purgatory;
+    public $purgatory = [];
 
     /**
      * Parsed leaderboard
