@@ -10,6 +10,10 @@ var classPortrait = function (ranking) {
 
     c = c == 'crusader' ? 'x1_' + c : c;
     c = c.replace('-', '');
+
+    if (c === 'missing') {
+        return '/img/missing-class.png';
+    }
     
     return 'http://media.blizzard.com/d3/icons/portraits/21/' + c + '_' + gender + '.png';
 }
@@ -33,6 +37,10 @@ var number = function (n) {
 var classCrest = function (c) {
     if (c == '') {
         return '';
+    }
+
+    if (c == 'missing') {
+        return '/img/missing-class.png';
     }
 
 	return '/img/' + c + '/crest.png';
@@ -88,6 +96,19 @@ var time = function (duration) {
     return minutes + ':' + seconds;
 }
 
+var missingHeroes = function (rankings, players) {
+    var missing = players - rankings.length;
+
+    for (var i = 0; i < missing; i++) {
+        rankings.push({
+            gender: 1,
+            class: 'missing'
+        });
+    }
+
+    return rankings;
+}
+
 export default {
 	'battleTag': battleTag,
 	'classBanner': classBanner,
@@ -98,5 +119,6 @@ export default {
 	'number': number,
 	'region': region,
 	'teamCrest': teamCrest,
-	'time': time
+	'time': time,
+    'missingHeroes': missingHeroes
 }
