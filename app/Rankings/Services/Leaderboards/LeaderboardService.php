@@ -28,10 +28,6 @@ class LeaderboardService
                 $profile->save();
             }
 
-            if (!isset($hero->battlenet_hero_id)) {
-                continue;
-            }
-
             $hero_record = Hero::firstOrNew([
                 'battlenet_hero_id' => $hero->battlenet_hero_id,
                 'profile_id' => $profile->id

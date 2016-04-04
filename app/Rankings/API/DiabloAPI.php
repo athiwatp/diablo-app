@@ -22,6 +22,14 @@ class DiabloAPI
     ];
 
     /**
+     * @var array
+     */
+    private $modes = [
+        'season',
+        'era'
+    ];
+
+    /**
      * DiabloAPI constructor
      */
     public function __construct()
@@ -105,7 +113,7 @@ class DiabloAPI
     public function leaderboards(int $period) : array
     {
         foreach ($this->regions as $region) {
-            foreach(['season', 'era'] as $mode) {
+            foreach($this->modes as $mode) {
                 $this->api->setRegion($region)
                     ->{$mode}($period)
                     ->softcore()
@@ -131,10 +139,6 @@ class DiabloAPI
             }
         }
 
-        $response = $this->api->get();
-
-        return is_array($response)
-            ? $response
-            : [$response];
+        return $this->api->get();
     }
 }

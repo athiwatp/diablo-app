@@ -82,10 +82,6 @@ class UpdateLeaderboards extends Command
 
         $bar = $this->output->createProgressBar(count($rankings));
         foreach ($rankings as $record) {
-            if (empty($record['data']['battle_tag'])) {
-                continue;
-            }
-
             $job = (new UpdateLeaderboard($record))->onQueue('leaderboards');
             $this->dispatch($job);
 

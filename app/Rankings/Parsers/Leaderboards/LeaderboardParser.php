@@ -74,18 +74,29 @@ class LeaderboardParser
 
             switch($this->self->players) {
                 case 1:
-                    if ($i == 100) {
+                    if ($i == 200) {
                         break 2;
                     }
                 break;
-                default:
-                    if ($i == 500) {
+                case 2:
+                    if ($i == 400) {
                         break 2;
                     }
+                break;
+                case 3:
+                    if ($i == 600) {
+                        break 2;
+                    }
+                break;
+                case 4:
+                    if ($i == 800) {
+                        break 2;
+                    }
+                break;
             }
         }
 
-//        $this->findOrphans();
+        $this->findOrphans();
     }
 
     /**
@@ -98,12 +109,10 @@ class LeaderboardParser
                 if (!isset($i->battlenet_hero_id)) {
                     if (array_key_exists($i->battle_tag, $this->purgatory)) {
                         $i->battlenet_hero_id = $this->purgatory[$i->battle_tag]->battlenet_hero_id;
-
-                        return $i;
                     }
-                } else {
-                    return $i;
                 }
+
+                return $i;
             }, $record['players']);
         }
     }
@@ -144,8 +153,8 @@ class LeaderboardParser
     {
         $players = $this->getPlayersData($record->player);
         $data = array_merge(
-            (array) $this->parseJson($record->data),
-            (array) $this->self
+            (array) $this->self,
+            (array) $this->parseJson($record->data)
         );
 
 
