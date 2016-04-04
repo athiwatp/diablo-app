@@ -6,30 +6,30 @@
             <span class="flex-10">{{ ranking.rank }}</span>
             <span class="flex-20">{{ ranking.rift_level }}</span>
             <span class="flex-10 hidden-sm-down">{{ ranking.region }}</span>
-        <span class="flex-30 hidden-sm-down text-xs-center">
-            <template v-for="hero in ranking.heroes">
-                <img :src="hero | classPortrait"
-                     alt="portrait"
-                     class="class-portrait"
-                >
-            </template>
-        </span>
-        <span class="flex-30 text-xs-center">
-            <i class="fa fa-clock-o"></i>
-            {{ ranking.rift_time | time }}
-            <i class="fa fa-caret-left pull-xs-right"></i>
-        </span>
+            <span class="flex-30 hidden-sm-down text-xs-center">
+                <template v-for="hero in ranking.heroes | missingHeroes ranking.players">
+                    <img :src="hero | classPortrait"
+                         alt="portrait"
+                         class="class-portrait"
+                    >
+                </template>
+            </span>
+            <span class="flex-30 text-xs-center">
+                <i class="fa fa-clock-o"></i>
+                {{ ranking.rift_time | time }}
+                <i class="fa fa-caret-left pull-xs-right"></i>
+            </span>
         </li>
         <div class="row"
              v-show="ranking.show"
         >
             <div class="col-sm-12 col-md-12 col-xs-12 text-xs-center hidden-xs-down flex">
-                <div v-for="hero in ranking.heroes"
+                <div v-for="hero in ranking.heroes | missingHeroes ranking.players"
                      :class="{
-                    'flex-30': ranking.players == 2,
-                    'flex-20': ranking.players == 3,
-                    'flex-15': ranking.players == 4,
-                 }"
+                        'flex-30': ranking.players == 2,
+                        'flex-20': ranking.players == 3,
+                        'flex-15': ranking.players == 4,
+                     }"
                 >
                     <img :src="hero.class | classCrest"
                          alt="portrait"

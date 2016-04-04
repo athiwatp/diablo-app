@@ -117,7 +117,19 @@ html, body {
 
 .class-portrait {
     border-radius: 50%;
-    border: 1px solid #7e7e7e;
+    width: 23px;
+    margin-left: 2px;
+}
+
+.portrait {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @include e('txt') {
+        padding-top: 3rem;
+    }
 }
 
 .form-control {
@@ -129,17 +141,37 @@ html, body {
 }
 
 .p-t-r {
-    padding-top: .5rem;
+    padding-top: .5rem !important;
 }
 
 .p-b-r {
-    padding-bottom: .5rem;
+    padding-bottom: .5rem !important;
 }
 
 .p-l-r {
-    padding-bottom: .5rem;
+    padding-bottom: .5rem !important;
 }
 
 .p-r-r {
-    padding-bottom: .5rem;
+    padding-bottom: .5rem !important;
+}
+
+.m-r {
+    margin: .5rem !important;
+}
+
+.m-t-r {
+    margin-top: .5rem !important;
+}
+
+.m-b-r {
+    margin-bottom: .5rem !important;
+}
+
+.m-l-r {
+    margin-bottom: .5rem !important;
+}
+
+.m-r-r {
+    margin-bottom: .5rem !important;
 }

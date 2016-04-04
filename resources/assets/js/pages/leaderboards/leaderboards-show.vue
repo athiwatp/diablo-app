@@ -14,19 +14,26 @@
             <section class="leaderboard-class">
                 <div class="row">
                     <div class="col-sm-12 col-md-12 text-xs-center hidden-xs-down flex">
-                        <div v-for="hero in state.heroes"
+                        <div v-for="hero in state.heroes | missingHeroes state.players"
                              :class="{
                                 'flex-100': state.players == 1,
                                 'flex-30': state.players == 2,
                                 'flex-20': state.players == 3,
                                 'flex-15': state.players == 4,
                              }"
+                             class="portrait"
                         >
                             <img :src="hero.class | classCrest"
-                                 alt="portrait"
+                                 alt="portrait__img"
                                  class="img-fluid img-fluid--fix"
                                  style="margin: 0 auto; opacity: .6"
                             >
+
+                            <h6 v-if="hero.class === 'missing'"
+                                class="portrait__txt"
+                            >
+                                Missing Record
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -80,6 +87,7 @@
                                        :hero="hero"
                                        v-for="hero in state.heroes"
                                        stagger="100"
+                                       class="m-b-r"
                             ></list-item>
                         </ul>
                     </div>
