@@ -32,7 +32,7 @@
 
 		filters: {
 			leaderboardClassLink (c) {
-                return '/leaderboards/filter?season=1&period=' + CURRENT_SEASON + '&class[]=' + c.replace('-', '');
+                return '/leaderboards/filter?season=1&period=' + CURRENT_SEASON + '&class[]=' + c;
             }
 		}
 	}
