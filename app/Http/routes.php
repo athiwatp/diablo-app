@@ -17,6 +17,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['prefix' => 'leaderboards'], function () {
         Route::get('/', 'LeaderboardsController@index');
         Route::get('{leaderboard}/show', 'LeaderboardsController@show');
-        Route::get('filter', 'LeaderboardsController@filter');
+        Route::get('filter/preview', 'LeaderboardsController@preview');
+        Route::get('filter/paginate', 'LeaderboardsController@paginate');
     });
 });

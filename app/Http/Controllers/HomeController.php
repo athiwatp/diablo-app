@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Leaderboard;
 use Cache;
-use DB;
 use Illuminate\Support\Collection;
 use View;
 
@@ -35,11 +34,12 @@ class HomeController extends Controller
     public function data() : string
     {
         $data = new Collection;
+
         foreach (['softcore', 'hardcore'] as $type) {
-            $query = Leaderboard::season(true)
-                ->hardcore($type)
-                ->period([env('CURRENT_SEASON')])
-                ->solo()
+            $query = Leaderboard::where('leaderboards.season', '=', 1)
+                ->where('leaderboards.hardcore', '=', $type)
+                ->where('leaderboards.period', '=', env('CURRENT_SEASON'))
+                ->where('leaderboards.players', '=', 1)
                 ->highestRiftSolo()
                 ->with(['heroes', 'profiles'])
                 ->limit(25)

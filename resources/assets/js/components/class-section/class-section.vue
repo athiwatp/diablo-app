@@ -1,5 +1,5 @@
 <template>
-	<h2 class="section-header">Classes</h2>
+    <h2 class="section-header">Classes</h2>
     <section class="leaderboard-classes">
         <div class="container-fluid">
             <div class="row">
@@ -21,19 +21,19 @@
 </template>
 
 <script>
-	export default {
-		data () {
-			return {
-				classes: [
+    export default {
+        data () {
+            return {
+                classes: [
                     'barbarian', 'crusader', 'demon-hunter', 'monk', 'witch-doctor', 'wizard'
                 ]
-			}
-		},
-
-		filters: {
-			leaderboardClassLink (c) {
-                return '/leaderboards/filter?season=1&period=' + CURRENT_SEASON + '&class[]=' + c;
             }
-		}
-	}
+        },
+
+        filters: {
+            leaderboardClassLink (c) {
+                return '/leaderboards/filter/preview?players=1&season=1&period=' + CURRENT_SEASON + '&class[]=' + c;
+            }
+        }
+    }
 </script>

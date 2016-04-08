@@ -1,5 +1,5 @@
 <template>
-	<h2 class="section-header">Teams</h2>
+    <h2 class="section-header">Teams</h2>
     <section class="leaderboard-teams">
         <div class="container-fluid">
             <div class="row">
@@ -19,19 +19,19 @@
 </template>
 
 <script>
-	export default {
-		data () {
-			return {
-				teams: [
+    export default {
+        data () {
+            return {
+                teams: [
                     '2', '3', '4'
                 ]
-			}
-		},
-
-		filters: {
-            leaderboardTeamLink (c) {
-                return '/leaderboards/filter?season=1&period=' + CURRENT_SEASON + '&players=' + c;
             }
-		}
-	}
+        },
+
+        filters: {
+            leaderboardTeamLink (c) {
+                return '/leaderboards/filter/preview?season=1&period=' + CURRENT_SEASON + '&players=' + c;
+            }
+        }
+    }
 </script>

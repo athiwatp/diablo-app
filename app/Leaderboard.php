@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Leaderboard extends Model
 {
+    use Filterable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +29,7 @@ class Leaderboard extends Model
 
     /**
      * The model casts
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -59,14 +62,14 @@ class Leaderboard extends Model
         return $q->select('leaderboards.*')
             ->join(
                 DB::raw('(select id, max(rift_level) max_rift from leaderboards group by id) l2'), function ($join) {
-                    $join->on('l2.max_rift', '=', 'leaderboards.rift_level')
+                $join->on('l2.max_rift', '=', 'leaderboards.rift_level')
                     ->on('l2.id', '=', 'leaderboards.id');
-                }
+            }
             )
             ->join(
                 DB::raw('(select hero_leaderboard.leaderboard_id, hero_leaderboard.hero_id from heroes join hero_leaderboard on hero_leaderboard.hero_id = heroes.id order by hero_leaderboard.leaderboard_id desc) hl'), function ($join) {
-                    $join->on('hl.leaderboard_id', '=', 'l2.id');
-                }
+                $join->on('hl.leaderboard_id', '=', 'l2.id');
+            }
             )
             ->join('heroes', 'heroes.id', '=', 'hl.hero_id')
             ->orderBy('rift_level', 'desc')
@@ -83,68 +86,5 @@ class Leaderboard extends Model
     {
         return $q->highestRift()
             ->groupBy('hl.leaderboard_id');
-    }
-
-    /**
-     * Teams scope
-     *
-     * @param $q
-     * @param $players
-     * @return mixed
-     */
-    public function scopeTeam($q, $players)
-    {
-        return $q->where('leaderboards.players', $players);
-    }
-
-    /**
-     * Season scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeSeason($q, $season)
-    {
-        return $q->where('leaderboards.season', $season);
-    }
-
-    /**
-     * @param $q
-     * @param $hardcore
-     * @return mixed
-     */
-    public function scopeHardcore($q, $hardcore)
-    {
-        if (is_string($hardcore)) {
-            $hardcore = $hardcore == 'softcore'
-                ? 0
-                : 1;
-        }
-
-        return $q->where('leaderboards.hardcore', $hardcore);
-    }
-
-    /**
-     * Period scope
-     * {Season\Era}
-     *
-     * @param $q
-     * @param $period
-     * @return mixed
-     */
-    public function scopePeriod($q, $periods)
-    {
-        return $q->whereIn('leaderboards.period', $periods);
-    }
-
-    /**
-     * Solo scope
-     *
-     * @param $q
-     * @return mixed
-     */
-    public function scopeSolo($q)
-    {
-        return $q->where('leaderboards.players', 1);
     }
 }

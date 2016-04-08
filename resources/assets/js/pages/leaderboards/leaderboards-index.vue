@@ -93,7 +93,7 @@
             }
 
             &:hover {
-                background-color: rgba(0,0,0,.1);
+                background-color: rgba(0, 0, 0, .1);
                 cursor: pointer;
             }
 
@@ -274,12 +274,12 @@
                     background: 'url("/img/leaderboards-banner.jpg") no-repeat fixed 50% 0'
                 },
                 classes: [
-                    { class: 'barbarian', selected: false },
-                    { class: 'crusader', selected: false },
-                    { class: 'demon-hunter', selected: false},
-                    { class: 'monk', selected: false },
-                    { class: 'witch-doctor', selected: false },
-                    { class: 'wizard', selected: false },
+                    {class: 'barbarian', selected: false},
+                    {class: 'crusader', selected: false},
+                    {class: 'demon-hunter', selected: false},
+                    {class: 'monk', selected: false},
+                    {class: 'witch-doctor', selected: false},
+                    {class: 'wizard', selected: false},
                 ],
                 teams: [2, 3, 4],
                 team: 0,
@@ -290,11 +290,11 @@
                 period: '',
                 periods: [1, 2, 3, 4, 5],
                 regions: [
-                    { region: 'world', selected: false },
-                    { region: 'americas', abbr: 'us', selected: false },
-                    { region: 'europe', abbr: 'eu', selected: false },
-                    { region: 'korea', abbr: 'kr', selected: false },
-                    { region: 'taiwan', abbr: 'tw', selected: false }
+                    {region: 'world', selected: false},
+                    {region: 'americas', abbr: 'us', selected: false},
+                    {region: 'europe', abbr: 'eu', selected: false},
+                    {region: 'korea', abbr: 'kr', selected: false},
+                    {region: 'taiwan', abbr: 'tw', selected: false}
                 ]
             }
         },
@@ -312,7 +312,7 @@
                     return i.selected;
                 });
 
-                if (c.length > 0 || this.team > 0 ) {
+                if (c.length > 0 || this.team > 0) {
                     stage++;
                 }
 
@@ -381,8 +381,8 @@
 
             filter () {
                 var season = this.mode === 'season'
-                    ? 1
-                    : 0;
+                        ? 1
+                        : 0;
 
                 var teamClass = '';
                 var region = '';
@@ -400,16 +400,20 @@
                 });
 
                 if (c.length > 0) {
-                    teamClass = '&class[]=' + c.map(function (i) { return i.class; }).join('&class[]=');
+                    teamClass = '&class[]=' + c.map(function (i) {
+                                return i.class;
+                            }).join('&class[]=');
                 } else {
                     teamClass = '&players=' + this.team;
                 }
 
                 if (r[0].region !== 'world') {
-                    region = '&region[]=' + r.map(function (i) { return i.abbr; }).join('&region[]=');
+                    region = '&region[]=' + r.map(function (i) {
+                                return i.abbr;
+                            }).join('&region[]=');
                 }
 
-                window.open(BASE_URL + '/leaderboards/filter?season=' + season + '&period=' + this.period + teamClass + region);
+                window.open(BASE_URL + '/leaderboards/filter/preview?season=' + season + '&period=' + this.period + teamClass + region);
             }
         }
     }

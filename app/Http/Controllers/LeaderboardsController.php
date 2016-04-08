@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\LeaderboardFilter;
 use App\Http\Requests;
 use App\Leaderboard;
-use App\Rankings\Parsers\Leaderboards\LeaderboardParser;
 use Cache;
 use DB;
 use Diablo;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\View;
 use Response;
-use Illuminate\Http\Request;
 
 /**
  * This controller is redundant for a reason
@@ -26,7 +25,7 @@ class LeaderboardsController extends Controller
     /**
      * @return mixed
      */
-    public function index()
+    public function index() : \Illuminate\View\View
     {
         return View::make('leaderboards.index');
     }
@@ -35,7 +34,7 @@ class LeaderboardsController extends Controller
      * @param Leaderboard $leaderboard
      * @return mixed
      */
-    public function show(Leaderboard $leaderboard)
+    public function show(Leaderboard $leaderboard) : \Illuminate\View\View
     {
         $leaderboard->load(['heroes', 'profiles']);
 
@@ -45,77 +44,47 @@ class LeaderboardsController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return Collection
-     */
-    public function filter(Request $request)
-    {
-        $leaderboard = new Leaderboard;
-
-        if ($request->has('players')) {
-            $leaderboard = $leaderboard->where('players', '=', $request->get('players'))
-                ->highestRiftTeam();
-        } else {
-            $leaderboard = $leaderboard->where('players', '=', 1)
-                ->highestRiftSolo();
-        }
-
-        if ($request->has('class')) {
-            $leaderboard = $leaderboard->whereIn('heroes.class', $request->get('class'));
-        }
-
-        if ($request->has('region')) {
-            $leaderboard = $leaderboard->whereIn('leaderboards.region', $request->get('region'));
-        }
-
-        $leaderboard = $leaderboard->where('leaderboards.season', '=', $request->get('season'))
-            ->where('period', '=', $request->get('period'))
-            ->with(['heroes', 'profiles']);
-
-        $data = $request->has('hardcore')
-            ? $this->filterPaginate($leaderboard, $request->get('hardcore'), $request->getQueryString())
-            : $this->filterPreview($leaderboard, $request->getQueryString());
-
-        return View::make('leaderboards.filter', compact('data'));
-    }
-
-    /**
      * @param Leaderboard $leaderboard
      * @return Collection
      */
-    public function filterPreview($leaderboard, $query_string)
+    public function preview(LeaderboardFilter $filters) : \Illuminate\View\View
     {
+        $leaderboard = Leaderboard::filter($filters)
+            ->with(['heroes', 'profiles']);
+
         $data = new Collection;
 
         foreach (['softcore', 'hardcore'] as $type) {
             $query = clone $leaderboard;
 
             $data->put($type,
-                $query->hardcore($type)
-                    ->limit(25)
+                $query->limit(25)
                     ->get()
             );
         }
 
-        $data->put('softcore_show_all', "/leaderboards/filter?hardcore=0&{$query_string}");
-        $data->put('hardcore_show_all', "/leaderboards/filter?hardcore=1&{$query_string}");
+        $data->put('softcore_show_all', "/leaderboards/filter/paginate?hardcore=0&" . $filters->request->getQueryString());
+        $data->put('hardcore_show_all', "/leaderboards/filter/paginate?hardcore=1&" . $filters->request->getQueryString());
 
-        return $data;
+        return View::make('leaderboards.filter', compact('data'));
     }
 
     /**
      * @param Leaderboard $leaderboard
      * @return mixed
      */
-    public function filterPaginate($leaderboard, $type, $query_string)
+    public function paginate(LeaderboardFilter $filters) : \Illuminate\View\View
     {
-        $data = $leaderboard->where('leaderboards.hardcore', '=', $type)
+        $data = Leaderboard::filter($filters)
+            ->with(['heroes', 'profiles'])
             ->paginate(25);
 
-        parse_str($query_string, $appends);
+        parse_str($filters->request->getQueryString(), $appends);
 
         $data->appends($appends);
 
-        return $data->toJson();
+        $data = $data->toJson();
+
+        return View::make('leaderboards.filter', compact('data'));
     }
 }
