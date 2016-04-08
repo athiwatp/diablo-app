@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" rel="stylesheet/scss">
     @import './main-footer';
 </style>
 
@@ -9,7 +9,7 @@
                 <h4 class="text-xs-center">Connect with <strong>Diablo Rankings</strong></h4>
                 <div class="icons">
                     <div>
-                        <a href="mailto:admin@diablorankings.net"
+                        <a href="mailto:john.j.leider@gmail.com"
                            target="_blank"
                         >
                             <i class="fa fa-envelope"></i>
@@ -17,9 +17,20 @@
                         <p>Email</p>
                     </div>
                     <div>
-                        <a href="#">
-                            <i class="fa fa-cc-paypal"></i>
-                        </a>
+                        <form action="https://www.paypal.com/cgi-bin/webscr"
+                              method="post"
+                              target="_blank"
+                        >
+                            <input type="hidden" name="cmd" value="_s-xclick">
+                            <input type="hidden" name="hosted_button_id" value="8DHSQRB6WRMUN">
+                            <input type="hidden" name="submit">
+                            <button type="submit"
+                                    class="paypal"
+                            >
+                                <i class="fa fa-cc-paypal"></i>
+                            </button>
+                            <img alt="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                        </form>
                         <p>Donate!</p>
                     </div>
                 </div>
