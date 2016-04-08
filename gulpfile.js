@@ -1,8 +1,10 @@
 var elixir = require('laravel-elixir');
 require('laravel-elixir-vueify');
 
-var resources = 'resources/assets/';
-var modules = 'node_modules/';
+var resources = 'resources/assets/'
+    , modules = 'node_modules/'
+    , sm = require('sitemap')
+    , fs = require('fs');
 
 elixir(function(mix) {
     // Scss
@@ -32,4 +34,17 @@ elixir(function(mix) {
     .browserSync({open: false, proxy: 'hs.diablo.dev'})
 
     .version(['css/app.css', 'js/app.js']);
+
+    sitemap = sm.createSitemap({
+        hostname: 'http://diablorankings.net',
+        cacheTime: 6000000,
+        urls: [
+            { url: '/', changefreq: 'daily', priority: 1 },
+            { url: '/leaderboards', changefreq: 'weekly', priority: .3 },
+            { url: 'profiles', changefreq: 'monthly', priority: .3 },
+            { url: 'heroes', changefreq: 'monthly', priority: .3 },
+        ]
+    });
+
+    fs.writeFileSync('public/sitemap.xml', sitemap.toString());
 });
