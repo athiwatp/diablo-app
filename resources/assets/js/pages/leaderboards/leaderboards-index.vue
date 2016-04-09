@@ -400,7 +400,7 @@
                 });
 
                 if (c.length > 0) {
-                    teamClass = '&class[]=' + c.map(function (i) {
+                    teamClass = '&players=1&class[]=' + c.map(function (i) {
                                 return i.class;
                             }).join('&class[]=');
                 } else {
