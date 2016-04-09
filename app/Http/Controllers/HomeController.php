@@ -35,9 +35,9 @@ class HomeController extends Controller
     {
         $data = new Collection;
 
-        foreach (['softcore', 'hardcore'] as $type) {
+        foreach (['softcore', 'hardcore'] as $index => $type) {
             $query = Leaderboard::where('leaderboards.season', '=', 1)
-                ->where('leaderboards.hardcore', '=', $type)
+                ->where('leaderboards.hardcore', '=', $index)
                 ->where('leaderboards.period', '=', env('CURRENT_SEASON'))
                 ->where('leaderboards.players', '=', 1)
                 ->highestRiftSolo()
