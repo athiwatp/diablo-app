@@ -1,13 +1,16 @@
-<style lang="scss">
+<style lang="scss" rel="stylesheet/scss">
     @import '../../../sass/mixins';
 
     .hero-statistics-section {
+        min-height: calc(100vh - 49rem);
+
         @include e('info') {
             display: flex;
-            height: 300px;
+            min-height: 300px;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            padding: 5rem 0;
         }
     }
 </style>

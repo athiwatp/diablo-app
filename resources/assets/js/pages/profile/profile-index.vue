@@ -1,7 +1,9 @@
-<style lang="scss">
+<style lang="scss" rel="stylesheet/scss">
     @import "../../../sass/mixins";
 
     .profile-section {
+        min-height: calc(100vh - 49rem);
+        
         @include e('info') {
             min-height: 200px;
             display: flex;
@@ -9,6 +11,7 @@
             align-items: center;
             flex-direction: column;
             text-align: center;
+            padding: 5rem 0;
         }
 
         input {
