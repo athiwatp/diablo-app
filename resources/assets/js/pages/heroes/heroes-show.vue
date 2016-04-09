@@ -287,7 +287,7 @@
                     this.$root.message('success', 'Hero updated', 4000);
                 }.bind(this), function (response) {
                     this.loadingAnimation = false;
-                    this.$root.message('warning', 'There was an error processing your request, please try again later');
+                    this.$root.message('warning', 'Hero record not found.  This could be due to an error processing the request, or the Hero was banned. Please try again later');
                 }.bind(this));
             }
         }

@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang="scss" rel="stylesheet/scss">
     @import './message';
 </style>
 
@@ -10,7 +10,7 @@
             <i class="fa" :class="icon"></i>
         </span>
         <span class="message__content">
-            {{ message }}
+            {{{ message }}}
         </span>
         <span class="message__close">
             <i class="fa fa-times-circle" @click="slideUp"></i>
