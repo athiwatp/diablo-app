@@ -19,6 +19,10 @@ class LeaderboardService
         $hero_array = [];
 
         foreach ($data['players'] as $hero) {
+            if (empty($hero->battlenet_hero_id)) {
+                continue;
+            }
+            
             $profile = Profile::firstOrNew([
                 'battle_tag' => $hero->battle_tag
             ]);
