@@ -49,9 +49,13 @@ class DiabloAPI
      */
     public function hero(string $battle_tag, int $hero_id, string $region) : stdClass
     {
-        return $this->api->setRegion($region)
+        $hero = $this->api->setRegion($region)
             ->hero($battle_tag, $hero_id)
-            ->get();
+            ->get()[0]
+            ->getBody()
+            ->getContents();
+
+        return json_decode($hero);
     }
 
     /**
@@ -61,9 +65,13 @@ class DiabloAPI
      */
     public function profile(string $battle_tag, string $region) : stdClass
     {
-        return $this->api->setRegion($region)
+        $profile = $this->api->setRegion($region)
             ->careerProfile($battle_tag)
-            ->get();
+            ->get()[0]
+            ->getBody()
+            ->getContents();
+
+        return json_decode($profile);
     }
 
     /**

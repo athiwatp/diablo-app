@@ -45,7 +45,7 @@ class ItemUpdate
 	 */
 	public function items(stdClass $items) : array
 	{
-		foreach ($items as $item) {	
+		foreach ($items as $item) {
             if ($find = $this->findItem($item)) {
                 $this->addToSync($find, $item);
 
@@ -88,15 +88,11 @@ class ItemUpdate
 	private function queryApi()
 	{
 		if (empty($this->query_items)) {
-			return [];
+			return;
 		}
 
 		$request = $this->api
 			->items($this->query_items);
-
-		if (! is_array($request)) {
-			$request = [$request];
-		}
 
         foreach ($request as $response) {
             $response = json_decode($response->getBody()->getContents());

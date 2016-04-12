@@ -89,6 +89,8 @@ class LegendaryPowerUpdate
         }
 
         foreach ($request as $response) {
+            $response = json_decode($response->getBody()->getContents());
+            
             $this->pending_powers[] = $this->item_service->saveItem($response);
         }
     }
