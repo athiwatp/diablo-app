@@ -1,11 +1,12 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Diablo Rankings</title>
     <meta name="description" content="Diablo Rankings">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="diablo diablo3 rankings progress progression ladder top best achievement battletag pve character player world first kill history rating loot statistic">
 
     <link rel="stylesheet" href="{{ elixir('css/app.css') }}">
     <link rel="icon" type="image/png" href="/img/diablorankings-fav.png">
