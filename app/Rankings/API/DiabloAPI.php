@@ -78,11 +78,7 @@ class DiabloAPI
             $this->api->item($item);
         }
 
-        $response = $this->api->get();
-
-        return is_array($response)
-            ? $response
-            : [$response];
+        return $this->api->get();
     }
 
     /**
@@ -92,17 +88,13 @@ class DiabloAPI
     {
         $this->api->setRegion('us');
 
-        $response = $this->api->skills('barbarian')
+        return $this->api->skills('barbarian')
             ->skills('crusader')
             ->skills('demon-hunter')
             ->skills('monk')
             ->skills('witch-doctor')
             ->skills('wizard')
             ->get();
-
-        return is_array($response)
-            ? $response
-            : [$response];
     }
 
     /**
