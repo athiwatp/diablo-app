@@ -537,12 +537,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnleider/battlenet-api.git",
-                "reference": "2824e84b64bad17b18d0ab246f0f84823dafaef4"
+                "reference": "7914ca4a3ca25344b6b636fe6f76a54d83e67abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnleider/battlenet-api/zipball/2824e84b64bad17b18d0ab246f0f84823dafaef4",
-                "reference": "2824e84b64bad17b18d0ab246f0f84823dafaef4",
+                "url": "https://api.github.com/repos/johnleider/battlenet-api/zipball/7914ca4a3ca25344b6b636fe6f76a54d83e67abd",
+                "reference": "7914ca4a3ca25344b6b636fe6f76a54d83e67abd",
                 "shasum": ""
             },
             "require": {
@@ -577,7 +577,7 @@
                 "warcraft",
                 "wow"
             ],
-            "time": "2016-04-02 22:45:43"
+            "time": "2016-04-12 01:05:49"
         },
         {
             "name": "laravel/framework",
