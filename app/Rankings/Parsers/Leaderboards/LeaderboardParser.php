@@ -48,6 +48,10 @@ class LeaderboardParser
     public function parse(array $data) : array
     {
         foreach ($data as $array) {
+            if ($array instanceof GuzzleHttp\Exception\RequestException) {
+                continue;
+            }
+            
             $this->getRankings(
                 json_decode($array->getBody()->getContents())
             );
