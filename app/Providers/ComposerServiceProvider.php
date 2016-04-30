@@ -2,17 +2,13 @@
 
 namespace App\Providers;
 
-use App\Rankings\API\DiabloAPI;
+use App\Http\ViewComposers\TitleComposer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class ComposerServiceProvider extends ServiceProvider
 {
-    /**
-     * Indicates if loading the provider is deferred
-     *
-     * @var bool
-     */
-    protected $defer = true;
     /**
      * Bootstrap any application services.
      *
