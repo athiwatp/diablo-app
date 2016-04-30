@@ -85,7 +85,7 @@
 
         ready () {
             this.init();
-            this.$root.message('info', 'This site is currently in beta.  Thank you for your feedback and patience.')
+            this.$root.message('info', 'Season 6 is now live! More updates coming soon.')
         },
 
         methods: {
