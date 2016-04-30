@@ -288,7 +288,7 @@
                 mode: '',
                 modes: ['season', 'era'],
                 period: '',
-                periods: [1, 2, 3, 4, 5],
+                periods: [1, 2, 3, 4, 5, 6],
                 regions: [
                     {region: 'world', selected: false},
                     {region: 'americas', abbr: 'us', selected: false},
