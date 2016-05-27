@@ -17,7 +17,6 @@ class HomeController extends Controller
      */
     public function index() : string
     {
-        Cache::forget('home-view');
         return Cache::remember('home-view', 60, function () {
             $data = $this->data();
 
