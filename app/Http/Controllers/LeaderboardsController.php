@@ -54,11 +54,12 @@ class LeaderboardsController extends Controller
 
         $data = new Collection;
 
-        foreach (['softcore', 'hardcore'] as $type) {
+        foreach (['softcore', 'hardcore'] as $key => $type) {
             $query = clone $leaderboard;
 
             $data->put($type,
-                $query->limit(25)
+                $query->hardcore($key)
+                    ->limit(25)
                     ->get()
             );
         }

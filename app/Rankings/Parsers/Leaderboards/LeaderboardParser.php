@@ -78,22 +78,22 @@ class LeaderboardParser
 
             switch($this->self->players) {
                 case 1:
-                    if ($i == 200) {
+                    if ($i == 100) {
                         break 2;
                     }
                 break;
                 case 2:
-                    if ($i == 400) {
+                    if ($i == 100) {
                         break 2;
                     }
                 break;
                 case 3:
-                    if ($i == 600) {
+                    if ($i == 100) {
                         break 2;
                     }
                 break;
                 case 4:
-                    if ($i == 800) {
+                    if ($i == 100) {
                         break 2;
                     }
                 break;

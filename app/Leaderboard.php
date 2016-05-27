@@ -57,34 +57,52 @@ class Leaderboard extends Model
         return $this->belongsToMany(Profile::class, 'hero_leaderboard');
     }
 
+    /**
+     * @param $q
+     * @return mixed
+     */
     public function scopeHighestRift($q)
     {
         return $q->select('leaderboards.*')
             ->join(
-                DB::raw('(select id, max(rift_level) max_rift from leaderboards group by id) l2'), function ($join) {
-                $join->on('l2.max_rift', '=', 'leaderboards.rift_level')
-                    ->on('l2.id', '=', 'leaderboards.id');
-            }
-            )
-            ->join(
-                DB::raw('(select hero_leaderboard.leaderboard_id, hero_leaderboard.hero_id from heroes join hero_leaderboard on hero_leaderboard.hero_id = heroes.id order by hero_leaderboard.leaderboard_id desc) hl'), function ($join) {
-                $join->on('hl.leaderboard_id', '=', 'l2.id');
-            }
+                DB::raw(
+                    '(select max(leaderboard_id) leaderboard_id, hero_id from hero_leaderboard group by hero_id) hl'), function ($join)
+                {
+                    $join->on('hl.leaderboard_id', '=', 'leaderboards.id');
+                }
             )
             ->join('heroes', 'heroes.id', '=', 'hl.hero_id')
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc');
     }
 
+    /**
+     * @param $q
+     * @return mixed
+     */
     public function scopeHighestRiftSolo($q)
     {
         return $q->highestRift()
             ->groupBy('hl.hero_id');
     }
 
+    /**
+     * @param $q
+     * @return mixed
+     */
     public function scopeHighestRiftTeam($q)
     {
         return $q->highestRift()
             ->groupBy('hl.leaderboard_id');
+    }
+
+    /**
+     * @param $q
+     * @param $hardcore
+     * @return mixed
+     */
+    public function scopeHardcore($q, $hardcore)
+    {
+        return $q->where('leaderboards.hardcore', '=', $hardcore);
     }
 }
