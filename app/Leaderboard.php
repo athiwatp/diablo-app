@@ -66,7 +66,7 @@ class Leaderboard extends Model
         return $q->select('leaderboards.*')
             ->join(
                 DB::raw(
-                    '(select max(leaderboard_id) leaderboard_id, hero_id from hero_leaderboard group by hero_id) hl'), function ($join)
+                    '(select max(leaderboard_id) leaderboard_id, hero_id from hero_leaderboard group by leaderboard_id) hl'), function ($join)
                 {
                     $join->on('hl.leaderboard_id', '=', 'leaderboards.id');
                 }
