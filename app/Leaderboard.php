@@ -83,7 +83,7 @@ class Leaderboard extends Model
     public function scopeHighestRiftSolo($q)
     {
         return $q->highestRift()
-            ->groupBy('hl.hero_id');
+            ->groupBy('hl.leaderboard_id');
     }
 
     /**
