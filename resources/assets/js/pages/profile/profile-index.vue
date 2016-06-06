@@ -106,7 +106,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     export default {
         data: function () {
             return {
@@ -127,20 +127,20 @@
 
                 enter: function (el, done) {
                     $(el).hide()
-                        .fadeIn(done);
+                        .fadeIn(done)
                 },
 
                 enterCancelled: function (el) {
-                    $(el).stop();
+                    $(el).stop()
                 },
 
                 leave: function (el, done) {
-                    $(el).css('display', 'none');
-                    done
+                    $(el).css('display', 'none')
+                    done()
                 },
 
                 leaveCancelled: function (el) {
-                    $(el).stop();
+                    $(el).stop()
                 }
             }
         },
@@ -153,27 +153,27 @@
 
         methods: {
             init () {
-                this.$els.search.focus();
+                this.$els.search.focus()
                 if (this.data.length > 0) {
-                    this.state = JSON.parse(this.data);
-                    this.welcome = false;
+                    this.state = JSON.parse(this.data)
+                    this.welcome = false
                 }
             },
 
             submit () {
-                this.welcome = false;
-                this.loading = true;
-                this.empty = false;
-                this.$http.get(BASE_URL + '/api/profiles/search', {search: this.search}).then(function (response) {
-                    this.loading = false;
-                    this.state = response.data;
+                if (!this.search) return
+
+                this.welcome = this.empty = false
+                this.loading = true
+
+                this.$http.get(`${BASE_URL}/api/profiles/search`, {search: this.search}).then(response => {
+                    this.loading = false
+                    this.state = response.data
 
                     if (this.state.length == 0) {
-                        this.$nextTick(() => {
-                            this.empty = true;
-                        });
+                        this.$nextTick(() => this.empty = true)
                     }
-                }.bind(this));
+                })
             }
         }
     }
