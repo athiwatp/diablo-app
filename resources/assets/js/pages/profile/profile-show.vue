@@ -54,7 +54,7 @@
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
                                             <a class="list__item list__item--link"
-                                               v-for="ranking in state.season_rankings | rankings"
+                                               v-for="ranking in rankings"
                                                href="/leaderboards/{{ ranking.id }}/show"
                                             >
                                                 <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
@@ -152,7 +152,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import profileStub from '../../stubs/profile';
     import listItem from '../../components/list/list-item.vue';
     import listItemHeader from '../../components/list/list-item-header.vue';
@@ -175,49 +175,51 @@
             listItemHeader
         },
 
+        computed: {
+            rankings () {
+                let players = []
+                this.state.season_rankings.forEach(i => {
+                    if (!players.find(j => j.players === i.players)) {
+                        players.push(i)
+                    }
+                })
+
+                return players
+            }
+        },
+
         filters: {
             battlenet (state) {
-                return 'https://' + state.region + '.battle.net/d3/en/profile/' + state.battle_tag.replace('#', '-') + '/';
-            },
-
-            rankings (rankings) {
-                var players = [];
-
-                return rankings.filter(function (i) {
-                    if (players.indexOf(i.players) == -1) {
-                        players.push(i.players);
-
-                        return i;
-                    }
-                });
+                return `https://${state.region}.battle.net/d3/en/profile/${state.battle_tag.replace('#', '-')}/`;
             }
         },
 
         ready () {
-            this.init();
+            this.init()
         },
 
         methods: {
             init () {
-                this.state = JSON.parse(this.data);
+                this.state = JSON.parse(this.data)
 
                 if (this.state.stats == null) {
-                    this.$root.message('warning', 'New Profile Record');
+                    this.$root.message('warning', 'New Profile Record')
                 }
             },
 
             updateProfile () {
-                this.loadingAnimation = true;
-                this.state.queueable = false;
-                this.$root.message('info', 'Profile is currently in queue.');
-                this.$http.patch('/api/profiles/' + this.state.id).then(function (response) {
-                    this.state = response.data;
-                    this.loadingAnimation = false;
-                    this.$root.message('success', 'Profile updated', 4000);
-                }.bind(this), function (response) {
-                    this.loadingAnimation = false;
-                    this.$root.message('warning', 'Profile record not found.  This could be due to an error processing the request, or the <strong>Account</strong> was banned. Please try again later');
-                }.bind(this));
+                this.loadingAnimation = true
+                this.state.queueable = false
+                this.$root.message('info', 'Profile is currently in queue.')
+
+                this.$http.patch(`/api/profiles/${this.state.id}`).then(response => {
+                    this.state = response.data
+                    this.loadingAnimation = false
+                    this.$root.message('success', 'Profile updated', 4000)
+                }).catch(response => {
+                    this.loadingAnimation = false
+                    this.$root.message('warning', 'Profile record not found.  This could be due to an error processing the request, or the <strong>Account</strong> was banned. Please try again later')
+                })
             }
         }
     }
