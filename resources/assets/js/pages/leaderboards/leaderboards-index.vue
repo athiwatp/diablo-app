@@ -263,7 +263,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import classSection from '../../components/class-section/class-section.vue';
     import teamSection from '../../components/team-section/team-section.vue';
 
@@ -306,35 +306,16 @@
 
         computed: {
             stage () {
-                var stage = 0;
+                let stage = 0;
 
-                var c = this.classes.filter(function (i) {
-                    return i.selected;
-                });
+                const c = this.classes.filter(i => i.selected)
+                const r = this.regions.filter(i => i.selected)
 
-                if (c.length > 0 || this.team > 0) {
-                    stage++;
-                }
-
-                if (this.mode !== '') {
-                    stage++;
-                }
-
-                if (this.period !== '') {
-                    stage++;
-                }
-
-                if (this.type !== '') {
-                    stage++;
-                }
-
-                var r = this.regions.filter(function (i) {
-                    return i.selected;
-                });
-
-                if (r.length > 0) {
-                    stage++;
-                }
+                if (c.length > 0 || this.team > 0) stage++;
+                if (r.length > 0) stage++;
+                if (this.mode !== '') stage++;
+                if (this.period !== '') stage++;
+                if (this.type !== '') stage++;
 
                 return stage;
             }
@@ -342,78 +323,56 @@
 
         methods: {
             selectClass (c) {
-                c.selected = !c.selected;
+                c.selected = !c.selected
 
-                this.team = 0;
+                this.team = 0
             },
 
             selectTeam (t) {
-                this.team = t;
+                this.team = t
 
-                this.classes.map(function (i) {
-                    i.selected = false;
-
-                    return i;
-                });
+                this.classes.map(i => i.selected = false)
             },
 
             selectRegion (r) {
-                r.selected = !r.selected;
+                r.selected = !r.selected
 
                 if (r.region === 'world') {
-                    this.regions.map(function (i) {
-                        if (i.region !== 'world') {
-                            i.selected = false;
-                        }
+                    this.regions.map(i => {
+                        if (i.region !== 'world') i.selected = false
 
-                        return i;
+                        return i
                     })
                 } else {
-                    this.regions.map(function (i) {
-                        if (i.region === 'world') {
-                            i.selected = false;
-                        }
+                    this.regions.map(i => {
+                        if (i.region === 'world') i.selected = false
 
-                        return i;
+                        return i
                     });
                 }
             },
 
             filter () {
-                var season = this.mode === 'season'
-                        ? 1
-                        : 0;
+                const season = this.mode === 'season' ? 1 : 0
+                let teamClass = ''
+                let region = ''
 
-                var teamClass = '';
-                var region = '';
-
-                var c = this.classes.filter(function (i) {
-                    return i.selected;
-                });
-
-                var r = this.regions.filter(function (i) {
-                    return i.selected;
-                });
-
-                var t = this.teams.filter(function (i) {
-                    return i.selected;
-                });
+                const c = this.classes.filter(i => i.selected)
+                const r = this.regions.filter(i => i.selected)
+                const t = this.teams.filter(i => i.selected)
 
                 if (c.length > 0) {
-                    teamClass = '&players=1&class[]=' + c.map(function (i) {
-                                return i.class;
-                            }).join('&class[]=');
+                    teamClass = '&players=1&class[]=' +
+                                c.map(i => i.class).join('&class[]=')
                 } else {
-                    teamClass = '&players=' + this.team;
+                    teamClass = `&players=${this.team}`
                 }
 
                 if (r[0].region !== 'world') {
-                    region = '&region[]=' + r.map(function (i) {
-                                return i.abbr;
-                            }).join('&region[]=');
+                    region = '&region[]=' + r.map(i => i.abbr).join('&region[]=')
                 }
 
-                window.open(BASE_URL + '/leaderboards/filter/preview?season=' + season + '&period=' + this.period + teamClass + region);
+                window.open(`${BASE_URL}/leaderboards/filter/preview?season=${season}&period=${this.period}${teamClass}${region}`)
             }
         }
     }
