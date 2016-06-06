@@ -65,7 +65,7 @@
                                         <h5 class="block__header">Greater rift</h5>
                                         <ul class="list">
                                             <li class="list__item list__item--link"
-                                                v-for="ranking in state.season_rankings | rankings"
+                                                v-for="ranking in rankings"
                                                 href="/leaderboards/{{ ranking.id }}/show"
                                             >
                                                 <span class="flex-50">{{ ranking.players == 1 ? 'Solo' : ranking.players + ' Players' }}</span>
@@ -197,7 +197,7 @@
     </div>
 </template>
 
-<script>
+<script type="text/babel">
     import heroStub from '../../stubs/hero';
 
     export default {
@@ -213,24 +213,35 @@
         computed: {
             topBannerParameters () {
                 return {
-                    background: 'url("/img/' + this.state.class + '/banner.jpg") no-repeat fixed 50% 0',
+                    background: `url("/img/${this.state.class}/banner.jpg") no-repeat fixed 50% 0`,
                 }
+            },
+
+            rankings () {
+                let players = []
+                this.state.season_rankings.forEach(i => {
+                    if (!players.find(j => j.players === i.players)) {
+                        players.push(i)
+                    }
+                })
+
+                return players
             }
         },
 
         filters: {
             activeSkillLink (skill) {
-                return 'http://us.battle.net/d3/en/class/' + this.state.class + '/active/' + skill.slug + '?runeType=' + skill.rune_type;
+                return `http://us.battle.net/d3/en/class/${this.state.class}/active/${skill.slug}?runeType=${skill.rune_type}`
             },
 
             passiveSkillLink (skill) {
-                return 'http://us.battle.net/d3/en/class/' + this.state.class + '/passive/' + skill.slug;
+                return `http://us.battle.net/d3/en/class/${this.state.class}/passive/${skill.slug}`
             },
 
             skillType (obj, type) {
-                if (typeof obj != 'undefined') {
-                    return obj.filter(function ($i) {
-                        if ($i.type == type) {
+                if (typeof obj !== 'undefined') {
+                    return obj.filter($i => {
+                        if ($i.type === type) {
                             return $i;
                         }
                     });
@@ -238,57 +249,45 @@
             },
 
             skillIcon (icon) {
-                return 'http://media.blizzard.com/d3/icons/skills/21/' + icon + '.png'
+                return `http://media.blizzard.com/d3/icons/skills/21/${icon}.png`
             },
 
             powerIcon (icon) {
-                return 'http://media.blizzard.com/d3/icons/items/small/' + icon + '.png';
+                return `http://media.blizzard.com/d3/icons/items/small/${icon}.png`
             },
 
             battlenet (state) {
-                return 'https://' + state.region + '.battle.net/d3/profile/' + state.profile.battle_tag.replace('#', '-') + '/hero/' + state.battlenet_hero_id;
-            },
-
-            rankings (rankings) {
-                var players = [];
-
-                return rankings.filter(function (i) {
-                    if (players.indexOf(i.players) == -1) {
-                        players.push(i.players);
-
-                        return i;
-                    }
-                });
+                return `https://${state.region}.battle.net/d3/profile/${state.profile.battle_tag.replace('#', '-')}/hero/${state.battlenet_hero_id}`
             }
         },
 
         ready () {
-            this.init();
+            this.init()
         },
 
         methods: {
             init () {
-                this.state = JSON.parse(this.data);
+                this.state = JSON.parse(this.data)
 
-                if (this.state.stats == null) {
-                    this.$root.message('warning', 'New Hero Record');
+                if (this.state.stats === null) {
+                    this.$root.message('warning', 'New Hero Record')
                 }
             },
 
             updateHero () {
-                this.loadingAnimation = true;
-                this.state.queueable = false;
+                this.loadingAnimation = true
+                this.state.queueable = false
 
-                this.$root.message('info', 'Hero is currently in queue.');
+                this.$root.message('info', 'Hero is currently in queue.')
 
-                this.$http.patch('/api/heroes/' + this.state.id).then(function (result) {
-                    this.state = result.data;
-                    this.loadingAnimation = false;
-                    this.$root.message('success', 'Hero updated', 4000);
-                }.bind(this), function (response) {
-                    this.loadingAnimation = false;
+                this.$http.patch(`/api/heroes/${this.state.id}`).then(response => {
+                    this.state = response.data
+                    this.loadingAnimation = false
+                    this.$root.message('success', 'Hero updated', 4000)
+                }).catch(response => {
+                    this.loadingAnimation = false
                     this.$root.message('warning', 'Hero record not found.  This could be due to an error processing the request, or the Hero was banned. Please try again later');
-                }.bind(this));
+                })
             }
         }
     }
