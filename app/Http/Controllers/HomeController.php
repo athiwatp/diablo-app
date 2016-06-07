@@ -17,6 +17,10 @@ class HomeController extends Controller
      */
     public function index() : string
     {
+        if (env('APP_ENV') === 'local') {
+            return View::make('home.index')->withData($this->data());
+        }
+
         return Cache::remember('home-view', 60, function () {
             $data = $this->data();
 
