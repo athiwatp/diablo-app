@@ -45,7 +45,7 @@ class HeroController extends Controller
      * @param Hero $hero
      * @return string
      */
-    public function update(Hero $hero) : \Illuminate\View\View
+    public function update(Hero $hero) : Hero
     {
         $response = $hero->api()->update();
 
