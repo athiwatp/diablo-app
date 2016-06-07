@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProfileStat extends Model
 {
+	/**
+	 * The fillable attributes on the Model
+	 * 
+	 * @var array
+	 */
 	protected $fillable = [
 		'profile_id', 
 		'clan_name', 
