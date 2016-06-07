@@ -14,7 +14,7 @@ class HeroController extends Controller
     /**
      * @return mixed
      */
-    public function index()
+    public function index() : \Illuminate\View\View
     {
         return View::make('heroes.index');
     }
@@ -45,7 +45,7 @@ class HeroController extends Controller
      * @param Hero $hero
      * @return string
      */
-    public function update(Hero $hero)
+    public function update(Hero $hero) : \Illuminate\View\View
     {
         $response = $hero->api()->update();
 
