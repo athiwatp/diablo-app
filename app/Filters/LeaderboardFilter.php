@@ -10,7 +10,7 @@ class LeaderboardFilter extends QueryFilter
      * @param int $players
      * @return mixed
      */
-    public function players(int $players = 1)
+    public function players(int $players = 1) : Builder
     {
         $this->builder->where('players', '=', $players);
 
