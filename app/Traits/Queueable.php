@@ -17,7 +17,6 @@ trait Queueable
             $queueable = $this->queued_at
                 ->addHours(12)
                 ->lte(Carbon::now());
-
         }
 
         return $this->attributes['queueable'] = $queueable;
