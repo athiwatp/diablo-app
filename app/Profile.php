@@ -95,6 +95,9 @@ class Profile extends Model
         return $this->hasMany(Leaderboard::class);
     }
 
+    /**
+     * @return bool
+     */
     public function availability()
     {
         return true;
