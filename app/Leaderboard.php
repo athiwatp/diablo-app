@@ -63,8 +63,15 @@ class Leaderboard extends Model
      */
     public function scopeHighestRift($q)
     {
-        return $q->join('hero_leaderboard', 'hero_leaderboard.leaderboard_id', '=', 'leaderboards.id')
-            ->join('heroes', 'heroes.id', '=', 'hero_leaderboard.hero_id')
+        return $q->select('leaderboards.*')
+            ->join(
+                DB::raw(
+                    '(select max(leaderboard_id) leaderboard_id, hero_id from hero_leaderboard group by leaderboard_id) hl'), function ($join)
+                {
+                    $join->on('hl.leaderboard_id', '=', 'leaderboards.id');
+                }
+            )
+            ->join('heroes', 'heroes.id', '=', 'hl.hero_id')
             ->orderBy('rift_level', 'desc')
             ->orderBy('rift_time', 'asc');
     }
@@ -76,7 +83,7 @@ class Leaderboard extends Model
     public function scopeHighestRiftSolo($q)
     {
         return $q->highestRift()
-            ->groupBy('leaderboards.id');
+            ->groupBy('hl.leaderboard_id');
     }
 
     /**
@@ -86,7 +93,7 @@ class Leaderboard extends Model
     public function scopeHighestRiftTeam($q)
     {
         return $q->highestRift()
-            ->groupBy('leaderboards.id');
+            ->groupBy('hl.leaderboard_id');
     }
 
     /**
