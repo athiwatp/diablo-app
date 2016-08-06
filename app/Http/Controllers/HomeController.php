@@ -51,8 +51,8 @@ class HomeController extends Controller
             $data->put($type, $query);
         }
 
-        $data->put('softcore_show_all', '/leaderboards/filter/paginate?season=1&period=6&hardcore=0&players=1');
-        $data->put('hardcore_show_all', '/leaderboards/filter/paginate?season=1&period=6&hardcore=1&players=1');
+        $data->put('softcore_show_all', '/leaderboards/filter/paginate?season=1&period=7&hardcore=0&players=1');
+        $data->put('hardcore_show_all', '/leaderboards/filter/paginate?season=1&period=7&hardcore=1&players=1');
 
         return $data->toJson();
     }
