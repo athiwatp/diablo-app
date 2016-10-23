@@ -36,9 +36,9 @@
                         >
                             <h1>
                                 <i class="fa fa-pie-chart"></i>
-                                Statistics coming soon!
+                                Heroes
                             </h1>
-                            <h6>Top builds, popular items and more is on the way</h6>
+                            <h6>Find a hero by searching for a profile</h6>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Rankings;
+namespace App\Http\ViewComposers;
 
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class TitleComposer
 {
@@ -11,10 +12,10 @@ class TitleComposer
         $this->request = $request;
     }
 
-    public function handle()
+    public function compose(View $view)
     {
         $title = 'Diablo Rankings';
         
-        return compact('title');
+        return $view->with(compact('title'));
     }
 }

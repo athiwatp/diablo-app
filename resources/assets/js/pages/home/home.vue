@@ -85,7 +85,7 @@
 
         ready () {
             this.init();
-            this.$root.message('info', 'Season 7 is now live!')
+            this.$root.message('info', 'Season 8 is now live!')
         },
 
         methods: {
