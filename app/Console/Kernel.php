@@ -28,9 +28,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        if (env('APP_ENV') === 'production') {
-            $schedule->command('leaderboard:update '.env('CURRENT_SEASON'))
-                ->daily();
-        }
+        // if (env('APP_ENV') === 'production') {
+        //     $schedule->command('leaderboard:update '.env('CURRENT_SEASON'))
+        //         ->daily();
+        // }
     }
 }
